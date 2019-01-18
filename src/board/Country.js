@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StyledCountry from './StyledCountry';
+// import "./Country.scss";
 
 class Country extends Component {
   static defaultProps = {
@@ -12,7 +13,7 @@ class Country extends Component {
   render() {
     const { id, name } = this.props.info;
     return (
-        <StyledCountry id={id}>{name} {id}</StyledCountry>
+        <StyledCountry id={id}>{name}</StyledCountry>
     )
   }
 }
