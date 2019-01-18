@@ -15,9 +15,9 @@ class CountryList extends Component {
     console.log(list);
     return (
       <div className="CountryList">
-      <div className="country">
-        {list}
-      </div>
+        <div className="country">
+          {list}
+        </div>
         <div className="random_button">
           <button>누르기</button>
         </div>
