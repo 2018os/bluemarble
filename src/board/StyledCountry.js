@@ -11,12 +11,15 @@ const StyledCountry = styled.div`
   ${props => props.id%10===0 && `
     background-color: white;
   `}
+
   ${props => props.id-10<1 && `
     background-color: white;
   `}
+
   ${props => props.id+10>100 && `
     background-color: white;
   `}
+  
   ${props => props.id%10===9 && `
     background-color: white;
   `}
