@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledCountry = styled.div`
   width: 9%;
-  height: 10.8%;
+  height: 70px;
   display: inline-block;
   font-size: 1rem;
   user-select: none;
