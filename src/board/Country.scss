@@ -11,23 +11,24 @@
     height: 297px;
     float: left;
     position: absolute;
-    bottom: 62px;
+    bottom: 40%;
     left: 35%;
   
     button {
-        width: 150px;
-        height: 150px;
+        width: 50%;
+        height: 50%;
         border-radius: 100%;
         border: 1px solid pink;
         background-color: pink;
         text-align: center;
-        color: white;
+        color: black;
+        font-size: 2rem;
         outline: none;
         cursor: pointer;
         margin: auto;
         position: relative;
-        left: 71px;
-        top: 74px;
+        left: 50%;
+        top: 25%;
     }
   }
 

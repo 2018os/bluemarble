@@ -6,22 +6,31 @@ const StyledCountry = styled.div`
   display: inline-block;
   font-size: 1rem;
   user-select: none;
-  border: 1px solid black;
-  background-color: black;
+  border: 1px solid green;
+  background-color: green;
+  color: green;
   ${props => props.id%10===0 && `
     background-color: white;
+    border: 1px solid black;
+    color: black;
   `}
 
   ${props => props.id-10<1 && `
     background-color: white;
+    border: 1px solid black;
+    color: black;
   `}
 
   ${props => props.id+10>100 && `
     background-color: white;
+    border: 1px solid black;
+    color: black;
   `}
   
   ${props => props.id%10===9 && `
     background-color: white;
+    border: 1px solid black;
+    color: black;
   `}
   `;
 
