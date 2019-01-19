@@ -4,8 +4,8 @@ import './dice.scss';
 
 const Counter = ({number, onRandom}) => {
     return(
-        <div>
-            <div>{number}</div>
+        <div className="random_button">
+            <div className={"random_dice_number"}>{number}</div>
             <div>
                 <button onClick={onRandom} onContextMenu={(e)=> {
                 e.preventDefault();
