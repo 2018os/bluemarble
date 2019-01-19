@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div>
         <Board />
-        <CountryContainer />
+        {/* <CountryContainer /> */}
         <Player onMove={this.handlePlayerMove} />
       </div>
     );
