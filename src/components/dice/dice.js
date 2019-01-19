@@ -6,10 +6,10 @@ const Counter = ({number, onRandom}) => {
     return(
         <div>
             <div>{number}</div>
-            <div onClick={onRandom} onContextMenu={(e)=> {
+            <div>
+                <button onClick={onRandom} onContextMenu={(e)=> {
                 e.preventDefault();
-                }}>
-                <button>누르기</button>
+                }}>누르기</button>
             </div>
         </div>
     );
