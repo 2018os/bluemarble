@@ -1,0 +1,25 @@
+.random_button {
+    width: 297px;
+    height: 297px;
+    float: left;
+    position: absolute;
+    bottom: 40%;
+    left: 35%;
+  
+    button {
+        width: 50%;
+        height: 50%;
+        border-radius: 100%;
+        border: 1px solid pink;
+        background-color: pink;
+        text-align: center;
+        color: black;
+        font-size: 2rem;
+        outline: none;
+        cursor: pointer;
+        margin: auto;
+        position: relative;
+        left: 50%;
+        top: 25%;
+    }
+  }
