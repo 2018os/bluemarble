@@ -19,9 +19,7 @@ class CountryList extends Component {
         <div className="country">
           {list}
         </div>
-        <div className="random_button">
           <CountryContainer />
-        </div>
       </div>
     );
   }
