@@ -1,4 +1,4 @@
-import Counter from "../components/dice/dice";
+import Dice from "../components/dice/dice";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-const CountryContainer = connect(
+const DiceConainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Counter);
+)(Dice);
 
-export default CountryContainer;
+export default DiceConainer;

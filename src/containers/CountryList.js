@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Country from '../components/country/Country';
 import './Country.scss';
-import CountryContainer from "./countrycontainer";
+import DiceContainer from "./DiceContainer";
 
 class CountryList extends Component {
   static defaultProps = {
@@ -13,13 +13,12 @@ class CountryList extends Component {
     const list = data.map(
       info => (<Country key={info.id} info={info} />)
     );
-    console.log(list);
     return (
       <div className="CountryList">
         <div className="country">
           {list}
         </div>
-          <CountryContainer />
+          <DiceContainer />
       </div>
     );
   }

@@ -1,25 +1,11 @@
 import React, { Component } from 'react';
 import Board from '../components/country/Board';
-import Player from '../components/player/Player';
 
 class App extends Component {
-  state = {
-    move: 0
-  }
-
-  handlePlayerMove = (e) => {
-    const { value } = e.target;
-    this.setState({
-      move: value
-    });
-  }
-
-
   render() {
     return (
       <div>
         <Board />
-        <Player onMove={this.handlePlayerMove} />
       </div>
     );
   }

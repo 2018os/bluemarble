@@ -6,14 +6,14 @@ const initialState = {
 
 function counter(state = initialState, action) {
     switch(action.type) {
-        case types.Random:
+        case types.RANDOM:
         return {
             ...state,
             number: action.number
         };
         default:
         return state;
-    }    
+    }
 };
 
 export default counter;

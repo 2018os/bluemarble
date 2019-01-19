@@ -1,1 +1,1 @@
-export const Random = "Random";
+export const RANDOM = "RANDOM";
