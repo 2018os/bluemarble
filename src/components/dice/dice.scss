@@ -5,7 +5,13 @@
     position: absolute;
     bottom: 40%;
     left: 35%;
-  
+
+    .random_dice_number {
+        font-size: 50px;
+        text-align: center;
+        margin: auto;
+
+    }
     button {
         width: 50%;
         height: 50%;
@@ -22,4 +28,4 @@
         left: 50%;
         top: 25%;
     }
-  }
+}
