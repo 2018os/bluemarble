@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Board from '../components/country/Board';
 import Player from '../components/player/Player';
-import CountryContainer from "./countrycontainer";
 
 class App extends Component {
   state = {
@@ -20,7 +19,6 @@ class App extends Component {
     return (
       <div>
         <Board />
-        {/* <CountryContainer /> */}
         <Player onMove={this.handlePlayerMove} />
       </div>
     );
