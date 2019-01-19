@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CountryList from './CountryList';
+import CountryList from '../../containers/CountryList';
 
 const initialCountry = new Array(100).fill(0).map(
   (foo, index) => ({ id: index, name: `카이로${index}` })
