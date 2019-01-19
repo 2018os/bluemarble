@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Country from '../components/country/Country';
 import './Country.scss';
-import Counter from "../components/dice/dice";
 import CountryContainer from "./countrycontainer";
 
 class CountryList extends Component {
@@ -21,7 +20,6 @@ class CountryList extends Component {
           {list}
         </div>
         <div className="random_button">
-          {/* <Counter /> */}
           <CountryContainer />
         </div>
       </div>
