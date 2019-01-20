@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StyledCountry from './StyledCountry';
-// import "./Country.scss";
+import "./country_box.scss";
 
 class Country extends Component {
   static defaultProps = {
@@ -13,7 +13,11 @@ class Country extends Component {
   render() {
     const { id, name } = this.props.info;
     return (
-        <StyledCountry id={id}>{name}</StyledCountry>
+        <StyledCountry id={id}>
+          <div className="country_nick">
+            {name}
+          </div>
+        </StyledCountry>
     )
   }
 }
