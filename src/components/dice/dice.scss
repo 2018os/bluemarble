@@ -1,31 +1,43 @@
+@import '../../styles/utils';
+
 .random_button {
     width: 297px;
     height: 297px;
     float: left;
     position: absolute;
-    bottom: 40%;
-    left: 35%;
+    bottom: 23%;
+    left: 39%;
+
+    @include media("<large") {
+        left: 36%;
+    }
+
+    @include media("<medium") {
+        left: 32%;
+    }
 
     .random_dice_number {
         font-size: 50px;
         text-align: center;
         margin: auto;
-
+        position: relative;
+        bottom: 20px;
     }
+    
     button {
-        width: 50%;
-        height: 50%;
+        width: 100px;
+        height: 100px;
         border-radius: 100%;
         border: 1px solid pink;
         background-color: pink;
         text-align: center;
         color: black;
-        font-size: 2rem;
+        font-size: 20px;
         outline: none;
         cursor: pointer;
-        margin: auto;
-        position: relative;
-        left: 50%;
-        top: 25%;
+        margin: 0 0 0 34%;
+        // position: relative;
+        // left: 50%;
+        // top: 25%;
     }
 }
