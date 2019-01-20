@@ -18,7 +18,7 @@ class CountryList extends Component {
         <div className="country">
           {list}
         </div>
-          <DiceContainer />
+        <DiceContainer />
       </div>
     );
   }
