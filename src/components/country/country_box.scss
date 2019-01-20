@@ -1,0 +1,19 @@
+@import '../../styles/utils';
+
+.country_nick {
+    // width: 160px;
+    height: 70px;
+    font-size: 15px;
+    text-align: center;
+
+    @include media("<huge") {
+        height: 65px;
+        // width: 100px;
+    }
+
+    @include media("<medium") {
+        // font-size: 15.4px;
+        display: block;
+    }
+}
+
