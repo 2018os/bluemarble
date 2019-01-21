@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Country from '../components/country/Country';
 import './Country.scss';
-import DiceContainer from "./DiceContainer";
+import DiceContainer from '../containers/DiceContainer';
 
 class CountryList extends Component {
   static defaultProps = {
