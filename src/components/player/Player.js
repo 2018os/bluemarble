@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import StyledPlayer from './StyledPlayer';
+
+
 class Player extends Component {
 
   render() {

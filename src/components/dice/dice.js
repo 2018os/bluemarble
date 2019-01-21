@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './dice.scss';
-import Player from '../player/Player';
+// import Player from '../player/Player';
 
 const Dice = ({number, onRandom}) => {
     return(
         <div>
-            <Player number={number} />
+            {/* <Player number={number} /> */}
             <div className="random_button">
                 <div className={"random_dice_number"}>{number}</div>
                 <div>

@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import CountryList from '../../containers/CountryList';
 
-const initialCountry = new Array(100).fill(0).map(
-  (foo, index) => ({ id: index, name: `카이로${index}` })
-);
-
 class Board extends Component {
-  state = {
-    Country: initialCountry
-  } // 국가 리스트
-
   render() {
+    const { Countries } = this.props;
     return (
       <div>
-        <CountryList data={this.state.Country}/>
+        <CountryList />
       </div>
     );
   };

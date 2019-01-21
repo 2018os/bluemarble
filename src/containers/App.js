@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Board from '../components/country/Board';
+import CountryListContainer from './CountryListContainer';
+import DiceConainer from './DiceContainer';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Board />
+        <CountryListContainer />
+        <DiceConainer />
       </div>
     );
   }
