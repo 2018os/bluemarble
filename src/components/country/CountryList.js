@@ -2,6 +2,7 @@ import React from 'react';
 import Country from './Country';
 import './Country.scss';
 import PropTypes from 'prop-types';
+import Showplayer from "../player/Showplayer";
 
 const CountryList = ({countries}) => {
   const list = countries.map(
@@ -11,9 +12,12 @@ const CountryList = ({countries}) => {
   );
 
   return (
-    <div className="CountryList">
-      <div className="country">
-        {list}
+    <div>
+      <Showplayer />
+      <div className="CountryList">
+        <div className="country">
+          {list}
+        </div>
       </div>
     </div>
   );
