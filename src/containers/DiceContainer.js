@@ -6,15 +6,16 @@ export function getRandomnumber() {
     const random = Math.floor(Math.random()*6+1);
     return random;
 }
-
+// props 값 정의
 const mapStateToProps = (state) => ({
+    prevNumber: state.prevNumber,
     number: state.number
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onRandom: () => {
+    onRandom: (prevNumber) => {
         const number = getRandomnumber();
-        dispatch(actions.random(number));
+        dispatch(actions.random(number, prevNumber));
     }
 });
 

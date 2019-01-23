@@ -6,11 +6,13 @@ const initialCountries = new Array(100).fill(0).map(
 
 const initialState = {
   countries: initialCountries,
+  prevNumber: 0,
   number: 0
 };
 
 function counter(state=initialState, action) {
   const { countries } = state;
+  const { number } = state;
 
   switch(action.type) {
     case types.RANDOM:
@@ -23,6 +25,7 @@ function counter(state=initialState, action) {
           },
           ...countries.slice(action.number+1, countries.length)
         ],
+        prevNumber: number,
         number: action.number
       };
     default:
