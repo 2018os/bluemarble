@@ -6,13 +6,12 @@ import './dice.scss';
 const Dice = ({number, onRandom}) => {
     return(
         <div>
-            {/* <Player number={number} /> */}
             <div className="random_button">
                 <div className={"random_dice_number"}>
                     number: {number}
                     </div>
                 <div>
-                    <button onClick={onRandom} onContextMenu={(e)=> {
+                    <button onClick={() => onRandom(number)} onContextMenu={(e)=> {
                     e.preventDefault();
                     }}>누르기</button>
                 </div>
