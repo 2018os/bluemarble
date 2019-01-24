@@ -3,17 +3,15 @@ import PropTypes from "prop-types";
 import './dice.scss';
 // import Player from '../player/Player';
 
-const Dice = ({prevNumber, number, onRandom}) => {
+const Dice = ({number, onRandom}) => {
     return(
         <div>
-            {/* <Player number={number} /> */}
             <div className="random_button">
                 <div className={"random_dice_number"}>
-                    prevNumber: {prevNumber}
                     number: {number}
                     </div>
                 <div>
-                    <button onClick={() => onRandom(prevNumber)} onContextMenu={(e)=> {
+                    <button onClick={() => onRandom(number)} onContextMenu={(e)=> {
                     e.preventDefault();
                     }}>누르기</button>
                 </div>
