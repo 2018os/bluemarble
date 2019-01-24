@@ -24,14 +24,10 @@ const CountryList = ({countries}) => {
 };
 
 CountryList.PropTypes = {
-  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool})),
-  prevNumber: PropTypes.number,
-  number: PropTypes.number
+  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool}))
 };
 
 CountryList.defaultProps = {
-  countries: [],
-  prevNumber: 0,
-  number: 0
+  countries: []
 }
 export default CountryList;

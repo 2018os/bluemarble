@@ -10,38 +10,35 @@ const initialCountries = new Array(100).fill(0).map(
 
 const initialState = {
   countries: initialCountries,
-  prevNumber: 0,
   number: 0
 };
 
 function counter(state=initialState, action) {
   const { countries } = state;
-  const { prevNumber } = state;
+  const { number } = state;
   switch(action.type) {
     case types.RANDOM:
-      if(prevNumber < action.number) {
+      if(number < action.number) {
         return {
           countries: [
-            ...countries.slice(0, prevNumber),
+            ...countries.slice(0, number),
             {
-              ...countries[prevNumber],
+              ...countries[number],
               done: false
             },
-            ...countries.slice(prevNumber+1, action.number),
+            ...countries.slice(number+1, action.number),
             {
               ...countries[action.number],
               done: true
             },
             ...countries.slice(action.number+1, countries.length)
           ],
-          number: action.number,
-          prevNumber: action.number
+          number: action.number
         };
-      } else if(prevNumber === action.number) {
+      } else if(number === action.number) {
         return {
           countries: countries,
-          number: action.number,
-          prevNumber: action.number
+          number: action.number
         }
       } else {
         return {
@@ -51,15 +48,14 @@ function counter(state=initialState, action) {
               ...countries[action.number],
               done: true
             },
-            ...countries.slice(action.number+1, prevNumber),
+            ...countries.slice(action.number+1, number),
             {
-              ...countries[prevNumber],
+              ...countries[number],
               done: false
             },
-            ...countries.slice(prevNumber+1, countries.length)
+            ...countries.slice(number+1, countries.length)
           ],
-          number: action.number,
-          prevNumber: action.number
+          number: action.number
         };
       }
     default:

@@ -9,9 +9,7 @@ const Country = ({ id, name, done }) => {   //done으로 player위치 확인
     <StyledCountry id={id}>
       <div className="country_nick">
         {name}
-        { done
-          ? <Player>hello</Player>
-          : <div></div> }
+        { done && <Player>hello</Player>}
       </div>
     </StyledCountry>
   );
