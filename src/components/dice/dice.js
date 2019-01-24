@@ -11,7 +11,7 @@ const Dice = ({number, onRandom}) => {
                     number: {number}
                     </div>
                 <div>
-                    <button onClick={() => onRandom(number)} onContextMenu={(e)=> {
+                    <button onClick={onRandom} onContextMenu={(e)=> {
                     e.preventDefault();
                     }}>누르기</button>
                 </div>

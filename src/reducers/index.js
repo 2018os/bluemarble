@@ -11,62 +11,34 @@ const initialCountries = new Array(100).fill(0).map(
 const initialState = {
   countries: initialCountries,
   prevNumber: 0,
-  nextNumber: 0,
+  location: 0,    //player 위치
   number: 0
 };
 
 function counter(state=initialState, action) {
   const { countries } = state;
-  const { prevNumber } = state;
-  const { nextNumber } = state;
+//  const { prevNumber } = state;
+  const { location } = state;
 
   switch(action.type) {
     case types.RANDOM:
-      if(prevNumber < nextNumber) {
-        return {
-          countries: [
-            ...countries.slice(0, prevNumber),
-            {
-              ...countries[prevNumber],
-              done: false
-            },
-            ...countries.slice(prevNumber+1, nextNumber),
-            {
-              ...countries[nextNumber],
-              done: true
-            },
-            ...countries.slice(nextNumber+1, countries.length)
-          ],
-          number: action.number,
-          nextNumber: nextNumber+action.number,
-          prevNumber: nextNumber
-        };
-      } else if(prevNumber === nextNumber) {
-        return {
-          countries: countries,
-          number: action.number,
-          nextNumber: nextNumber+action.number,
-          prevNumber: nextNumber
-        }
-      } else {
-        return {
-          countries: [
-            ...countries.slice(0, nextNumber),
-            {
-              ...countries[nextNumber],
-              done: true
-            },
-            ...countries.slice(nextNumber+1, prevNumber),
-            {
-              ...countries[prevNumber],
-              done: false
-            },
-            ...countries.slice(prevNumber+1, countries.length)
-          ],
-          number: action.number,
-          nextNumber: nextNumber+action.number,
-          prevNumber: nextNumber
-        };
+      return {
+        countries: [
+          ...countries.slice(0, location),
+          {
+            ...countries[location],
+            done: false
+          },
+          ...countries.slice(location+1, location+action.number),
+          {
+            ...countries[location+action.number],
+            done: true
+          },
+          ...countries.slice(location+action.number+1, countries.length)
+        ],
+        number: action.number,
+        location: location+action.number,
+        prevNumber: location
       }
     default:
       return state;
