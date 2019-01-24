@@ -10,52 +10,62 @@ const initialCountries = new Array(100).fill(0).map(
 
 const initialState = {
   countries: initialCountries,
+  prevNumber: 0,
+  nextNumber: 0,
   number: 0
 };
 
 function counter(state=initialState, action) {
   const { countries } = state;
-  const { number } = state;
+  const { prevNumber } = state;
+  const { nextNumber } = state;
+
   switch(action.type) {
     case types.RANDOM:
-      if(number < action.number) {
+      if(prevNumber < nextNumber) {
         return {
           countries: [
-            ...countries.slice(0, number),
+            ...countries.slice(0, prevNumber),
             {
-              ...countries[number],
+              ...countries[prevNumber],
               done: false
             },
-            ...countries.slice(number+1, action.number),
+            ...countries.slice(prevNumber+1, nextNumber),
             {
-              ...countries[action.number],
+              ...countries[nextNumber],
               done: true
             },
-            ...countries.slice(action.number+1, countries.length)
+            ...countries.slice(nextNumber+1, countries.length)
           ],
-          number: action.number
+          number: action.number,
+          nextNumber: nextNumber+action.number,
+          prevNumber: nextNumber
         };
-      } else if(number === action.number) {
+      } else if(prevNumber === nextNumber) {
         return {
           countries: countries,
-          number: action.number
+          number: action.number,
+          nextNumber: nextNumber+action.number,
+          prevNumber: nextNumber
         }
       } else {
         return {
           countries: [
-            ...countries.slice(0, action.number),
+            ...countries.slice(0, nextNumber),
             {
-              ...countries[action.number],
+              ...countries[nextNumber],
               done: true
             },
-            ...countries.slice(action.number+1, number),
+            ...countries.slice(nextNumber+1, prevNumber),
             {
-              ...countries[number],
+              ...countries[prevNumber],
               done: false
             },
-            ...countries.slice(number+1, countries.length)
+            ...countries.slice(prevNumber+1, countries.length)
           ],
-          number: action.number
+          number: action.number,
+          nextNumber: nextNumber+action.number,
+          prevNumber: nextNumber
         };
       }
     default:
