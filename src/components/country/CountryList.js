@@ -2,10 +2,10 @@ import React from 'react';
 import Country from './Country';
 import './Country.scss';
 import PropTypes from 'prop-types';
-import Showplayer from "../player/Showplayer";
+import PlayerContainer from "../../containers/PlayContainer";
 import DiceConainer from '../../containers/DiceContainer';
 
-const CountryList = ({countries, player}) => {
+const CountryList = ({countries}) => {
   const map1 = countries.slice(0, 10);
   const map2 = countries.slice(10, 18);
   const map3 = countries.slice(18, 28);
@@ -36,7 +36,7 @@ const CountryList = ({countries, player}) => {
 
   return (
     <div>
-      <Showplayer player={player}/>
+      <PlayerContainer />
       <div className="CountryList">
         <div className="first_line">
           {map1List}
