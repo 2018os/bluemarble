@@ -10,7 +10,6 @@ const initialCountries = new Array(100).fill(0).map(
 
 const initialState = {
   countries: initialCountries,
-  prevNumber: 0,
   location: 0,    //player 위치
   number: 0
 };
@@ -22,6 +21,25 @@ function counter(state=initialState, action) {
 
   switch(action.type) {
     case types.RANDOM:
+      if(location+action.number > 99) { //lo:99 ac:1
+        return {
+          countries: [
+            ...countries.slice(0, location+action.number-100),
+            {
+              ...countries[location+action.number-100],
+              done: true
+            },
+            ...countries.slice(location+action.number-99, location),
+            {
+              ...countries[location],
+              done: false
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          number: action.number,
+          location: location+action.number-100
+        }
+      }
       return {
         countries: [
           ...countries.slice(0, location),
@@ -37,8 +55,7 @@ function counter(state=initialState, action) {
           ...countries.slice(location+action.number+1, countries.length)
         ],
         number: action.number,
-        location: location+action.number,
-        prevNumber: location
+        location: location+action.number
       }
     default:
       return state;
