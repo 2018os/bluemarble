@@ -36,7 +36,7 @@ const CountryList = ({countries}) => {
 
   return (
     <div>
-      {/* <Showplayer /> */}
+      <Showplayer />
       <div className="CountryList">
         <div className="first_line">
           {map1List}
