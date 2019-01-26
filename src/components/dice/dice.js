@@ -5,16 +5,14 @@ import './dice.scss';
 
 const Dice = ({number, onRandom}) => {
     return(
-        <div>
-            <div className="random_button">
-                <div className={"random_dice_number"}>
-                    number: {number}
-                    </div>
-                <div>
-                    <button onClick={onRandom} onContextMenu={(e)=> {
-                    e.preventDefault();
-                    }}>누르기</button>
-                </div>
+        <div className="random_button">
+            <div className={"random_dice_number"}>
+                number: {number}
+            </div>
+            <div>
+                <button onClick={onRandom} onContextMenu={(e)=> {
+                e.preventDefault();
+                }}>누르기</button>
             </div>
         </div>
     );

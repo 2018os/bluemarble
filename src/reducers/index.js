@@ -21,15 +21,15 @@ function counter(state=initialState, action) {
   switch(action.type) {
     case types.RANDOM:
     
-      if(location+action.number > 99) {
+      if(location+action.number > 36) {
         return {
           countries: [
-            ...countries.slice(0, location+action.number-100),
+            ...countries.slice(0, location+action.number-36),
             {
-              ...countries[location+action.number-100],
+              ...countries[location+action.number-36],
               done: true
             },
-            ...countries.slice(location+action.number-99, location),
+            ...countries.slice(location+action.number-35, location),
             {
               ...countries[location],
               done: false
@@ -37,7 +37,7 @@ function counter(state=initialState, action) {
             ...countries.slice(location+1, countries.length)
           ],
           number: action.number,
-          location: location+action.number-100
+          location: location+action.number-36
         }
       }
       return {

@@ -1,12 +1,13 @@
 @import '../../styles/utils';
 
 .random_button {
-    width: 297px;
-    height: 297px;
+    width: 799px;
+    height: 791px;
     float: left;
-    position: absolute;
-    bottom: 23%;
-    left: 39%;
+    background: red;
+    // position: absolute;
+    // bottom: 23%;
+    // left: 39%;
 
     @include media("<large") {
         left: 36%;
@@ -19,7 +20,8 @@
     .random_dice_number {
         font-size: 50px;
         text-align: center;
-        margin: auto;
+        // margin: auto;
+        margin-top: 35%;
         position: relative;
         bottom: 20px;
     }
@@ -35,7 +37,7 @@
         font-size: 20px;
         outline: none;
         cursor: pointer;
-        margin: 0 0 0 34%;
+        margin: 0 0 0 45%;
         // position: relative;
         // left: 50%;
         // top: 25%;
