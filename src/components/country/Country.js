@@ -11,7 +11,7 @@ const Country = ({ id, name, price, done }) => {   //done으로 player위치 확
         <div></div>
         <div>{name}</div>
       </div>
-      { done && <Player>hello</Player>}
+      { done && <Player />}
     </div>
   );
 };
