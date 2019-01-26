@@ -3,8 +3,8 @@ import * as types from "../actions/actionTypes";
 const initialCountries = new Array(100).fill(0).map(
   (foo, index) => {
     return index===0
-      ? { id: index, name: `카이로${index}`, done: true }
-      : { id: index, name: `카이로${index}`, done: false }
+      ? { id: index, name: `카이로${index}`, price:500*index/100, done: true }
+      : { id: index, name: `카이로${index}`, price:500*index/100, done: false }
   }
 );
 
@@ -16,12 +16,12 @@ const initialState = {
 
 function counter(state=initialState, action) {
   const { countries } = state;
-//  const { prevNumber } = state;
   const { location } = state;
 
   switch(action.type) {
     case types.RANDOM:
-      if(location+action.number > 99) { //lo:99 ac:1
+    
+      if(location+action.number > 99) {
         return {
           countries: [
             ...countries.slice(0, location+action.number-100),

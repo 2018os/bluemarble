@@ -8,7 +8,6 @@ const StyledPlayer = styled.div`
   background-color: aqua;
   text-align: center;
   border: 1px solid black;
-  margin-top: 2%;
   margin-left: 1%;
 `;
 

@@ -4,10 +4,12 @@ import "./country_box.scss";
 import PropTypes from 'prop-types';
 import Player from '../player/Player';
 
-const Country = ({ id, name, done }) => {   //done으로 player위치 확인
+const Country = ({ id, name, price, done }) => {   //done으로 player위치 확인
   return (
     <StyledCountry id={id}>
       <div className="country_nick">
+        {price}원
+        <div></div>
         {name}
         { done && <Player>hello</Player>}
       </div>
