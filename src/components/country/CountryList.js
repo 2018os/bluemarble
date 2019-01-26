@@ -36,7 +36,7 @@ const CountryList = ({countries}) => {
 
   return (
     <div>
-      <PlayerContainer />
+      {/* <PlayerContainer /> */}
       <div className="CountryList">
         <div className="first_line">
           {map1List}
@@ -57,7 +57,7 @@ const CountryList = ({countries}) => {
 };
 
 CountryList.propTypes = {
-  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool})),
+  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool, bought: PropTypes.bool})),
   player: PropTypes.object
 };
 

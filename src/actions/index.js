@@ -5,7 +5,7 @@ export const random = (number) => ({
     number
 });
 
-export const user = (user) => ({
-    type: types.USER,
-    user
+export const deal = (number) => ({
+    type: types.DEAL,
+    number
 });

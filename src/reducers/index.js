@@ -3,8 +3,8 @@ import * as types from "../actions/actionTypes";
 const initialCountries = new Array(100).fill(0).map(
   (foo, index) => {
     return index===0
-      ? { id: index, name: `카이로${index}`, price:500*index/100, done: true }
-      : { id: index, name: `카이로${index}`, price:500*index/100, done: false }
+      ? { id: index, name: `카이로${index}`, price:500*index/100, done: true, bought: false }
+      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false }
   }
 );
 
@@ -23,7 +23,7 @@ const initialState = {
 
 function counter(state=initialState, action) {
   const { countries, player } = state;
-  const { location } = player;
+  const { location, money } = player;
 
   switch(action.type) {
     case types.RANDOM:
@@ -33,7 +33,8 @@ function counter(state=initialState, action) {
             ...countries.slice(0, location+action.number-36),
             {
               ...countries[location+action.number-36],
-              done: true
+              done: true,
+              bought: true,
             },
             ...countries.slice(location+action.number-35, location),
             {
@@ -56,13 +57,20 @@ function counter(state=initialState, action) {
           ...countries.slice(location+1, location+action.number),
           {
             ...countries[location+action.number],
-            done: true
+            done: true,
+            bought: true
           },
           ...countries.slice(location+action.number+1, countries.length)
         ],
         number: action.number,
         player: { ...player, location: location+action.number }
-      }
+      };
+    case types.DEAL:
+    console.log('he');
+      return {
+        state
+        // player: { ...player, money:money - countries[location+action.number]}
+      };
     default:
       return state;
   }

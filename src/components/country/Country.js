@@ -1,9 +1,10 @@
 import React from 'react';
 import "./country_box.scss";
 import PropTypes from 'prop-types';
-import Player from '../player/Player';
+// import Player from '../player/Player';
+import PlayerContainer from "../../containers/PlayContainer";
 
-const Country = ({ id, name, price, done }) => {   //done으로 player위치 확인
+const Country = ({ id, name, price, done, bought }) => {   //done으로 player위치 확인
   return (
     <div className="country_nick">
       <div className="sub_detail">
@@ -11,7 +12,7 @@ const Country = ({ id, name, price, done }) => {   //done으로 player위치 확
         <div></div>
         <div>{name}</div>
       </div>
-      { done && <Player />}
+      { done && <PlayerContainer />}
     </div>
   );
 };
@@ -19,13 +20,15 @@ const Country = ({ id, name, price, done }) => {   //done으로 player위치 확
 Country.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
-  done: PropTypes.bool
+  done: PropTypes.bool,
+  bought: PropTypes.bool,
 };
 
 Country.defaultProps = {
   id: 0,
   name: '',
-  done: false
+  done: false,
+  bought: false,
 };
 
 export default Country;
