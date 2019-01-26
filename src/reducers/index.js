@@ -8,15 +8,22 @@ const initialCountries = new Array(100).fill(0).map(
   }
 );
 
+const initialPlayer = {
+  id: 0,
+  name: `player0`,
+  money: 10000,
+  location: 0
+}
+
 const initialState = {
   countries: initialCountries,
-  location: 0,    //player 위치
+  player: initialPlayer,
   number: 0
 };
 
 function counter(state=initialState, action) {
-  const { countries } = state;
-  const { location } = state;
+  const { countries, player } = state;
+  const { location } = player;
 
   switch(action.type) {
     case types.RANDOM:
@@ -37,7 +44,7 @@ function counter(state=initialState, action) {
             ...countries.slice(location+1, countries.length)
           ],
           number: action.number,
-          location: location+action.number-36
+          player: { ...player, location: location+action.number-36 }
         }
       }
       return {
@@ -55,7 +62,7 @@ function counter(state=initialState, action) {
           ...countries.slice(location+action.number+1, countries.length)
         ],
         number: action.number,
-        location: location+action.number
+        player: { ...player, location: location+action.number }
       }
     default:
       return state;

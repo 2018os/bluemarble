@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Showplayer from "../player/Showplayer";
 import DiceConainer from '../../containers/DiceContainer';
 
-const CountryList = ({countries}) => {
+const CountryList = ({countries, player}) => {
   const map1 = countries.slice(0, 10);
   const map2 = countries.slice(10, 18);
   const map3 = countries.slice(18, 28);
@@ -36,7 +36,7 @@ const CountryList = ({countries}) => {
 
   return (
     <div>
-      <Showplayer />
+      <Showplayer player={player}/>
       <div className="CountryList">
         <div className="first_line">
           {map1List}
@@ -57,7 +57,8 @@ const CountryList = ({countries}) => {
 };
 
 CountryList.propTypes = {
-  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool}))
+  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool})),
+  player: PropTypes.object
 };
 
 CountryList.defaultProps = {

@@ -6,7 +6,7 @@ import './dice.scss';
 const Dice = ({number, onRandom}) => {
     return(
         <div className="random_button">
-            <div className={"random_dice_number"}>
+            <div className="random_dice_number">
                 number: {number}
             </div>
             <div>
