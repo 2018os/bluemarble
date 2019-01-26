@@ -8,20 +8,25 @@ const initialCountries = new Array(100).fill(0).map(
   }
 );
 
-const initialState = {
+const initialRandomState = {
   countries: initialCountries,
   location: 0,    //player 위치
   number: 0
 };
 
-function counter(state=initialState, action) {
+const initialUserState = {
+  id: 0,
+  user: '',
+  price: '',
+}
+
+function counter(state=initialRandomState, action) {
   const { countries } = state;
   const { location } = state;
 
   switch(action.type) {
     case types.RANDOM:
-    
-      if(location+action.number > 36) {
+      if(location+action.number > 35) {
         return {
           countries: [
             ...countries.slice(0, location+action.number-36),
