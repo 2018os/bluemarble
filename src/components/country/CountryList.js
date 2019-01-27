@@ -2,7 +2,7 @@ import React from 'react';
 import Country from './Country';
 import './Country.scss';
 import PropTypes from 'prop-types';
-import PlayerContainer from "../../containers/PlayContainer";
+import MoneyContainer from "../../containers/MoneyContainer";
 import DiceConainer from '../../containers/DiceContainer';
 
 const CountryList = ({countries}) => {
@@ -36,7 +36,7 @@ const CountryList = ({countries}) => {
 
   return (
     <div>
-      {/* <PlayerContainer /> */}
+      <MoneyContainer />
       <div className="CountryList">
         <div className="first_line">
           {map1List}

@@ -44,7 +44,7 @@ function counter(state=initialState, action) {
             ...countries.slice(location+1, countries.length)
           ],
           number: action.number,
-          player: { ...player, location: location+action.number-36 }
+          player: { ...player, money:money+2000, location: location+action.number-36 }
         }
       }
       return {
