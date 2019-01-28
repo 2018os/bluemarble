@@ -82,6 +82,7 @@ function counter(state=initialState, action) {
 
     case types.DEAL:
       if(countries[location].bought && countries[location].owner !== player[turn].playerName) {
+        console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
         return {
           countries: countries,
           player: [
@@ -104,13 +105,14 @@ function counter(state=initialState, action) {
       };
     
     case types.BUY:
+      console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
       return {
         countries: [
           ...countries.slice(0, location),
           {
             ...countries[location],
             bought: true,
-            owner: player.playerName
+            owner: player[turn].playerName
           },
           ...countries.slice(location+1, countries.length)
         ],

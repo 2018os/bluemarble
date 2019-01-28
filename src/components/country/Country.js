@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 // import Player from '../player/Player';
 import Player from "../player/Player";
 
-const Country = ({ name, price, done, turn }) => {   //done으로 player위치 확인
+const Country = ({ name, price, done, turn, owner }) => {   //done으로 player위치 확인
   return (
     <div className="country_nick">
       <div className="sub_detail">
         <div>{price}원</div>
         <div></div>
         <div>{name}</div>
+        {owner}
       </div>
       { done && <Player turn={turn} />}
     </div>

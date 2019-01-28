@@ -5,6 +5,7 @@ import './Player.scss';
 class Player extends Component {
   render() {
     const { turn } = this.props;
+    console.log(turn);
     return (
       <div className="player">player{turn}</div>
     )
