@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from "../actions";
 
 //props 값으로 넣어줄 상태 정의
-const mapStateToProps = (state) => ({countries: state.countries, player: state.player});
+const mapStateToProps = (state) => ({countries: state.countries, player: state.player, turn: state.turn});
 const mapDispatchToProps = (dispatch) => ({
   onBuy: () => {
     dispatch(actions.buy());

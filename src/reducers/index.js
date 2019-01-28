@@ -8,26 +8,24 @@ const initialCountries = new Array(100).fill(0).map(
   }
 );
 
-const initialPlayer = {
-  id: 0,
-  playerName: `player0`,
-  money: 10000,
-  location: 0,
-  ownCountries: []
-}
+const initialPlayer = new Array(4).fill(0).map(
+  (foo, index) => ({ id: index, playerName: `player${index}`, money: 10000, location: 0, ownCountries: [] })
+)
 
 const initialState = {
   countries: initialCountries,
   player: initialPlayer,
-  number: 0
+  number: 0,
+  turn: 0
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, number } = state;
-  const { location, money, ownCountries } = player;
+  const { countries, player, number, turn } = state;
+  const { location, money, ownCountries } = player[turn];
 
   switch(action.type) {
     case types.RANDOM:
+      console.log(state.turn);
       if(location+action.number > 35) {
         return {
           countries: [
@@ -44,7 +42,16 @@ function counter(state=initialState, action) {
             ...countries.slice(location+1, countries.length)
           ],
           number: action.number,
-          player: { ...player, money:money+2000, location: location+action.number-36 }
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money+2000,
+              location: location+action.number-36
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          turn: turn
         }
       }
       return {
@@ -62,20 +69,38 @@ function counter(state=initialState, action) {
           ...countries.slice(location+action.number+1, countries.length)
         ],
         number: action.number,
-        player: { ...player, location: location+action.number }
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            location: location+action.number
+          },
+          ...player.slice(turn+1, player.length)
+        ],
+        turn: turn
       };
+
     case types.DEAL:
-      if(countries[location].bought && countries[location].owner !== player.playerName) {
+      if(countries[location].bought && countries[location].owner !== player[turn].playerName) {
         return {
           countries: countries,
-          player: { ...player, money:money - countries[location].price},
-          number: number
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          number: number,
+          turn: (turn+1)%4
         };
       }
       return {
         countries: countries,
-        player: { ...player, money:money},
-        number: number
+        player: player,
+        number: number,
+        turn: turn
       };
     
     case types.BUY:
@@ -89,7 +114,16 @@ function counter(state=initialState, action) {
           },
           ...countries.slice(location+1, countries.length)
         ],
-        player: { ...player, money: money-countries[location].price, ownCountries: [...ownCountries, countries[location].name]},
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            money:money - countries[location].price,
+            ownCountries: [...ownCountries, countries[location].name]
+          },
+          ...player.slice(turn+1, player.length)
+        ],
+        turn: (turn+1)%4
       };
     default:
       return state;
