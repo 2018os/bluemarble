@@ -4,7 +4,7 @@ const initialCountries = new Array(100).fill(0).map(
   (foo, index) => {
     return index===0
       ? { id: index, name: `출발지`, price:500*index/100, done: true, bought: false }
-      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false }
+      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false, owner: '' }
   }
 );
 
@@ -65,7 +65,7 @@ function counter(state=initialState, action) {
         player: { ...player, location: location+action.number }
       };
     case types.DEAL:
-      if(countries[location].bought) {
+      if(countries[location].bought && countries[location].owner !== player.playerName) {
         return {
           countries: countries,
           player: { ...player, money:money - countries[location].price},
@@ -84,7 +84,8 @@ function counter(state=initialState, action) {
           ...countries.slice(0, location),
           {
             ...countries[location],
-            bought: true
+            bought: true,
+            owner: player.playerName
           },
           ...countries.slice(location+1, countries.length)
         ],
