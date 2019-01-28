@@ -3,16 +3,17 @@ import * as types from "../actions/actionTypes";
 const initialCountries = new Array(100).fill(0).map(
   (foo, index) => {
     return index===0
-      ? { id: index, name: `카이로${index}`, price:500*index/100, done: true, bought: false }
-      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: true }
+      ? { id: index, name: `출발지`, price:500*index/100, done: true, bought: false }
+      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false }
   }
 );
 
 const initialPlayer = {
   id: 0,
-  name: `player0`,
+  playerName: `player0`,
   money: 10000,
-  location: 0
+  location: 0,
+  ownCountries: []
 }
 
 const initialState = {
@@ -23,7 +24,7 @@ const initialState = {
 
 function counter(state=initialState, action) {
   const { countries, player, number } = state;
-  const { location, money } = player;
+  const { location, money, ownCountries } = player;
 
   switch(action.type) {
     case types.RANDOM:
@@ -33,8 +34,7 @@ function counter(state=initialState, action) {
             ...countries.slice(0, location+action.number-36),
             {
               ...countries[location+action.number-36],
-              done: true,
-              bought: true,
+              done: true
             },
             ...countries.slice(location+action.number-35, location),
             {
@@ -57,8 +57,7 @@ function counter(state=initialState, action) {
           ...countries.slice(location+1, location+action.number),
           {
             ...countries[location+action.number],
-            done: true,
-            bought: true
+            done: true
           },
           ...countries.slice(location+action.number+1, countries.length)
         ],
@@ -66,7 +65,6 @@ function counter(state=initialState, action) {
         player: { ...player, location: location+action.number }
       };
     case types.DEAL:
-    console.log('he');
       if(countries[location].bought) {
         return {
           countries: countries,
@@ -78,6 +76,19 @@ function counter(state=initialState, action) {
         countries: countries,
         player: { ...player, money:money},
         number: number
+      };
+    
+    case types.BUY:
+      return {
+        countries: [
+          ...countries.slice(0, location),
+          {
+            ...countries[location],
+            bought: true
+          },
+          ...countries.slice(location+1, countries.length)
+        ],
+        player: { ...player, money: money-countries[location].price, ownCountries: [...ownCountries, countries[location].name]},
       };
     default:
       return state;

@@ -3,15 +3,16 @@ import Country from './Country';
 import './Country.scss';
 import PropTypes from 'prop-types';
 import MoneyContainer from "../../containers/MoneyContainer";
-import DiceConainer from '../../containers/DiceContainer';
+import DiceContainer from '../../containers/DiceContainer';
+import CountryInfoContainer from '../../containers/CountryInfoContainer';
 
 class CountryList extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    this.props.onDeal(); 
-    return true;
+  componentDidUpdate(prevProps, prevState) {
+    this.props.onDeal();
   }
+
   render() {
-    const { countries } = this.props;
+    const { countries, onDeal } = this.props;
     const map1 = countries.slice(0, 10);
     const map2 = countries.slice(10, 18);
     const map3 = countries.slice(18, 28);
@@ -50,7 +51,8 @@ class CountryList extends Component {
           <div className="second_line">
             {map4List}
           </div>
-          <DiceConainer />
+          <CountryInfoContainer onDeal={onDeal} />
+          <DiceContainer />
           <div className="third_line">
             {map2List}
           </div>
@@ -66,11 +68,11 @@ class CountryList extends Component {
 
 CountryList.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool, bought: PropTypes.bool})),
-  player: PropTypes.object
+  onDeal: PropTypes.func
 };
 
 CountryList.defaultProps = {
   countries: [],
-  onDeal: () => console.warn('not')
+  onDeal: () => console.warn('onDeal not defined')
 }
 export default CountryList;

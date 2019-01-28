@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import Player from '../player/Player';
 import Player from "../player/Player";
 
-const Country = ({ id, name, price, done, bought }) => {   //done으로 player위치 확인
+const Country = ({ name, price, done }) => {   //done으로 player위치 확인
   return (
     <div className="country_nick">
       <div className="sub_detail">
@@ -18,17 +18,15 @@ const Country = ({ id, name, price, done, bought }) => {   //done으로 player�
 };
 
 Country.propTypes = {
-  id: PropTypes.number,
   name: PropTypes.string,
-  done: PropTypes.bool,
-  bought: PropTypes.bool,
+  price: PropTypes.number,
+  done: PropTypes.bool
 };
 
 Country.defaultProps = {
-  id: 0,
   name: '',
-  done: false,
-  bought: false,
+  price: 0,
+  done: false
 };
 
 export default Country;
