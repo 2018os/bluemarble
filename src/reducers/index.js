@@ -4,7 +4,7 @@ const initialCountries = new Array(100).fill(0).map(
   (foo, index) => {
     return index===0
       ? { id: index, name: `카이로${index}`, price:500*index/100, done: true, bought: false }
-      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false }
+      : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: true }
   }
 );
 
@@ -22,7 +22,7 @@ const initialState = {
 };
 
 function counter(state=initialState, action) {
-  const { countries, player } = state;
+  const { countries, player, number } = state;
   const { location, money } = player;
 
   switch(action.type) {
@@ -67,9 +67,17 @@ function counter(state=initialState, action) {
       };
     case types.DEAL:
     console.log('he');
+      if(countries[location].bought) {
+        return {
+          countries: countries,
+          player: { ...player, money:money - countries[location].price},
+          number: number
+        };
+      }
       return {
-        state
-        // player: { ...player, money:money - countries[location+action.number]}
+        countries: countries,
+        player: { ...player, money:money},
+        number: number
       };
     default:
       return state;
