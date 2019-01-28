@@ -2,7 +2,7 @@
 
 .random_button {
     width: 895px;
-    height: 474px;
+    height: 284px;
     float: left;
     // background: red;
     // position: absolute;
@@ -10,18 +10,18 @@
     // left: 39%;
 
     @include media("<large") {
-        left: 36%;
+        // left: 36%;
     }
 
     @include media("<medium") {
-        left: 32%;
+        // left: 32%;
     }
 
     .random_dice_number {
         font-size: 50px;
         text-align: center;
         // margin: auto;
-        margin-top: 17%;
+        margin-top: 6%;
         position: relative;
         bottom: 20px;
     }

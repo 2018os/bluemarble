@@ -8,8 +8,6 @@ const Country = ({ name, price, done }) => {   //done으로 player위치 확인
   return (
     <div className="country_nick">
       <div className="sub_detail">
-        <div>{price}원</div>
-        <div></div>
         <div>{name}</div>
       </div>
       { done && <Player />}

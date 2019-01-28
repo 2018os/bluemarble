@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './CountryInfo.scss';
+
 class CountryInfo extends Component {
   render() {
     const { countries, player, onBuy } = this.props;
     const { location } = player;
     const { name, price, bought } = countries[location];
     return (
-      <div>
+      <div className="countryInfo">
         <h1>{name}</h1>
         <h3>{price}원</h3>
         {
-          !bought && location!==0 && <button onClick={onBuy}>구매 하시겠습니까?</button>
+          // !bought && location!==0 && <button onClick={onBuy}>구매 하시겠습니까?</button>
         }
       </div>
 

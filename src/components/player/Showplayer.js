@@ -7,7 +7,7 @@ class Showplayer extends Component {
     return (
       <div className="up_player">
         <div className="A_player">
-            <p>id: {player.name}</p>
+            <p>id: {player.playerName}</p>
             <p>돈: {player.money}</p>
             <p>나라: {player.ownCountries}</p>
         </div>
