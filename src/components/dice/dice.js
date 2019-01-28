@@ -7,7 +7,7 @@ const Dice = ({number, onRandom}) => {
     return(
         <div className="random_button">
             <div className="random_dice_number">
-                number: {number}
+                주사위: {number}
             </div>
             <div>
                 <button onClick={onRandom} onContextMenu={(e)=> {

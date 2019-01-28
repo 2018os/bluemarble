@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Country from './Country';
-import './Country.scss';
+import './CountryList.scss';
 import PropTypes from 'prop-types';
-import MoneyContainer from "../../containers/MoneyContainer";
+import PlayerInfoContainer from "../../containers/PlayerInfoContainer";
 import DiceContainer from '../../containers/DiceContainer';
 import CountryInfoContainer from '../../containers/CountryInfoContainer';
 
@@ -43,7 +43,7 @@ class CountryList extends Component {
 
     return (
       <div>
-        <MoneyContainer />
+        <PlayerInfoContainer />
         <div className="CountryList">
           <div className="first_line">
             {map1List}

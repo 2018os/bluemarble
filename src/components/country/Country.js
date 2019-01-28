@@ -8,8 +8,6 @@ const Country = ({ name, price, done, turn, owner }) => {   //done으로 player�
   return (
     <div className="country_nick">
       <div className="sub_detail">
-        <div>{price}원</div>
-        <div></div>
         <div>{name}</div>
         {owner}
       </div>

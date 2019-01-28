@@ -8,7 +8,7 @@ class CountryInfo extends Component {
     const { location } = player[turn];
     const { name, price, bought } = countries[location];
     return (
-      <div className="CountryInfo">
+      <div className="countryInfo">
         <h1>{name}</h1>
         <h3>{price}원</h3>
         {

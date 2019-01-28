@@ -1,3 +1,9 @@
-.CountryInfo {
-  color: yellow;
+.countryInfo {
+    float: left;
+    width: 895px;
+    height: 130px;
+
+    h1, h3 {
+        text-align: center;
+    }
 }
