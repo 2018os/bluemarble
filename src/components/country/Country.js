@@ -1,8 +1,7 @@
 import React from 'react';
 import "./country_box.scss";
 import PropTypes from 'prop-types';
-// import Player from '../player/Player';
-import Player from "../player/Player";
+import PlayerInfoContainer from "../../containers/PlayerInfoContainer";
 
 const Country = ({ name, price, done, turn, owner }) => {   //done으로 player위치 확인
   return (
@@ -11,7 +10,7 @@ const Country = ({ name, price, done, turn, owner }) => {   //done으로 player�
         <div>{name}</div>
         {owner}
       </div>
-      { done && <Player turn={turn} />}
+      { done && <PlayerInfoContainer />}
     </div>
   );
 };

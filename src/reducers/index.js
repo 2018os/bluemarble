@@ -81,27 +81,42 @@ function counter(state=initialState, action) {
       };
 
     case types.DEAL:
-      if(countries[location].bought && countries[location].owner !== player[turn].playerName) {
-        console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-        return {
-          countries: countries,
-          player: [
-            ...player.slice(0, turn),
-            {
-              ...player[turn],
-              money:money - countries[location].price
-            },
-            ...player.slice(turn+1, player.length)
-          ],
-          number: number,
-          turn: (turn+1)%4
-        };
-      }
+      // if(countries[location].bought && countries[location].owner !== player[turn].playerName) {
+      //   console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
+      //   return {
+      //     countries: countries,
+      //     player: [
+      //       ...player.slice(0, turn),
+      //       {
+      //         ...player[turn],
+      //         money:money - countries[location].price
+      //       },
+      //       ...player.slice(turn+1, player.length)
+      //     ],
+      //     number: number,
+      //     turn: (turn+1)%4
+      //   };
+      // }
+      // return {
+      //   countries: countries,
+      //   player: player,
+      //   number: number,
+      //   turn: turn
+      // };
+
+      console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
       return {
         countries: countries,
-        player: player,
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            money:money - countries[location].price
+          },
+          ...player.slice(turn+1, player.length)
+        ],
         number: number,
-        turn: turn
+        turn: (turn+1)%4
       };
     
     case types.BUY:

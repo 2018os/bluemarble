@@ -7,6 +7,9 @@ const mapStateToProps = (state) => ({countries: state.countries, player: state.p
 const mapDispatchToProps = (dispatch) => ({
   onBuy: () => {
     dispatch(actions.buy());
+  },
+  onDeal: () => {
+    dispatch(actions.deal());
   }
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);

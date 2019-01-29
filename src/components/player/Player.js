@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Player.scss';
 
 
@@ -7,9 +8,20 @@ class Player extends Component {
     const { turn } = this.props;
     console.log(turn);
     return (
-      <div className="player">player{turn}</div>
+      <div>
+        <div className="player">player{turn}</div>
+      </div>
+      
     )
   }
+}
+
+Player.PropTypes = {
+  turn: PropTypes.number
+}
+
+Player.defaultProps = {
+  turn: 0
 }
 
 export default Player;
