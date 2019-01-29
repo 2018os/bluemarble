@@ -9,6 +9,7 @@ const Country = ({ name, price, done, owner }) => {   //done으로 player위치 
       <div className="sub_detail">
         <div>{name}</div>
         {owner}
+        {price}원
       </div>
       { done && <PlayerInfoContainer />}
     </div>
