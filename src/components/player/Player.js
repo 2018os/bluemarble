@@ -16,7 +16,7 @@ class Player extends Component {
   }
 }
 
-Player.PropTypes = {
+Player.propTypes = {
   turn: PropTypes.number
 }
 
