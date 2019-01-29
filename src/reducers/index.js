@@ -82,15 +82,24 @@ function counter(state=initialState, action) {
       };
 
     case types.DEAL:
+      const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
+      console.log(player[indexOfOwner].money);
+      console.log(countries[location].price);
       if(action.answer === true) {
         return {
           countries: countries,
           player: [
-            ...player.slice(0, turn),
+            ...player.slice(0, indexOfOwner),
+            {
+              ...player[indexOfOwner],
+              money: money + countries[location].price
+            },
+            ...player.slice(indexOfOwner+1, turn),
             {
               ...player[turn],
-              money:money - countries[location].price
+              money: money - countries[location].price,
+              prevLocation: location
             },
             ...player.slice(turn+1, player.length)
           ],
@@ -105,7 +114,8 @@ function counter(state=initialState, action) {
           ...player.slice(0, turn),
           {
             ...player[turn],
-            money:0
+            money:0,
+            prevLocation: location
           },
           ...player.slice(turn+1, player.length)
         ],
@@ -131,7 +141,8 @@ function counter(state=initialState, action) {
             {
               ...player[turn],
               money:money - countries[location].price,
-              ownCountries: [...ownCountries, countries[location].name]
+              ownCountries: [...ownCountries, countries[location].name],
+              prevLocation: location
             },
             ...player.slice(turn+1, player.length)
           ],
@@ -141,7 +152,14 @@ function counter(state=initialState, action) {
       console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
       return {
         countries: countries,
-        player: player,
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            prevLocation: location
+          },
+          ...player.slice(turn+1, player.length)
+        ],
         turn: (turn+1)%4
       };
     default:
