@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 class Modal extends Component {
   render() {
-    const { onBuy } = this.props;
+    const { onBuy, countries, player, turn } = this.props;
+    const { location, money } = player[turn];
+    const { name, price } = countries[location];
+    
     return (
       <div>
         <div className="modal fade" id="myModal" role="dialog">
@@ -10,7 +13,7 @@ class Modal extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal">×</button>
-                <h4 className="modal-title">나라 이름</h4>
+                <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
                 <p>땅 종류</p>
