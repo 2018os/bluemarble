@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Country from './Country';
 import './CountryList.scss';
 import PropTypes from 'prop-types';
-import PlayerInfoContainer from "../../containers/PlayerInfoContainer";
+import UpPlayerInfoContainer from "../../containers/UpPlayerInfoContainer";
 import DiceContainer from '../../containers/DiceContainer';
 import CountryInfoContainer from '../../containers/CountryInfoContainer';
+import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
 
 class CountryList extends Component {
   componentDidUpdate(prevProps, prevState) {
@@ -43,7 +44,7 @@ class CountryList extends Component {
 
     return (
       <div>
-        <PlayerInfoContainer />
+        <UpPlayerInfoContainer />
         <div className="CountryList">
           <div className="first_line">
             {map1List}
@@ -60,6 +61,7 @@ class CountryList extends Component {
             {map3List}
           </div>
         </div>
+        <UndefPlayerInfoContainer />
       </div>
     );
   }

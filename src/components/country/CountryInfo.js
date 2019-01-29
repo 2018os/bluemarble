@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './CountryInfo.scss';
+import Modal from './modal';
 
 class CountryInfo extends Component {
   render() {
@@ -12,7 +13,8 @@ class CountryInfo extends Component {
         <h1>{name}</h1>
         <h3>{price}원</h3>
         {
-          !bought && location!==0 && <button onClick={onBuy}>구매 하시겠습니까?</button>
+          // !bought && location!==0 && <button onClick={onBuy}>구매 하시겠습니까?</button>
+          !bought && location!==0 && <Modal onBuy={onBuy}/>
         }
       </div>
 

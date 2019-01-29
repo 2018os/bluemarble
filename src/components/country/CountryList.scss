@@ -2,13 +2,14 @@ $hi: 58.4px;
 $wi: 111px;
 
 .CountryList {
-  width: 1119px;
-  height: 593px;
-  border: 1px solid black;
-  margin: auto;
-  margin-top: 30px;
+    width: 1114px;
+    height: 586px;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 100px;
 
-  .first_line {
+    .first_line {
         display: flex;
         .country_nick {
             width: $wi;
