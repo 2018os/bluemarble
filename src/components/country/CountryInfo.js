@@ -14,7 +14,7 @@ class CountryInfo extends Component {
         <h3>{price}원</h3>
         {
           // !bought && location!==0 && <button onClick={onBuy}>구매 하시겠습니까?</button>
-          !bought && location!==0 && <Modal onBuy={onBuy}/>
+          !bought && location!==0 && <Modal onBuy={onBuy} player={player} countries={countries} turn={turn}/>
         }
       </div>
 
