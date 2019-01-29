@@ -8,10 +8,6 @@ import CountryInfoContainer from '../../containers/CountryInfoContainer';
 import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
 
 class CountryList extends Component {
-  // componentDidUpdate(prevProps, prevState) {
-  //   this.props.onDeal();
-  // }
-
   render() {
     const { countries } = this.props;
     const map1 = countries.slice(0, 10);
@@ -69,13 +65,10 @@ class CountryList extends Component {
 
 
 CountryList.propTypes = {
-  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool, bought: PropTypes.bool})),
-  onDeal: PropTypes.func,
-  turn: PropTypes.number
+  countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, price: PropTypes.number, done: PropTypes.bool, bought: PropTypes.bool, owner: PropTypes.string}))
 };
 
 CountryList.defaultProps = {
-  countries: [],
-  onDeal: () => console.warn('onDeal not defined')
+  countries: []
 }
 export default CountryList;

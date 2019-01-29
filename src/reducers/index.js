@@ -9,7 +9,7 @@ const initialCountries = new Array(100).fill(0).map(
 );
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ id: index, playerName: `player${index}`, money: 10000, location: 0, ownCountries: [] })
+  (foo, index) => ({ id: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [] })
 )
 
 const initialState = {
@@ -25,7 +25,6 @@ function counter(state=initialState, action) {
 
   switch(action.type) {
     case types.RANDOM:
-      console.log(state.turn);
       if(location+action.number > 35) {
         return {
           countries: [
@@ -47,7 +46,8 @@ function counter(state=initialState, action) {
             {
               ...player[turn],
               money:money+2000,
-              location: location+action.number-36
+              location: location+action.number-36,
+              prevLocation: location
             },
             ...player.slice(turn+1, player.length)
           ],
@@ -73,7 +73,8 @@ function counter(state=initialState, action) {
           ...player.slice(0, turn),
           {
             ...player[turn],
-            location: location+action.number
+            location: location+action.number,
+            prevLocation: location
           },
           ...player.slice(turn+1, player.length)
         ],
@@ -81,37 +82,30 @@ function counter(state=initialState, action) {
       };
 
     case types.DEAL:
-      // if(countries[location].bought && countries[location].owner !== player[turn].playerName) {
-      //   console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-      //   return {
-      //     countries: countries,
-      //     player: [
-      //       ...player.slice(0, turn),
-      //       {
-      //         ...player[turn],
-      //         money:money - countries[location].price
-      //       },
-      //       ...player.slice(turn+1, player.length)
-      //     ],
-      //     number: number,
-      //     turn: (turn+1)%4
-      //   };
-      // }
-      // return {
-      //   countries: countries,
-      //   player: player,
-      //   number: number,
-      //   turn: turn
-      // };
-
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
+      if(action.answer === true) {
+        return {
+          countries: countries,
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          number: number,
+          turn: (turn+1)%4
+        };
+      }
+      console.log(player[turn].playerName + '님이 파산했습니다');
       return {
         countries: countries,
         player: [
           ...player.slice(0, turn),
           {
             ...player[turn],
-            money:money - countries[location].price
+            money:0
           },
           ...player.slice(turn+1, player.length)
         ],
@@ -120,26 +114,34 @@ function counter(state=initialState, action) {
       };
     
     case types.BUY:
-      console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
+      if(action.answer === true) {
+        console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
+        return {
+          countries: [
+            ...countries.slice(0, location),
+            {
+              ...countries[location],
+              bought: true,
+              owner: player[turn].playerName
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price,
+              ownCountries: [...ownCountries, countries[location].name]
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          turn: (turn+1)%4
+        };
+      }
+      console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
       return {
-        countries: [
-          ...countries.slice(0, location),
-          {
-            ...countries[location],
-            bought: true,
-            owner: player[turn].playerName
-          },
-          ...countries.slice(location+1, countries.length)
-        ],
-        player: [
-          ...player.slice(0, turn),
-          {
-            ...player[turn],
-            money:money - countries[location].price,
-            ownCountries: [...ownCountries, countries[location].name]
-          },
-          ...player.slice(turn+1, player.length)
-        ],
+        countries: countries,
+        player: player,
         turn: (turn+1)%4
       };
     default:

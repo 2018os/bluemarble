@@ -11,15 +11,15 @@ window.jQuery = window.$ = $
 
 class CountryInfo extends Component {
   render() {
-    const { countries, player, onBuy, turn, onDeal } = this.props;
-    const { location } = player[turn];
-    const { name, price, bought } = countries[location];
+    const { countries, player, turn, onBuy, onDeal } = this.props;
+    const { location, playerName, prevLocation  } = player[turn];
+    const { name, price, bought, owner } = countries[location];
 
     const ModalBuy = () => {
       $('#Country_Buy').modal('show')
     };
-    const ModalPay = () => {
-      $('#Country_Pay').modal('show')
+    const ModalDeal = () => {
+      $('#Country_Deal').modal('show')
     }
 
     return (
@@ -27,9 +27,9 @@ class CountryInfo extends Component {
         <h1>{name}</h1>
         <h3>{price}원</h3>
         {
-          location!==0 && (() => {
-            if (bought) return (ModalPay());
+          prevLocation!==location && location!==0 && owner!==playerName && (() => {
             if (!bought) return (ModalBuy());
+            if (bought) return (ModalDeal());
           })()
         }
 
@@ -45,14 +45,14 @@ class CountryInfo extends Component {
                 <p>{name}</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={onBuy} data-dismiss="modal">구매하기</button>
-                <button type="button" className="btn btn-default" data-dismiss="modal">닫기</button>
+                <button type="button" className="btn btn-primary" onClick={() => onBuy(true)} data-dismiss="modal">구매하기</button>
+                <button type="button" className="btn btn-default" onClick={() => onBuy(false)} data-dismiss="modal">닫기</button>
               </div>
             </div> 
           </div>
         </div>
 
-        <div className="modal fade" id="Country_Pay" role="dialog">
+        <div className="modal fade" id="Country_Deal" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -60,11 +60,11 @@ class CountryInfo extends Component {
                 <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
-                <p>남의 땅을 밟았습니다.</p>
+                <p>{owner}님의 땅을 밟았습니다.</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={onDeal} data-dismiss="modal">지불하기</button>
-                <button type="button" className="btn btn-default" data-dismiss="modal">닫기</button>
+                <button type="button" className="btn btn-primary" onClick={() => onDeal(true)} data-dismiss="modal">지불하기</button>
+                <button type="button" className="btn btn-default" onClick={() => onDeal(false)} data-dismiss="modal">파산하기</button>
               </div>
             </div> 
           </div>
@@ -79,6 +79,7 @@ CountryInfo.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, done: PropTypes.bool, bought: PropTypes.bool, owner: PropTypes.string})),
   player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName: PropTypes.string, money: PropTypes.number, ownCountries: PropTypes.array})),
   onBuy: PropTypes.func,
+  onDeal: PropTypes.func,
   turn: PropTypes.number
 }
 
@@ -86,6 +87,7 @@ CountryInfo.defaultProps = {
   countries: [],
   player: [],
   onBuy: () => console.warn('onBuy not defined'),
+  onDeal: () => console.warn('onDeal not defined'),
   turn: 0
 }
 

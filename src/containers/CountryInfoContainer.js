@@ -5,11 +5,11 @@ import * as actions from "../actions";
 //props 값으로 넣어줄 상태 정의
 const mapStateToProps = (state) => ({countries: state.countries, player: state.player, turn: state.turn});
 const mapDispatchToProps = (dispatch) => ({
-  onBuy: () => {
-    dispatch(actions.buy());
+  onBuy: (answer) => {
+    dispatch(actions.buy(answer));
   },
-  onDeal: () => {
-    dispatch(actions.deal());
+  onDeal: (answer) => {
+    dispatch(actions.deal(answer));
   }
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);

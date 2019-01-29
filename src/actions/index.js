@@ -5,10 +5,12 @@ export const random = (number) => ({
     number
 });
 
-export const deal = () => ({
-    type: types.DEAL
+export const deal = (answer) => ({
+    type: types.DEAL,
+    answer
 });
 
-export const buy = () => ({
-    type: types.BUY
+export const buy = (answer) => ({
+    type: types.BUY,
+    answer
 })

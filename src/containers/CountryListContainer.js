@@ -1,14 +1,8 @@
 import CountryList from '../components/country/CountryList';
 import { connect } from 'react-redux';
-import * as actions from "../actions";
 
 //props 값으로 넣어줄 상태 정의
 const mapStateToProps = (state) => ({countries: state.countries});
-const mapDispatchToProps = (dispatch) => ({
-  onDeal: () => {
-      dispatch(actions.deal());
-  }
-});
-const CountryListContainer = connect(mapStateToProps, mapDispatchToProps)(CountryList);
+const CountryListContainer = connect(mapStateToProps)(CountryList);
 
 export default CountryListContainer;

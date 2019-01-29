@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import "./Showplayer.scss";
+import PropTypes from 'prop-types';
 
 class Showplayer2 extends Component {
   render() {
@@ -20,6 +21,14 @@ class Showplayer2 extends Component {
       </div>
     )
   }
+}
+
+Showplayer2.propTypes = {
+  player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName: PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.arrayOf}))
+}
+
+Showplayer2.defaultProps = {
+  player: []
 }
 
 export default Showplayer2;

@@ -3,7 +3,7 @@ import "./country_box.scss";
 import PropTypes from 'prop-types';
 import PlayerInfoContainer from "../../containers/PlayerInfoContainer";
 
-const Country = ({ name, price, done, turn, owner }) => {   //done으로 player위치 확인
+const Country = ({ name, price, done, owner }) => {   //done으로 player위치 확인
   return (
     <div className="country_nick">
       <div className="sub_detail">
@@ -19,14 +19,14 @@ Country.propTypes = {
   name: PropTypes.string,
   price: PropTypes.number,
   done: PropTypes.bool,
-  turn: PropTypes.number
+  owner: PropTypes.string
 };
 
 Country.defaultProps = {
   name: '',
   price: 0,
   done: false,
-  turn: 0
+  owner: ''
 };
 
 export default Country;
