@@ -13,7 +13,7 @@ class CountryList extends Component {
   }
 
   render() {
-    const { countries, turn } = this.props;
+    const { countries } = this.props;
     const map1 = countries.slice(0, 10);
     const map2 = countries.slice(10, 18);
     const map3 = countries.slice(18, 28);
@@ -22,22 +22,22 @@ class CountryList extends Component {
     const reversemap4 = map4.reverse();
     const map1List = map1.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} />
+        <Country key={i} {...info} />
       )
     );
     const map2List = map2.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} />
+        <Country key={i} {...info} />
       )
     );
     const map3List = reversemap3.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} />
+        <Country key={i} {...info} />
       )
     );
     const map4List = reversemap4.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} />
+        <Country key={i} {...info} />
       )
     );
 
@@ -76,7 +76,6 @@ CountryList.propTypes = {
 
 CountryList.defaultProps = {
   countries: [],
-  turn: 0,
   onDeal: () => console.warn('onDeal not defined')
 }
 export default CountryList;
