@@ -1,8 +1,19 @@
-.player {
+.A_player {
     width: 50px;
     height: 30px;
-    position: absolute;
+    // position: absolute;
     background-color: aqua;
+    text-align: center;
+    border: 1px solid black;
+    margin-left: 1.5%;
+    margin-top:1%
+}
+
+.B_player {
+    width: 50px;
+    height: 30px;
+    // position: absolute;
+    background-color: red;
     text-align: center;
     border: 1px solid black;
     margin-left: 1.5%;
