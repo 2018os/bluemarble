@@ -21,7 +21,7 @@ const initialState = {
 
 function counter(state=initialState, action) {
   const { countries, player, number, turn } = state;
-  const { location, money, ownCountries, playerMove } = player[turn];
+  const { location, money, ownCountries } = player[turn];
 
   switch(action.type) {
     case types.RANDOM:

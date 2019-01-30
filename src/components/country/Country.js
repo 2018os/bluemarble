@@ -8,10 +8,11 @@ import Player3 from "../player/Player3";
 import Player4 from "../player/Player4";
 
 const Country = ({ name, price, done, owner, turn, player }) => {   //done으로 player위치 확인
-  const turns = {turn};
+
   // const turn1 = 1;
-  // const { playerMove } = player[turn];
-  console.log(player[turn].playerMove);
+
+  const { playerMove } = player[turn];
+  console.log(playerMove);
   return (
     <div className="country_nick">
       <div className="sub_detail">
