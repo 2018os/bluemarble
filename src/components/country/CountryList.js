@@ -9,7 +9,7 @@ import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
 
 class CountryList extends Component {
   render() {
-    const { countries, turn, player } = this.props;
+    const { countries, player, turn } = this.props;
     const map1 = countries.slice(0, 10);
     const map2 = countries.slice(10, 18);
     const map3 = countries.slice(18, 28);
@@ -18,22 +18,22 @@ class CountryList extends Component {
     const reversemap4 = map4.reverse();
     const map1List = map1.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} player={player}/>
+        <Country key={i} {...info} location={player[turn].location} />
       )
     );
     const map2List = map2.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} player={player}/>
+        <Country key={i} {...info} location={player[turn].location} />
       )
     );
     const map3List = reversemap3.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} player={player}/>
+        <Country key={i} {...info} location={player[turn].location} />
       )
     );
     const map4List = reversemap4.map(
       (info, i) => (
-        <Country key={i} {...info} turn={turn} />
+        <Country key={i} {...info} location={player[turn].location} />
       )
     );
 
@@ -66,8 +66,8 @@ class CountryList extends Component {
 
 CountryList.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, price: PropTypes.number, done: PropTypes.bool, bought: PropTypes.bool, owner: PropTypes.string})),
-  player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName: PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.arrayOf, playerMove: PropTypes.bool})),
-  turn: PropTypes.number,
+  player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName:PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.array})),
+  turn: PropTypes.number
 };
 
 CountryList.defaultProps = {

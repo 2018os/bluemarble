@@ -1,23 +1,24 @@
 import React from 'react';
 import "./country_box.scss";
-import HaveCountry from "./haveCountry";
+// import HaveCountry from "./haveCountry";
 import PropTypes from 'prop-types';
-import Player1 from "../player/Player1";
-import Player2 from "../player/Player2";
-import Player3 from "../player/Player3";
-import Player4 from "../player/Player4";
+// import Player1 from "../player/Player1";
+// import Player2 from "../player/Player2";
+// import Player3 from "../player/Player3";
+// import Player4 from "../player/Player4";
 
-const Country = ({ name, price, done, owner, turn, player }) => {   //done으로 player위치 확인
+const Country = ({ id, name, price, done, owner, location }) => {   //done으로 player위치 확인
 
-  // const turn1 = 1;
-
-  const { playerMove } = player[turn];
-  console.log(playerMove);
   return (
     <div className="country_nick">
       <div className="sub_detail">
         <div>{name}</div>
-        <HaveCountry owner={owner}></HaveCountry>
+        {/* <HaveCountry owner={owner}></HaveCountry> */}
+        {
+          (() => {
+            if(location === id) return <div>hi</div>
+          })()
+        }
       </div>
       {/* { (done && playerMove) && <Player1 />} */}
       {/* { (done && player[turn].id===1) && <Player2 />} */}
@@ -46,8 +47,7 @@ Country.propTypes = {
   price: PropTypes.number,
   done: PropTypes.bool,
   owner: PropTypes.string,
-  playerMove: PropTypes.bool,
-  turn: PropTypes.number
+  location: PropTypes.number
 };
 
 Country.defaultProps = {
@@ -55,8 +55,7 @@ Country.defaultProps = {
   price: 0,
   done: false,
   owner: '',
-  playerMove: false,
-  turn: 0,
+  location: PropTypes.number
 };
 
 export default Country;
