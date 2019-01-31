@@ -9,7 +9,7 @@ const initialCountries = new Array(100).fill(0).map(
 );
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ id: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [] })
+  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [] })
 )
 
 const initialState = {
