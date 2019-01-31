@@ -18,22 +18,22 @@ class CountryList extends Component {
     const reversemap4 = map4.reverse();
     const map1List = map1.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} playerName={player[turn].playerName} />
       )
     );
     const map2List = map2.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} playerName={player[turn].playerName} />
       )
     );
     const map3List = reversemap3.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} playerName={player[turn].playerName} />
       )
     );
     const map4List = reversemap4.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} playerName={player[turn].playerName} />
       )
     );
 

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 // import Player3 from "../player/Player3";
 // import Player4 from "../player/Player4";
 
-const Country = ({ id, name, price, done, owner, location }) => {   //done으로 player위치 확인
+const Country = ({ id, name, price, done, owner, location, playerName }) => {   //done으로 player위치 확인
 
   return (
     <div className="country_nick">
@@ -16,7 +16,7 @@ const Country = ({ id, name, price, done, owner, location }) => {   //done으로
         {/* <HaveCountry owner={owner}></HaveCountry> */}
         {
           (() => {
-            if(location === id) return <div>hi</div>
+            if(location === id) return <div>{playerName}</div>
           })()
         }
       </div>

@@ -26,6 +26,7 @@ class CountryInfo extends Component {
       <div className="countryInfo">
         <h1>{name}</h1>
         <h3>{price}원</h3>
+        <h3>NOW: {playerName}</h3>
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
             if (!bought) return (ModalBuy());
