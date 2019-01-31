@@ -18,22 +18,22 @@ class CountryList extends Component {
     const reversemap4 = map4.reverse();
     const map1List = map1.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
     const map2List = map2.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
     const map3List = reversemap3.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
     const map4List = reversemap4.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} />
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
 
@@ -66,7 +66,7 @@ class CountryList extends Component {
 
 CountryList.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, price: PropTypes.number, done: PropTypes.bool, bought: PropTypes.bool, owner: PropTypes.string})),
-  player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName:PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.array})),
+  player: PropTypes.arrayOf(PropTypes.shape({userid: PropTypes.number, playerName:PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.array})),
   turn: PropTypes.number
 };
 
