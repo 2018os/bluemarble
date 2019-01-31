@@ -14,9 +14,27 @@ class Showplayer1 extends Component {
           <p>나라: {player[0].ownCountries}</p>
         </div>
         <div className="B_player">
-          <p>id: {player[1].playerName}</p>
-          <p>돈: {player[1].money}</p>
-          <p>나라: {player[1].ownCountries}</p>
+        {
+          (() => {
+            if(player.length > 1) {
+              return (
+                <div>
+                  <p>id: {player[1].playerName}</p>
+                  <p>돈: {player[1].money}</p>
+                  <p>나라: {player[1].ownCountries}</p>
+                </div>
+              )
+            } else {
+              return (
+                <div>
+                  <p>id: 파산</p>
+                  <p>돈: -999999</p>
+                  <p>나라: 0</p>
+                </div>
+              )
+            }
+          })()
+        }
         </div>
         <div>
 

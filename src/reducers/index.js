@@ -104,23 +104,25 @@ function counter(state=initialState, action) {
             ...player.slice(turn+1, player.length)
           ],
           number: number,
-          turn: (turn+1)%4
+          turn: (turn+1)%player.length
         };
       }
       console.log(player[turn].playerName + '님이 파산했습니다');
+      player.splice(turn, 1);
       return {
         countries: countries,
-        player: [
-          ...player.slice(0, turn),
-          {
-            ...player[turn],
-            money:0,
-            prevLocation: location
-          },
-          ...player.slice(turn+1, player.length)
-        ],
+        // player: [
+        //   ...player.slice(0, turn),
+        //   {
+        //     ...player[turn],
+        //     money:0,
+        //     prevLocation: location
+        //   },
+        //   ...player.slice(turn+1, player.length)
+        // ],
+        player: player,
         number: number,
-        turn: (turn+1)%4
+        turn: (turn+1)%player.length
       };
     
     case types.BUY:
@@ -146,7 +148,7 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: (turn+1)%4
+          turn: (turn+1)%player.length
         };
       }
       console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
@@ -160,7 +162,7 @@ function counter(state=initialState, action) {
           },
           ...player.slice(turn+1, player.length)
         ],
-        turn: (turn+1)%4
+        turn: (turn+1)%player.length
       };
     default:
       return state;
