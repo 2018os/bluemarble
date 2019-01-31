@@ -14,7 +14,7 @@ const Country = ({ id, name, price, done, owner, location, userid }) => {   //do
         <HaveCountry owner={owner}></HaveCountry>
         {
           (() => {
-            console.log(userid);
+            // console.log(userid);
             if(location === id) return <Player userid={userid}/>
           })()
         }
