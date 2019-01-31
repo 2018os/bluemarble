@@ -1,43 +1,24 @@
 import React from 'react';
 import "./country_box.scss";
-// import HaveCountry from "./haveCountry";
+import HaveCountry from "./haveCountry";
+import PlayerHave from "./PlayerHave";
 import PropTypes from 'prop-types';
-// import Player1 from "../player/Player1";
-// import Player2 from "../player/Player2";
-// import Player3 from "../player/Player3";
-// import Player4 from "../player/Player4";
+import Player from "../player/Player";
 
-const Country = ({ id, name, price, done, owner, location }) => {   //done으로 player위치 확인
+const Country = ({ id, name, price, done, owner, location, userid }) => {   //done으로 player위치 확인
 
   return (
     <div className="country_nick">
       <div className="sub_detail">
-        <div>{name}</div>
-        {/* <HaveCountry owner={owner}></HaveCountry> */}
+        <PlayerHave owner={owner}>{name}</PlayerHave>
+        <HaveCountry owner={owner}></HaveCountry>
         {
           (() => {
-            if(location === id) return <div>hi</div>
+            console.log(userid);
+            if(location === id) return <Player userid={userid}/>
           })()
         }
       </div>
-      {/* { (done && playerMove) && <Player1 />} */}
-      {/* { (done && player[turn].id===1) && <Player2 />} */}
-      {/* { player[turn].playerMove && <div>aa</div>} */}
-      {/* {
-       done && (function() {
-         if (player[turn].id === 0) {
-          return (<Player1 />); 
-        } else if (turn === 1) {
-          return (<Player2 />);
-        } else if (turn === 2) {
-          return (<Player3 />);
-        } else if (turn === 3) {
-          return (<Player4 />);
-        } else {
-          return console.log("오류");
-        }
-        })()
-      } */}
     </div>
   );
 };
@@ -47,7 +28,8 @@ Country.propTypes = {
   price: PropTypes.number,
   done: PropTypes.bool,
   owner: PropTypes.string,
-  location: PropTypes.number
+  location: PropTypes.number,
+  userid: PropTypes.number
 };
 
 Country.defaultProps = {
@@ -55,7 +37,8 @@ Country.defaultProps = {
   price: 0,
   done: false,
   owner: '',
-  location: PropTypes.number
+  location: PropTypes.number,
+  userid: PropTypes.number,
 };
 
 export default Country;
