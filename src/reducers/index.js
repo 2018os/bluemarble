@@ -16,24 +16,25 @@ const initialState = {
   countries: initialCountries,
   player: initialPlayer,
   number: 0,
+  senumber: 0,
   turn: 0
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, number, turn } = state;
+  const { countries, player, number, senumber, turn } = state;
   const { location, money, ownCountries } = player[turn];
 
   switch(action.type) {
     case types.RANDOM:
-      if(location+action.number > 35) {
+      if(location+action.number+action.senumber > 35) {
         return {
           countries: [
-            ...countries.slice(0, location+action.number-36),
+            ...countries.slice(0, location+action.number+action.senumber-36),
             {
-              ...countries[location+action.number-36],
+              ...countries[location+action.number+action.senumber-36],
               done: true,                            
             },
-            ...countries.slice(location+action.number-35, location),
+            ...countries.slice(location+action.number+action.senumber-35, location),
             {
               ...countries[location],
               done: false,
@@ -41,12 +42,13 @@ function counter(state=initialState, action) {
             ...countries.slice(location+1, countries.length)
           ],
           number: action.number,
+          senumber: action.senumber,
           player: [
             ...player.slice(0, turn),
             {
               ...player[turn],
               money:money+2000,
-              location: location+action.number-36,
+              location: location+action.number+action.senumber-36,
               prevLocation: location
             },
             ...player.slice(turn+1, player.length)
@@ -61,19 +63,20 @@ function counter(state=initialState, action) {
             ...countries[location],
             done: false,
           },
-          ...countries.slice(location+1, location+action.number),
+          ...countries.slice(location+1, location+action.number+action.senumber),
           {
-            ...countries[location+action.number],
+            ...countries[location+action.number+action.senumber],
             done: true,
           },
-          ...countries.slice(location+action.number+1, countries.length)
+          ...countries.slice(location+action.number+action.senumber+1, countries.length)
         ],
         number: action.number,
+        senumber: action.senumber,
         player: [
           ...player.slice(0, turn),
           {
             ...player[turn],
-            location: location+action.number,
+            location: location+action.number+action.senumber,
             prevLocation: location,
           },
           ...player.slice(turn+1, player.length)
@@ -104,6 +107,7 @@ function counter(state=initialState, action) {
             ...player.slice(turn+1, player.length)
           ],
           number: number,
+          senumber: senumber,
           turn: (turn+1)%player.length
         };
       }
