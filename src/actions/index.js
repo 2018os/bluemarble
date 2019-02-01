@@ -1,8 +1,9 @@
 import * as types from "./actionTypes";
 
-export const random = (number) => ({
+export const random = (number, senumber) => ({
     type: types.RANDOM,
-    number
+    number,
+    senumber
 });
 
 export const deal = (answer) => ({
