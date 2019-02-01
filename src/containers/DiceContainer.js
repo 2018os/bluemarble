@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => ({
     onRandom: () => {
         const number = getRandomnumber();
         const senumber = getRandomnumber();
-        console.log(number,senumber);
         dispatch(actions.random(number, senumber));
     }
 });

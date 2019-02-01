@@ -1,6 +1,6 @@
 import * as types from "../actions/actionTypes";
 
-const initialCountries = new Array(100).fill(0).map(
+const initialCountries = new Array(36).fill(0).map(
   (foo, index) => {
     return index===0
       ? { id: index, name: `출발지`, price:500*index/100, done: true, bought: false }
@@ -21,18 +21,22 @@ const initialState = {
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, number, senumber, turn } = state;
+  const { countries, player, number, turn } = state;
   const { location, money, ownCountries } = player[turn];
 
   switch(action.type) {
     case types.RANDOM:
+    // location!==0 && owner!==playerName
+      // if(location+action.number+action.senumber === 36) {
+
+      // }
       if(location+action.number+action.senumber > 35) {
         return {
           countries: [
             ...countries.slice(0, location+action.number+action.senumber-36),
             {
               ...countries[location+action.number+action.senumber-36],
-              done: true,                            
+              done: true,
             },
             ...countries.slice(location+action.number+action.senumber-35, location),
             {
@@ -86,30 +90,48 @@ function counter(state=initialState, action) {
 
     case types.DEAL:
       const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
+      const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-      console.log(player[indexOfOwner].money);
-      console.log(countries[location].price);
       if(action.answer === true) {
-        return {
-          countries: countries,
-          player: [
-            ...player.slice(0, indexOfOwner),
-            {
-              ...player[indexOfOwner],
-              money: money + countries[location].price
-            },
-            ...player.slice(indexOfOwner+1, turn),
-            {
-              ...player[turn],
-              money: money - countries[location].price,
-              prevLocation: location
-            },
-            ...player.slice(turn+1, player.length)
-          ],
-          number: number,
-          senumber: senumber,
-          turn: (turn+1)%player.length
-        };
+        if(indexOfOwner < turn) {
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, indexOfOwner),
+              {
+                ...player[indexOfOwner],
+                money: ownerMoney + countries[location].price
+              },
+              ...player.slice(indexOfOwner+1, turn),
+              {
+                ...player[turn],
+                money: money - countries[location].price,
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%player.length
+          };
+        } else {
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                money: money - countries[location].price,
+                prevLocation: location
+              },
+              ...player.slice(turn+1, indexOfOwner),
+              {
+                ...player[indexOfOwner],
+                money: ownerMoney + countries[location].price
+              },
+              ...player.slice(indexOfOwner+1, player.length)
+            ],
+            turn: (turn+1)%player.length
+          };
+        }
       }
       console.log(player[turn].playerName + '님이 파산했습니다');
       player.splice(turn, 1);

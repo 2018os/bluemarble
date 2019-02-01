@@ -20,7 +20,7 @@ const Dice = ({number, senumber, onRandom}) => {
 
 Dice.propTypes = {
     number: PropTypes.number,
-    senumber: PropTypes.senumber,
+    senumber: PropTypes.number,
     onRandom: PropTypes.func
 };
 

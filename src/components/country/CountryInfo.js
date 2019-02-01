@@ -29,6 +29,7 @@ class CountryInfo extends Component {
         <h3>NOW: {playerName}</h3>
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
+            console.log('prevLocation: ' + prevLocation + ' location: ' + location);
             if (!bought) return (ModalBuy());
             if (bought) return (ModalDeal());
           })()
@@ -39,7 +40,6 @@ class CountryInfo extends Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">×</button>
                 <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
@@ -57,7 +57,6 @@ class CountryInfo extends Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal">×</button>
                 <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
