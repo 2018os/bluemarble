@@ -8,13 +8,16 @@ export function getRandomnumber() {
 }
 // props 값 정의
 const mapStateToProps = (state) => ({
-    number: state.number
+    number: state.number,
+    senumber: state.senumber,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     onRandom: () => {
         const number = getRandomnumber();
-        dispatch(actions.random(number));
+        const senumber = getRandomnumber();
+        console.log(number,senumber);
+        dispatch(actions.random(number, senumber));
     }
 });
 
