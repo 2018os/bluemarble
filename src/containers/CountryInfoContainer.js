@@ -8,8 +8,11 @@ const mapDispatchToProps = (dispatch) => ({
   onBuy: (answer) => {
     dispatch(actions.buy(answer));
   },
-  onDeal: (answer) => {
-    dispatch(actions.deal(answer));
+  onDeal: () => {
+    dispatch(actions.deal());
+  },
+  onBankruptcy: () => {
+    dispatch(actions.bankruptcy());
   }
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);

@@ -10,8 +10,15 @@ window.jQuery = window.$ = $
 
 
 class CountryInfo extends Component {
+  componentDidUpdate() {
+    if(this.props.player[this.props.turn].bankruptcy === true) {
+      (() => {
+        this.props.onBankruptcy();
+      })();
+    }
+  }
   render() {
-    const { countries, player, turn, onBuy, onDeal } = this.props;
+    const { countries, player, turn, onBuy, onDeal, onBankruptcy } = this.props;
     const { location, playerName, prevLocation  } = player[turn];
     const { name, price, bought, owner } = countries[location];
 
@@ -63,8 +70,8 @@ class CountryInfo extends Component {
                 <p>{owner}님의 땅을 밟았습니다.</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => onDeal(true)} data-dismiss="modal">지불하기</button>
-                <button type="button" className="btn btn-default" onClick={() => onDeal(false)} data-dismiss="modal">파산하기</button>
+                <button type="button" className="btn btn-primary" onClick={() => onDeal()} data-dismiss="modal">지불하기</button>
+                <button type="button" className="btn btn-default" onClick={() => onBankruptcy()} data-dismiss="modal">파산하기</button>
               </div>
             </div> 
           </div>
@@ -80,6 +87,7 @@ CountryInfo.propTypes = {
   player: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, playerName: PropTypes.string, money: PropTypes.number, ownCountries: PropTypes.array})),
   onBuy: PropTypes.func,
   onDeal: PropTypes.func,
+  onBankruptcy: PropTypes.func,
   turn: PropTypes.number
 }
 
@@ -88,6 +96,7 @@ CountryInfo.defaultProps = {
   player: [],
   onBuy: () => console.warn('onBuy not defined'),
   onDeal: () => console.warn('onDeal not defined'),
+  onBankruptcy: () => console.warn('onBankruptcy not defined'),
   turn: 0
 }
 

@@ -325,7 +325,7 @@ const initialCountries = [
 ]
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [] })
+  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy:false })
 )
 
 const initialState = {
@@ -337,7 +337,7 @@ const initialState = {
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, number, turn } = state;
+  const { countries, player, turn } = state;
   const { location, money, ownCountries } = player[turn];
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
 
@@ -373,7 +373,7 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%player.length
+            turn: (turn+1)%4
           }
         }
         return {
@@ -432,7 +432,7 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: (turn+1)%player.length
+          turn: (turn+1)%4
         };
       }
       return {
@@ -466,7 +466,6 @@ function counter(state=initialState, action) {
     case types.DEAL:
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-      if(action.answer === true) {
         if(indexOfOwner < turn) {
           return {
             countries: countries,
@@ -484,7 +483,7 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%player.length
+            turn: (turn+1)%4
           };
         } else {
           return {
@@ -503,27 +502,9 @@ function counter(state=initialState, action) {
               },
               ...player.slice(indexOfOwner+1, player.length)
             ],
-            turn: (turn+1)%player.length
+            turn: (turn+1)%4
           };
         }
-      }
-      console.log(player[turn].playerName + '님이 파산했습니다');
-      player.splice(turn, 1);
-      return {
-        countries: countries,
-        // player: [
-        //   ...player.slice(0, turn),
-        //   {
-        //     ...player[turn],
-        //     money:0,
-        //     prevLocation: location
-        //   },
-        //   ...player.slice(turn+1, player.length)
-        // ],
-        player: player,
-        number: number,
-        turn: (turn+1)%player.length
-      };
     
     case types.BUY:
       if(action.answer === true) {
@@ -548,7 +529,7 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: (turn+1)%player.length
+          turn: (turn+1)%4
         };
       }
       console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
@@ -562,7 +543,37 @@ function counter(state=initialState, action) {
           },
           ...player.slice(turn+1, player.length)
         ],
-        turn: (turn+1)%player.length
+        turn: (turn+1)%4
+      };
+
+    case types.BANKRUPTCY:
+      console.log(player[turn].playerName + '님이 파산했습니다');
+      // const resetCountries = countries.map(
+      //   (info, index) => {
+      //     if(info[index].owner === player[turn].playerName) {
+      //       info[index].owner = '';
+      //       info[index].bought = false;
+      //     }
+      //   }
+      // )
+      // player.splice(turn, 1);
+      return {
+        countries: countries,
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            playerName: '파산',
+            money:0,
+            location: 0,
+            prevLocation: 0,
+            ownCountries: [],
+            bankruptcy: true
+          },
+          ...player.slice(turn+1, player.length)
+        ],
+        // player: player,
+        turn: (turn+1)%4
       };
     default:
       return state;
