@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 export function getRandomnumber() {
     const random = Math.floor(Math.random()*6+1);
+    // const random = 5;
     return random;
 }
 // props 값 정의
