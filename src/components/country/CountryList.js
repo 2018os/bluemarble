@@ -15,6 +15,7 @@ class CountryList extends Component {
     const map2 = countries.slice(10, 21);
     const map3 = countries.slice(21, 30);
     const map4 = countries.slice(30, 40);
+    const reversemap4 = map4.reverse();
     const map1List = reversemap1.map(
       (info, i) => (
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
@@ -30,7 +31,7 @@ class CountryList extends Component {
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
-    const map4List = map4.map(
+    const map4List = reversemap4.map(
       (info, i) => (
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
