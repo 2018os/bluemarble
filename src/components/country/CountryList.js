@@ -11,12 +11,11 @@ class CountryList extends Component {
   render() {
     const { countries, player, turn } = this.props;
     const map1 = countries.slice(0, 10);
-    const map2 = countries.slice(10, 18);
-    const map3 = countries.slice(18, 28);
-    const reversemap3 = map3.reverse();
-    const map4 = countries.slice(28, 36);
-    const reversemap4 = map4.reverse();
-    const map1List = map1.map(
+    const reversemap1 = map1.reverse();
+    const map2 = countries.slice(10, 21);
+    const map3 = countries.slice(21, 30);
+    const map4 = countries.slice(30, 40);
+    const map1List = reversemap1.map(
       (info, i) => (
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
@@ -26,12 +25,12 @@ class CountryList extends Component {
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
-    const map3List = reversemap3.map(
+    const map3List = map3.map(
       (info, i) => (
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
     );
-    const map4List = reversemap4.map(
+    const map4List = map4.map(
       (info, i) => (
         <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
       )
@@ -43,18 +42,18 @@ class CountryList extends Component {
         <UpPlayerInfoContainer />
         <div className="CountryList">
           <div className="first_line">
-            {map1List}
+            {map2List}
           </div>
           <div className="second_line">
-            {map4List}
+            {map1List}
           </div>
           <CountryInfoContainer />
           <DiceContainer />
           <div className="third_line">
-            {map2List}
+            {map3List}
           </div>
           <div className="four_line">
-            {map3List}
+            {map4List}
           </div>
         </div>
         <UndefPlayerInfoContainer />
