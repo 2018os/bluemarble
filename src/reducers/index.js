@@ -3,7 +3,7 @@ import * as types from "../actions/actionTypes";
 const initialCountries = new Array(36).fill(0).map(
   (foo, index) => {
     return index===0
-      ? { id: index, name: `출발지`, price:500*index/100, done: true, bought: false }
+      ? { id: index, name: `출발지`, price:500*index/100, done: true, bought: false, owner: 'admin' }
       : { id: index, name: `카이로${index}`, price:500*index/100, done: false, bought: false, owner: '' }
   }
 );
@@ -23,14 +23,43 @@ const initialState = {
 function counter(state=initialState, action) {
   const { countries, player, number, turn } = state;
   const { location, money, ownCountries } = player[turn];
+  const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
 
   switch(action.type) {
     case types.RANDOM:
-    // location!==0 && owner!==playerName
-      // if(location+action.number+action.senumber === 36) {
-
-      // }
+    // owner!==playerName
       if(location+action.number+action.senumber > 35) {
+        if(location+action.number+action.senumber === 36 || countries[location+action.number+action.senumber-36].owner === player[turn].playerName) {
+          console.log('출발지 혹은 본인 땅을 밟았습니다.');
+          return {
+            countries: [
+              ...countries.slice(0, location+action.number+action.senumber-36),
+              {
+                ...countries[location+action.number+action.senumber-36],
+                done: true,
+              },
+              ...countries.slice(location+action.number+action.senumber-35, location),
+              {
+                ...countries[location],
+                done: false,
+              },
+              ...countries.slice(location+1, countries.length)
+            ],
+            number: action.number,
+            senumber: action.senumber,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                money:money+2000,
+                location: location+action.number+action.senumber-36,
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%player.length
+          }
+        }
         return {
           countries: [
             ...countries.slice(0, location+action.number+action.senumber-36),
@@ -59,6 +88,36 @@ function counter(state=initialState, action) {
           ],
           turn: turn
         }
+      }
+      if(location !== 0 && countries[location+action.number+action.senumber].owner === player[turn].playerName) {
+        console.log('본인땅을 밟았습니다.');
+        return {
+          countries: [
+            ...countries.slice(0, location),
+            {
+              ...countries[location],
+              done: false,
+            },
+            ...countries.slice(location+1, location+action.number+action.senumber),
+            {
+              ...countries[location+action.number+action.senumber],
+              done: true,
+            },
+            ...countries.slice(location+action.number+action.senumber+1, countries.length)
+          ],
+          number: action.number,
+          senumber: action.senumber,
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              location: location+action.number+action.senumber,
+              prevLocation: location,
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          turn: (turn+1)%player.length
+        };
       }
       return {
         countries: [
@@ -89,7 +148,6 @@ function counter(state=initialState, action) {
       };
 
     case types.DEAL:
-      const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
       if(action.answer === true) {
