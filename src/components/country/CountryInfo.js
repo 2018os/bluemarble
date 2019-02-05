@@ -20,7 +20,7 @@ class CountryInfo extends Component {
   render() {
     const { countries, player, turn, onBuy, onDeal, onBankruptcy } = this.props;
     const { location, playerName, prevLocation  } = player[turn];
-    const { name, price, bought, owner } = countries[location];
+    const { name, price, bought, owner, event } = countries[location];
 
     const ModalBuy = () => {
       $('#Country_Buy').modal('show')
@@ -34,6 +34,11 @@ class CountryInfo extends Component {
         <h1>{name}</h1>
         <h3>{price}원</h3>
         <h3>NOW: {playerName}</h3>
+        {
+          event && (() => {
+            console.log('event: ' + event);
+          })()
+        }
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
             console.log('prevLocation: ' + prevLocation + ' location: ' + location);
