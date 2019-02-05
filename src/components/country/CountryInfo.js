@@ -18,7 +18,7 @@ class CountryInfo extends Component {
     }
   }
   render() {
-    const { countries, player, turn, onBuy, onDeal, onBankruptcy } = this.props;
+    const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent } = this.props;
     const { location, playerName, prevLocation  } = player[turn];
     const { name, price, bought, owner, event } = countries[location];
 
@@ -35,15 +35,14 @@ class CountryInfo extends Component {
         <h3>{price}원</h3>
         <h3>NOW: {playerName}</h3>
         {
-          event && (() => {
-            console.log('event: ' + event);
-          })()
-        }
-        {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
             console.log('prevLocation: ' + prevLocation + ' location: ' + location);
-            if (!bought) return (ModalBuy());
-            if (bought) return (ModalDeal());
+            if (event) {
+              onEvent(event);
+            } else {
+              if (!bought) return (ModalBuy());
+              return (ModalDeal());
+            }
           })()
         }
 
@@ -93,6 +92,7 @@ CountryInfo.propTypes = {
   onBuy: PropTypes.func,
   onDeal: PropTypes.func,
   onBankruptcy: PropTypes.func,
+  onEvent: PropTypes.func,
   turn: PropTypes.number
 }
 
@@ -102,6 +102,7 @@ CountryInfo.defaultProps = {
   onBuy: () => console.warn('onBuy not defined'),
   onDeal: () => console.warn('onDeal not defined'),
   onBankruptcy: () => console.warn('onBankruptcy not defined'),
+  onEvent: () => console.warn('onEvent not defined'),
   turn: 0
 }
 

@@ -276,6 +276,11 @@ function counter(state=initialState, action) {
         // player: player,
         turn: (turn+1)%4
       };
+
+    case types.EVENT:
+      console.log(action.event);
+      return state;
+
     default:
       return state;
   }
