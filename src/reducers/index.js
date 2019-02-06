@@ -2,7 +2,7 @@ import * as types from "../actions/actionTypes";
 import initialCountries from '../lib/initialCountries';
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy:false })
+  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy: false, islandNumber: 3 })
 )
 
 const initialState = {
@@ -14,8 +14,8 @@ const initialState = {
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, turn, number, senumber } = state;
-  const { location, money, ownCountries } = player[turn];
+  const { countries, player, turn } = state;
+  const { location, money, ownCountries, islandNumber } = player[turn];
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
 
   switch(action.type) {
@@ -183,31 +183,31 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      if(number === senumber) {
-        console.log(number, senumber)
-        return {
-          countries: [
-            ...countries.slice(0, location),
-            {
-              ...countries[location],
-              bought: true,
-              owner: player[turn].playerName
-            },
-            ...countries.slice(location+1, countries.length)
-          ],
-          player: [
-            ...player.slice(0, turn),
-            {
-              ...player[turn],
-              money:money - countries[location].price,
-              ownCountries: [...ownCountries, countries[location].name],
-              prevLocation: location
-            },
-            ...player.slice(turn+1, player.length)
-          ],
-          turn: turn
-        };
-      }
+      // if(number === senumber) {
+      //   console.log(number, senumber)
+      //   return {
+      //     countries: [
+      //       ...countries.slice(0, location),
+      //       {
+      //         ...countries[location],
+      //         bought: true,
+      //         owner: player[turn].playerName
+      //       },
+      //       ...countries.slice(location+1, countries.length)
+      //     ],
+      //     player: [
+      //       ...player.slice(0, turn),
+      //       {
+      //         ...player[turn],
+      //         money:money - countries[location].price,
+      //         ownCountries: [...ownCountries, countries[location].name],
+      //         prevLocation: location
+      //       },
+      //       ...player.slice(turn+1, player.length)
+      //     ],
+      //     turn: turn
+      //   };
+      // }
       if(action.answer === true) {
         console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
         return {
@@ -279,8 +279,55 @@ function counter(state=initialState, action) {
 
     case types.EVENT:
       console.log(action.event);
-      return state;
-
+      switch(action.event) {
+        case 'island':
+          if(islandNumber === 1) {
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, turn),
+                {
+                  ...player[turn],
+                  prevLocation: location,
+                  islandNumber: 0
+                },
+                ...player.slice(turn+1, player.length)
+              ],
+              turn: (turn+1)%4
+            }
+          }
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                islandNumber: islandNumber-1
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%4
+          };
+        case 'goldenKey':
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%4
+          };
+        // case 'receiveDonation':
+        //   return('이번 게임에서 모인 사회복지기금을 드리겠습니다!!!');
+        // case 'donation':
+        //   return('기부 하세요, 두번 하세요');
+        default:
+          return state;
+      }
     default:
       return state;
   }

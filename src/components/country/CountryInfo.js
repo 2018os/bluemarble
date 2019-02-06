@@ -19,14 +19,17 @@ class CountryInfo extends Component {
   }
   render() {
     const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent } = this.props;
-    const { location, playerName, prevLocation  } = player[turn];
+    const { location, playerName, prevLocation, islandNumber } = player[turn];
     const { name, price, bought, owner, event } = countries[location];
 
     const ModalBuy = () => {
-      $('#Country_Buy').modal('show')
+      $('#Country_Buy').modal({ backdrop: 'static', keyboard: false }, 'show');
     };
     const ModalDeal = () => {
-      $('#Country_Deal').modal('show')
+      $('#Country_Deal').modal({ backdrop: 'static', keyboard: false }, 'show');
+    }
+    const ModalEvent = () => {
+      $('#Country_Event').modal({ backdrop: 'static', keyboard: false }, 'show');
     }
 
     return (
@@ -36,9 +39,8 @@ class CountryInfo extends Component {
         <h3>NOW: {playerName}</h3>
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
-            console.log('prevLocation: ' + prevLocation + ' location: ' + location);
             if (event) {
-              onEvent(event);
+              return (ModalEvent());
             } else {
               if (!bought) return (ModalBuy());
               return (ModalDeal());
@@ -47,6 +49,37 @@ class CountryInfo extends Component {
         }
 
 
+        <div className="modal fade" id="Country_Event" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">EVENT</h4>
+              </div>
+              <div className="modal-body">
+                <p>{
+                  (() => {
+                    switch(event) {
+                      case 'island':
+                        return(`무인도에 도착을 했습니다! ${islandNumber}턴동안 빠져나가지 못해요ㅠㅠ`);
+                      case 'goldenKey':
+                        return('무작위 황금열쇠를 사용하겠습니다.');
+                      case 'receiveDonation':
+                        return('이번 게임에서 모인 사회복지기금을 드리겠습니다!!!');
+                      case 'donation':
+                        return('기부 하세요, 두번 하세요');
+                      default:
+                        return('EVENT');
+                    }
+                  })()
+                }</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" onClick={() => onEvent(event)} data-dismiss="modal">확인</button>
+              </div>
+            </div> 
+          </div>
+        </div>
+
         <div className="modal fade" id="Country_Buy" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content">
@@ -54,7 +87,9 @@ class CountryInfo extends Component {
                 <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
-                <p>{name}</p>
+                <p>
+                  {name}를 무려 {price}원에 구매하실 수 있습니다.
+                </p>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-primary" onClick={() => onBuy(true)} data-dismiss="modal">구매하기</button>
@@ -71,7 +106,7 @@ class CountryInfo extends Component {
                 <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
-                <p>{owner}님의 땅을 밟았습니다.</p>
+                <p>{owner}님의 땅을 밟았습니다({price}원).</p>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-primary" onClick={() => onDeal()} data-dismiss="modal">지불하기</button>
