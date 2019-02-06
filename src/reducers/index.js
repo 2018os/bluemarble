@@ -10,19 +10,20 @@ const initialState = {
   player: initialPlayer,
   number: 0,
   senumber: 0,
-  turn: 0
+  turn: 0,
+  collected: 0
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, turn } = state;
+  const { countries, player, turn, collected } = state;
   const { location, money, ownCountries, islandNumber } = player[turn];
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
-
   switch(action.type) {
     case types.RANDOM:
       if(location+action.number+action.senumber > 35) {
         if(location+action.number+action.senumber === 36 || countries[location+action.number+action.senumber-36].owner === player[turn].playerName) {
           console.log('출발지 혹은 본인 땅을 밟았습니다.');
+          // 본인땅 혹은 출발지일 경우
           return {
             countries: [
               ...countries.slice(0, location+action.number+action.senumber-36),
@@ -49,9 +50,11 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%4
+            turn: (turn+1)%4,
+            collected: collected
           }
         }
+        //  본인땅 혹은 출발지가 아닐경우
         return {
           countries: [
             ...countries.slice(0, location+action.number+action.senumber-36),
@@ -78,11 +81,13 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: turn
+          turn: turn,
+          collected: collected
         }
       }
       if(location !== 0 && countries[location+action.number+action.senumber].owner === player[turn].playerName) {
         console.log('본인땅을 밟았습니다.');
+        // 본인땅일 경우
         return {
           countries: [
             ...countries.slice(0, location),
@@ -108,9 +113,11 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: (turn+1)%4
+          turn: (turn+1)%4,
+          collected: collected
         };
       }
+      // 본인땅이 아닐 경우
       return {
         countries: [
           ...countries.slice(0, location),
@@ -136,13 +143,15 @@ function counter(state=initialState, action) {
           },
           ...player.slice(turn+1, player.length)
         ],
-        turn: turn
+        turn: turn,
+        collected: collected
       };
 
     case types.DEAL:
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
         if(indexOfOwner < turn) {
+          // 새 배열을 만들지 않기 위한 비교
           return {
             countries: countries,
             player: [
@@ -159,7 +168,8 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%4
+            turn: (turn+1)%4,
+            collected: collected
           };
         } else {
           return {
@@ -178,7 +188,8 @@ function counter(state=initialState, action) {
               },
               ...player.slice(indexOfOwner+1, player.length)
             ],
-            turn: (turn+1)%4
+            turn: (turn+1)%4,
+            collected: collected
           };
         }
     
@@ -210,6 +221,7 @@ function counter(state=initialState, action) {
       // }
       if(action.answer === true) {
         console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
+        // 건물 구매
         return {
           countries: [
             ...countries.slice(0, location),
@@ -230,10 +242,12 @@ function counter(state=initialState, action) {
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: (turn+1)%4
+          turn: (turn+1)%4,
+          collected: collected
         };
       }
       console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
+      // 건물 구매 거부
       return {
         countries: countries,
         player: [
@@ -244,7 +258,8 @@ function counter(state=initialState, action) {
           },
           ...player.slice(turn+1, player.length)
         ],
-        turn: (turn+1)%4
+        turn: (turn+1)%4,
+        collected: collected
       };
 
     case types.BANKRUPTCY:
@@ -258,6 +273,7 @@ function counter(state=initialState, action) {
           return info;
         });
 
+      // 파산했을 경우
       return {
         countries: resetCountries,
         player: [
@@ -274,13 +290,15 @@ function counter(state=initialState, action) {
           ...player.slice(turn+1, player.length)
         ],
         // player: player,
-        turn: (turn+1)%4
+        turn: (turn+1)%4,
+        collected: collected
       };
 
     case types.EVENT:
       console.log(action.event);
       switch(action.event) {
         case 'island':
+          // 무인도
           if(islandNumber === 1) {
             return {
               countries: countries,
@@ -293,7 +311,8 @@ function counter(state=initialState, action) {
                 },
                 ...player.slice(turn+1, player.length)
               ],
-              turn: (turn+1)%4
+              turn: (turn+1)%4,
+              collected: collected
             }
           }
           return {
@@ -306,9 +325,12 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%4
+            turn: (turn+1)%4,
+            collected: collected
           };
+
         case 'goldenKey':
+          // 황금열쇠
           return {
             countries: countries,
             player: [
@@ -319,12 +341,44 @@ function counter(state=initialState, action) {
               },
               ...player.slice(turn+1, player.length)
             ],
-            turn: (turn+1)%4
+            turn: (turn+1)%4,
+            collected: collected
           };
-        // case 'receiveDonation':
-        //   return('이번 게임에서 모인 사회복지기금을 드리겠습니다!!!');
-        // case 'donation':
-        //   return('기부 하세요, 두번 하세요');
+
+        case 'donation':
+          // 사회복지기금 접수처
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                money: money-1000,
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%4,
+            collected: collected+10
+          };
+
+        case 'receiveDonation':
+          // 사회복지기금
+          return {
+            countries: countries,
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                money: money+collected,
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: (turn+1)%4,
+            collected: 0
+          }
+
         default:
           return state;
       }

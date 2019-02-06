@@ -307,7 +307,7 @@ const initialCountries = [
   {
     id: 37,
     name:'뉴욕',
-    price: 0,
+    price: 37,
     done: false,
     bought: false,
     owner: ''
@@ -315,7 +315,7 @@ const initialCountries = [
   {
     id: 38,
     name:'사회복지기금',
-    price: 15,
+    price: 0,
     done: false,
     bought: false,
     owner: 'admin',

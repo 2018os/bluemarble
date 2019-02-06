@@ -9,7 +9,7 @@ import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
 
 class CountryList extends Component {
   render() {
-    const { countries, player, turn } = this.props;
+    const { countries, player, turn, collected } = this.props;
     const map1 = countries.slice(0, 10);
     const reversemap1 = map1.reverse();
     const map2 = countries.slice(10, 21);
@@ -18,22 +18,22 @@ class CountryList extends Component {
     const reversemap4 = map4.reverse();
     const map1List = reversemap1.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid} collected={collected} />
       )
     );
     const map2List = map2.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid} collected={collected} />
       )
     );
     const map3List = map3.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid} collected={collected} />
       )
     );
     const map4List = reversemap4.map(
       (info, i) => (
-        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid}/>
+        <Country key={i} {...info} location={player[turn].location} userid={player[turn].userid} collected={collected} />
       )
     );
 
@@ -67,12 +67,14 @@ class CountryList extends Component {
 CountryList.propTypes = {
   countries: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.number, name: PropTypes.string, price: PropTypes.number, done: PropTypes.bool, bought: PropTypes.bool, owner: PropTypes.string})),
   player: PropTypes.arrayOf(PropTypes.shape({userid: PropTypes.number, playerName:PropTypes.string, money: PropTypes.number, location: PropTypes.number, prevLocation: PropTypes.number, ownCountries: PropTypes.array})),
-  turn: PropTypes.number
+  turn: PropTypes.number,
+  collected: PropTypes.number
 };
 
 CountryList.defaultProps = {
   countries: [],
   player: [],
-  turn: 0
+  turn: 0,
+  collected: 0
 }
 export default CountryList;
