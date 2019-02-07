@@ -3,7 +3,7 @@ import * as actions from "../actions";
 import { connect } from "react-redux";
 
 export function getRandomnumber() {
-    const random = Math.floor(Math.random()*6+1);
+    const random = Math.floor(Math.random()*2+1);
     // const random = 11;
     return random;
 }
