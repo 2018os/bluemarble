@@ -6,7 +6,7 @@ const HaveCountry = styled.div`
         width: 10px;
         height: 10px;
         margin: auto;
-        margin-top: 10px;
+        margin-top: 3px;
     `}
 
     ${props => props.owner === 'player1' &&`
@@ -14,7 +14,7 @@ const HaveCountry = styled.div`
         width: 10px;
         height: 10px;
         margin: auto;
-        margin-top: 10px;    
+        margin-top: 3px;    
     `}
 
     ${props => props.owner === 'player2' &&`
@@ -22,7 +22,7 @@ const HaveCountry = styled.div`
         width: 10px;
         height: 10px;
         margin: auto;
-        margin-top: 10px;    
+        margin-top: 3px;    
     `}
 
     ${props => props.owner === 'player3' &&`
@@ -30,7 +30,7 @@ const HaveCountry = styled.div`
         width: 10px;
         height: 10px;
         margin: auto;
-        margin-top: 10px;
+        margin-top: 3px;
     `}
 `
 

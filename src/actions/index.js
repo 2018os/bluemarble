@@ -17,4 +17,9 @@ export const buy = (answer) => ({
 
 export const bankruptcy = () => ({
     type: types.BANKRUPTCY
+});
+
+export const event = (event) => ({
+    type: types.EVENT,
+    event
 })

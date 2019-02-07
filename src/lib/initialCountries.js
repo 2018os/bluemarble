@@ -21,7 +21,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 3,
@@ -61,7 +62,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 8,
@@ -85,7 +87,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'island'
   },
   {
     id: 11,
@@ -101,7 +104,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 13,
@@ -141,7 +145,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 18,
@@ -165,7 +170,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'receiveDonation'
   },
   {
     id: 21,
@@ -181,7 +187,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 23,
@@ -245,7 +252,8 @@ const initialCountries = [
     price: 10,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'WYBH'
   },
   {
     id: 31,
@@ -285,7 +293,8 @@ const initialCountries = [
     price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'goldenKey'
   },
   {
     id: 36,
@@ -298,7 +307,7 @@ const initialCountries = [
   {
     id: 37,
     name:'뉴욕',
-    price: 0,
+    price: 37,
     done: false,
     bought: false,
     owner: ''
@@ -306,10 +315,11 @@ const initialCountries = [
   {
     id: 38,
     name:'사회복지기금',
-    price: 15,
+    price: 0,
     done: false,
     bought: false,
-    owner: 'admin'
+    owner: 'admin',
+    event: 'donation'
   },
   {
     id: 39,

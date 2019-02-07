@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onBankruptcy: () => {
     dispatch(actions.bankruptcy());
+  },
+  onEvent: (event) => {
+    dispatch(actions.event(event));
   }
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);
