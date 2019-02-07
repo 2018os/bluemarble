@@ -15,7 +15,7 @@ const initialState = {
 };
 
 function counter(state=initialState, action) {
-  const { countries, player, turn, collected } = state;
+  const { countries, player, turn, collected, number, senumber } = state;
   const { location, money, ownCountries, islandNumber } = player[turn];
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
   switch(action.type) {
@@ -151,6 +151,51 @@ function counter(state=initialState, action) {
     case types.DEAL:
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
+        if (number === senumber) {
+          if(indexOfOwner < turn) {
+            // 새 배열을 만들지 않기 위한 비교
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, indexOfOwner),
+                {
+                  ...player[indexOfOwner],
+                  money: ownerMoney + countries[location].price
+                },
+                ...player.slice(indexOfOwner+1, turn),
+                {
+                  ...player[turn],
+                  money: money - countries[location].price,
+                  prevLocation: location
+                },
+                ...player.slice(turn+1, player.length)
+              ],
+              turn: turn,
+              collected: collected
+            };
+          } else {
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, turn),
+                {
+                  ...player[turn],
+                  money: money - countries[location].price,
+                  prevLocation: location
+                },
+                ...player.slice(turn+1, indexOfOwner),
+                {
+                  ...player[indexOfOwner],
+                  money: ownerMoney + countries[location].price
+                },
+                ...player.slice(indexOfOwner+1, player.length)
+              ],
+              turn: turn,
+              collected: collected
+            };
+          }
+        }
+      
         if(indexOfOwner < turn) {
           // 새 배열을 만들지 않기 위한 비교
           return {
@@ -195,31 +240,31 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      // if(number === senumber) {
-      //   console.log(number, senumber)
-      //   return {
-      //     countries: [
-      //       ...countries.slice(0, location),
-      //       {
-      //         ...countries[location],
-      //         bought: true,
-      //         owner: player[turn].playerName
-      //       },
-      //       ...countries.slice(location+1, countries.length)
-      //     ],
-      //     player: [
-      //       ...player.slice(0, turn),
-      //       {
-      //         ...player[turn],
-      //         money:money - countries[location].price,
-      //         ownCountries: [...ownCountries, countries[location].name],
-      //         prevLocation: location
-      //       },
-      //       ...player.slice(turn+1, player.length)
-      //     ],
-      //     turn: turn
-      //   };
-      // }
+      if(number === senumber) {
+        console.log(number, senumber)
+        return {
+          countries: [
+            ...countries.slice(0, location),
+            {
+              ...countries[location],
+              bought: true,
+              owner: player[turn].playerName
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price,
+              ownCountries: [...ownCountries, countries[location].name],
+              prevLocation: location
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          turn: turn
+        };
+      }
       if(action.answer === true) {
         console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
         // 건물 구매
