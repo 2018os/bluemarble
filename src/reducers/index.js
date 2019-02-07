@@ -20,18 +20,19 @@ function counter(state=initialState, action) {
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
   switch(action.type) {
     case types.RANDOM:
-      if(location+action.number+action.senumber > 35) {
-        if(location+action.number+action.senumber === 36 || countries[location+action.number+action.senumber-36].owner === player[turn].playerName) {
+      if(location+action.number+action.senumber > 39) {
+        // console.log(location+action.number+action.senumber);
+        if(location+action.number+action.senumber === 40 || countries[location+action.number+action.senumber-40].owner === player[turn].playerName) {
           console.log('출발지 혹은 본인 땅을 밟았습니다.');
-          // 본인땅 혹은 출발지일 경우
+        //   // 본인땅 혹은 출발지일 경우
           return {
             countries: [
-              ...countries.slice(0, location+action.number+action.senumber-36),
+              ...countries.slice(0, location+action.number+action.senumber-40),
               {
-                ...countries[location+action.number+action.senumber-36],
+                ...countries[location+action.number+action.senumber-40],
                 done: true,
               },
-              ...countries.slice(location+action.number+action.senumber-35, location),
+              ...countries.slice(location+action.number+action.senumber-39, location),
               {
                 ...countries[location],
                 done: false,
@@ -45,7 +46,7 @@ function counter(state=initialState, action) {
               {
                 ...player[turn],
                 money:money+2000,
-                location: location+action.number+action.senumber-36,
+                location: location+action.number+action.senumber-40,
                 prevLocation: location
               },
               ...player.slice(turn+1, player.length)
@@ -57,12 +58,12 @@ function counter(state=initialState, action) {
         //  본인땅 혹은 출발지가 아닐경우
         return {
           countries: [
-            ...countries.slice(0, location+action.number+action.senumber-36),
+            ...countries.slice(0, location+action.number+action.senumber-40),
             {
-              ...countries[location+action.number+action.senumber-36],
+              ...countries[location+action.number+action.senumber-40],
               done: true,
             },
-            ...countries.slice(location+action.number+action.senumber-35, location),
+            ...countries.slice(location+action.number+action.senumber-39, location),
             {
               ...countries[location],
               done: false,
@@ -76,7 +77,7 @@ function counter(state=initialState, action) {
             {
               ...player[turn],
               money:money+2000,
-              location: location+action.number+action.senumber-36,
+              location: location+action.number+action.senumber-40,
               prevLocation: location
             },
             ...player.slice(turn+1, player.length)
