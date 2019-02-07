@@ -20,17 +20,17 @@ function counter(state=initialState, action) {
 
   switch(action.type) {
     case types.RANDOM:
-      if(location+action.number+action.senumber > 35) {
-        if(location+action.number+action.senumber === 36 || countries[location+action.number+action.senumber-36].owner === player[turn].playerName) {
+      if(location+action.number+action.senumber > 37) {
+        if(location+action.number+action.senumber === 38 || countries[location+action.number+action.senumber-38].owner === player[turn].playerName) {
           console.log('출발지 혹은 본인 땅을 밟았습니다.');
           return {
             countries: [
-              ...countries.slice(0, location+action.number+action.senumber-36),
+              ...countries.slice(0, location+action.number+action.senumber-38),
               {
-                ...countries[location+action.number+action.senumber-36],
+                ...countries[location+action.number+action.senumber-38],
                 done: true,
               },
-              ...countries.slice(location+action.number+action.senumber-35, location),
+              ...countries.slice(location+action.number+action.senumber-37, location),
               {
                 ...countries[location],
                 done: false,
@@ -44,7 +44,7 @@ function counter(state=initialState, action) {
               {
                 ...player[turn],
                 money:money+2000,
-                location: location+action.number+action.senumber-36,
+                location: location+action.number+action.senumber-38,
                 prevLocation: location
               },
               ...player.slice(turn+1, player.length)
@@ -54,12 +54,12 @@ function counter(state=initialState, action) {
         }
         return {
           countries: [
-            ...countries.slice(0, location+action.number+action.senumber-36),
+            ...countries.slice(0, location+action.number+action.senumber-38),
             {
-              ...countries[location+action.number+action.senumber-36],
+              ...countries[location+action.number+action.senumber-38],
               done: true,
             },
-            ...countries.slice(location+action.number+action.senumber-35, location),
+            ...countries.slice(location+action.number+action.senumber-37, location),
             {
               ...countries[location],
               done: false,
@@ -73,7 +73,7 @@ function counter(state=initialState, action) {
             {
               ...player[turn],
               money:money+2000,
-              location: location+action.number+action.senumber-36,
+              location: location+action.number+action.senumber-38,
               prevLocation: location
             },
             ...player.slice(turn+1, player.length)
@@ -183,8 +183,34 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
+      if(location === 38) {
+        console.log("사회복지기금");
+        return {
+          countries: [
+            ...countries.slice(0, location),
+            {
+              ...countries[location],
+              bought: false,
+              // owner: player[turn].playerName
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price,
+              // ownCountries: [...ownCountries, countries[location].name],
+              prevLocation: location
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          number: action.number-action.number,
+          turn: (turn+1)%4
+        };
+      }
       if(number === senumber) {
-        console.log(number, senumber)
+        console.log('더블: '+ number)
         return {
           countries: [
             ...countries.slice(0, location),
