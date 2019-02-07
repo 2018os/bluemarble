@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 export function getRandomnumber() {
     const random = Math.floor(Math.random()*6+1);
-    // const random = 5;
+    // const random = 11;
     return random;
 }
 // props 값 정의
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
     onRandom: () => {
         const number = getRandomnumber();
         const senumber = getRandomnumber();
+        // const senumber = 0;
         dispatch(actions.random(number, senumber));
     }
 });
