@@ -241,28 +241,47 @@ function counter(state=initialState, action) {
     
     case types.BUY:
       if(number === senumber) {
-        console.log(number, senumber)
+        if(action.answer === true) {
+          console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
+          // 건물 구매
+          return {
+            countries: [
+              ...countries.slice(0, location),
+              {
+                ...countries[location],
+                bought: true,
+                owner: player[turn].playerName
+              },
+              ...countries.slice(location+1, countries.length)
+            ],
+            player: [
+              ...player.slice(0, turn),
+              {
+                ...player[turn],
+                money:money - countries[location].price,
+                ownCountries: [...ownCountries, countries[location].name],
+                prevLocation: location
+              },
+              ...player.slice(turn+1, player.length)
+            ],
+            turn: turn,
+            collected: collected
+          };
+        }
+        console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 안샀습니다.');
+        // 건물 구매 거부
         return {
-          countries: [
-            ...countries.slice(0, location),
-            {
-              ...countries[location],
-              bought: true,
-              owner: player[turn].playerName
-            },
-            ...countries.slice(location+1, countries.length)
-          ],
+          countries: countries,
           player: [
             ...player.slice(0, turn),
             {
               ...player[turn],
-              money:money - countries[location].price,
-              ownCountries: [...ownCountries, countries[location].name],
               prevLocation: location
             },
             ...player.slice(turn+1, player.length)
           ],
-          turn: turn
+          turn: turn,
+          collected: collected
         };
       }
       if(action.answer === true) {
@@ -341,7 +360,6 @@ function counter(state=initialState, action) {
       };
 
     case types.EVENT:
-      console.log(action.event);
       switch(action.event) {
         case 'island':
           // 무인도
@@ -377,6 +395,21 @@ function counter(state=initialState, action) {
 
         case 'goldenKey':
           // 황금열쇠
+          if(number===senumber) {
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, turn),
+                {
+                  ...player[turn],
+                  prevLocation: location
+                },
+                ...player.slice(turn+1, player.length)
+              ],
+              turn: turn,
+              collected: collected
+            };
+          }
           return {
             countries: countries,
             player: [
@@ -393,6 +426,22 @@ function counter(state=initialState, action) {
 
         case 'donation':
           // 사회복지기금 접수처
+          if(number===senumber) {
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, turn),
+                {
+                  ...player[turn],
+                  money: money-1000,
+                  prevLocation: location
+                },
+                ...player.slice(turn+1, player.length)
+              ],
+              turn: turn,
+              collected: collected+10
+            };  
+          }
           return {
             countries: countries,
             player: [
@@ -410,6 +459,22 @@ function counter(state=initialState, action) {
 
         case 'receiveDonation':
           // 사회복지기금
+          if(number===senumber) {
+            return {
+              countries: countries,
+              player: [
+                ...player.slice(0, turn),
+                {
+                  ...player[turn],
+                  money: money+collected,
+                  prevLocation: location
+                },
+                ...player.slice(turn+1, player.length)
+              ],
+              turn: turn,
+              collected: 0
+            }            
+          }
           return {
             countries: countries,
             player: [
