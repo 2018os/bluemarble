@@ -240,7 +240,33 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      if(action.number === action.senumber) {
+      if(location === 38) {
+        console.log("사회복지기금");
+        return {
+          countries: [
+            ...countries.slice(0, location),
+            {
+              ...countries[location],
+              bought: false,
+              // owner: player[turn].playerName
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money - countries[location].price,
+              // ownCountries: [...ownCountries, countries[location].name],
+              prevLocation: location
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          number: action.number-action.number,
+          turn: (turn+1)%4
+        };
+      }
+      if(number === senumber) {
         if(action.answer === true) {
           console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
           // 건물 구매
