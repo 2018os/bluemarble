@@ -17,10 +17,28 @@ class CountryInfo extends Component {
       })();
     }
   }
+
+  state = {
+    box: ''
+  }
+
+  handleClick = (e) => {
+    // alert(this.state.box);
+    this.setState({
+      box: ''
+    });
+  }
+
+  handleChangge = (e) => {
+    this.setState({
+      box: e.target.value
+    });
+  }
+
   render() {
-    const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent } = this.props;
+    const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent, onTravel } = this.props;
     const { location, playerName, prevLocation, islandNumber } = player[turn];
-    const { name, price, bought, owner, event } = countries[location];
+    const { name, price, bought, owner, event, travel } = countries[location];
 
     const ModalBuy = () => {
       $('#Country_Buy').modal({ backdrop: 'static', keyboard: false }, 'show');
@@ -32,14 +50,25 @@ class CountryInfo extends Component {
       $('#Country_Event').modal({ backdrop: 'static', keyboard: false }, 'show');
     }
 
+    const ModalWYBH = () => {
+      $('#Country_WYBH').modal({ backdrop: 'static'}, 'show');
+    }
+
     return (
       <div className="countryInfo">
-        <h1>{name}</h1>
+        {/* <h1>{name}</h1>
         <h3>{price}원</h3>
-        <h3>NOW: {playerName}</h3>
+        <h3>NOW: {playerName}</h3> */}
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
-            if (event) {
+            if(travel) {
+              return (
+                <div>
+                  <input type="text" name="box" placeholder="나" value={this.state.box} onChange={this.handleChangge} />
+                  <button onClick={()=> {this.handleClick(); onTravel(this.state.box);}}>여행가기</button>
+                </div>
+              )
+            } else if(event) {
               return (ModalEvent());
             } else {
               if (!bought) return (ModalBuy());
@@ -48,12 +77,27 @@ class CountryInfo extends Component {
           })()
         }
 
+        <div className="modal fade" id="Country_WYBH" role="dialog">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h4 className="modal-title">{name}</h4>
+                    </div>
+                    <div className="modal-body">
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-primary" onClick={() => {onTravel(); this.handleClick(this.state.value);}} data-dismiss="modal">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div className="modal fade" id="Country_Event" role="dialog">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">EVENT</h4>
+                <h4 className="modal-title">{name}</h4>
               </div>
               <div className="modal-body">
                 <p>{
