@@ -151,7 +151,7 @@ function counter(state=initialState, action) {
     case types.DEAL:
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-        if (number === senumber) {
+        if (action.number === action.senumber) {
           if(indexOfOwner < turn) {
             // 새 배열을 만들지 않기 위한 비교
             return {
@@ -240,7 +240,7 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      if(number === senumber) {
+      if(action.number === action.senumber) {
         if(action.answer === true) {
           console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
           // 건물 구매
@@ -488,11 +488,143 @@ function counter(state=initialState, action) {
             ],
             turn: (turn+1)%4,
             collected: 0
-          }
+          };
+
+        // case 'WYBH':
+        //  console.log('우주여행');
+        //  return state;
 
         default:
           return state;
       }
+
+    case types.TRAVEL:
+    //우주여행
+    const travelCountry = countries.find(o => o.name === action.travel);
+    if(travelCountry) {
+      // console.log("true");
+      // console.log(travelCountry.id);
+    }
+    if(travelCountry.id >= 0 && travelCountry.id < 30) {
+      // console.log(location+action.number+action.senumber);
+      if(travelCountry.id === 0 || countries[travelCountry.id].owner === player[turn].playerName) {
+        console.log('출발지 혹은 본인 땅을 밟았습니다.');
+      //   // 본인땅 혹은 출발지일 경우
+        return {
+          countries: [
+            ...countries.slice(0, travelCountry.id),
+            {
+              ...countries[travelCountry.id],
+              done: true,
+            },
+            ...countries.slice(travelCountry.id+1, location),
+            {
+              ...countries[location],
+              done: false,
+            },
+            ...countries.slice(location+1, countries.length)
+          ],
+          player: [
+            ...player.slice(0, turn),
+            {
+              ...player[turn],
+              money:money+2000,
+              location: travelCountry.id,
+              prevLocation: location
+            },
+            ...player.slice(turn+1, player.length)
+          ],
+          turn: (turn+1)%4,
+          collected: collected
+        }
+      }
+      //  본인땅 혹은 출발지가 아닐경우
+      return {
+        countries: [
+          ...countries.slice(0, travelCountry.id),
+          {
+            ...countries[travelCountry.id],
+            done: true,
+          },
+          ...countries.slice(travelCountry.id+1, location),
+          {
+            ...countries[location],
+            done: false,
+          },
+          ...countries.slice(location+1, countries.length)
+        ],
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            money:money+2000,
+            location: travelCountry.id,
+            prevLocation: location
+          },
+          ...player.slice(turn+1, player.length)
+        ],
+        turn: turn,
+        collected: collected
+      }
+    }
+    if(location !== 0 && countries[travelCountry.id].owner === player[turn].playerName) {
+      console.log('본인땅을 밟았습니다.');
+      // 본인땅일 경우
+      return {
+        countries: [
+          ...countries.slice(0, location),
+          {
+            ...countries[location],
+            done: false,
+          },
+          ...countries.slice(location+1, travelCountry.id),
+          {
+            ...countries[travelCountry.id],
+            done: true,
+          },
+          ...countries.slice(travelCountry.id+1, countries.length)
+        ],
+        player: [
+          ...player.slice(0, turn),
+          {
+            ...player[turn],
+            location: travelCountry.id,
+            prevLocation: location,
+          },
+          ...player.slice(turn+1, player.length)
+        ],
+        turn: (turn+1)%4,
+        collected: collected
+      };
+    }
+    // 본인땅이 아닐 경우
+    return {
+      countries: [
+        ...countries.slice(0, location),
+        {
+          ...countries[location],
+          done: false,
+        },
+        ...countries.slice(location+1, travelCountry.id),
+        {
+          ...countries[travelCountry.id],
+          done: true,
+        },
+        ...countries.slice(travelCountry.id+1, countries.length)
+      ],
+      player: [
+        ...player.slice(0, turn),
+        {
+          ...player[turn],
+          location: travelCountry.id,
+          prevLocation: location,
+        },
+        ...player.slice(turn+1, player.length)
+      ],
+      turn: turn,
+      collected: collected
+    };        
+
     default:
       return state;
   }
