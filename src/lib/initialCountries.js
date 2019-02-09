@@ -253,7 +253,8 @@ const initialCountries = [
     done: false,
     bought: false,
     owner: 'admin',
-    event: 'WYBH'
+    // event: 'WYBH'
+    travel: 'WYBH'
   },
   {
     id: 31,
