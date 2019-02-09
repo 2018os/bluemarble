@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onEvent: (event) => {
     dispatch(actions.event(event));
+  },
+  onTravel: (travel) => {
+    dispatch(actions.travel(travel));
   }
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);
