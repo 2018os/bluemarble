@@ -22,4 +22,9 @@ export const bankruptcy = () => ({
 export const event = (event) => ({
     type: types.EVENT,
     event
+});
+
+export const travel = (travel) => ({
+    type: types.TRAVEL,
+    travel
 })
