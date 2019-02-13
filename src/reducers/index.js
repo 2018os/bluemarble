@@ -75,7 +75,7 @@ function counter(state=initialState, action) {
             ...player.slice(0, turn),
             {
               ...player[turn],
-              money:money+2000,
+              money:money+200000,
               location: location+action.number+action.senumber-40,
               prevLocation: location
             },
@@ -85,7 +85,7 @@ function counter(state=initialState, action) {
           collected: collected
         }
       }
-      if(location !== 0 && countries[location+action.number+action.senumber].owner === player[turn].playerName) {
+      if(countries[location+action.number+action.senumber].owner === player[turn].playerName) {
         console.log('본인땅을 밟았습니다.');
         // 본인땅일 경우
         return {
@@ -239,7 +239,6 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      console.log(number + ' ' + senumber);
       if(number === senumber) {
         if(action.answer === true) {
           console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
@@ -397,6 +396,35 @@ function counter(state=initialState, action) {
           // 황금열쇠
           switch(action.random) {
             case 0:   //뒤로 2칸
+              if(countries[location-2].owner === player[turn].playerName) {
+                return {
+                  countries: [
+                    ...countries.slice(0, location-2),
+                    {
+                      ...countries[location-2],
+                      done: true,
+                    },
+                    ...countries.slice(location-1, location),
+                    {
+                      ...countries[location],
+                      done: false,
+                    },
+                    ...countries.slice(location+1, countries.length)
+                  ],
+                  number: number,
+                  senumber: senumber,
+                  player: [
+                    ...player.slice(0, turn),
+                    {
+                      ...player[turn],
+                      location: location-2,
+                      prevLocation: location
+                    },
+                    ...player.slice(turn+1, player.length)
+                  ],
+                  turn: (turn+1)%4
+                }
+              }
               return {
                 countries: [
                   ...countries.slice(0, location-2),
@@ -422,7 +450,8 @@ function counter(state=initialState, action) {
                   },
                   ...player.slice(turn+1, player.length)
                 ],
-                turn: turn
+                turn: turn,
+                collected: collected
               }
             case 1:   //노벨상  double
               if(number === senumber) {
@@ -439,7 +468,8 @@ function counter(state=initialState, action) {
                     },
                     ...player.slice(turn+1, player.length)
                   ],
-                  turn: turn
+                  turn: turn,
+                  collected: collected
                 }
               }
               return {
@@ -455,7 +485,8 @@ function counter(state=initialState, action) {
                   },
                   ...player.slice(turn+1, player.length)
                 ],
-                turn: (turn+1)%4
+                turn: (turn+1)%4,
+                collected: collected
               }
             case 2:   //서울
               return {
@@ -483,7 +514,8 @@ function counter(state=initialState, action) {
                   },
                   ...player.slice(turn+1, player.length)
                 ],
-                turn: turn
+                turn: turn,
+                collected: collected
               }
             default:
               return state;
@@ -554,10 +586,6 @@ function counter(state=initialState, action) {
             collected: 0
           };
 
-        // case 'WYBH':
-        //  console.log('우주여행');
-        //  return state;
-
         default:
           return state;
       }
@@ -587,7 +615,7 @@ function counter(state=initialState, action) {
             ...player.slice(0, turn),
             {
               ...player[turn],
-              money:money+2000,
+              money:money+200000,
               location: travelCountry.id,
               prevLocation: location
             },
@@ -616,7 +644,7 @@ function counter(state=initialState, action) {
           ...player.slice(0, turn),
           {
             ...player[turn],
-            money:money+2000,
+            money:money+200000,
             location: travelCountry.id,
             prevLocation: location
           },

@@ -12,6 +12,12 @@ window.jQuery = window.$ = $
 
 class CountryInfo extends Component {
   componentDidUpdate() {
+    if(this.props.player.length <= 1) {
+      (() => {
+        alert('승리했습니다.');
+        // 리로드
+      })();
+    }
     if(this.props.player[this.props.turn].bankruptcy === true) {
       (() => {
         this.props.onBankruptcy();
@@ -24,7 +30,6 @@ class CountryInfo extends Component {
   }
 
   handleClick = (e) => {
-    // alert(this.state.box);
     this.setState({
       box: ''
     });
@@ -36,8 +41,24 @@ class CountryInfo extends Component {
     });
   }
 
+  handleBankruptcyOnBuy = () => {
+    if(this.props.countries[this.props.player[this.props.turn].location].price <= this.props.player[this.props.turn].money) {
+      this.props.onBuy(true);
+    } else {
+      this.props.onBuy(false);
+    }
+  }
+
+  handleBankruptcyOnDeal = () => {
+    if(this.props.countries[this.props.player[this.props.turn].location].price <= this.props.player[this.props.turn].money) {
+      this.props.onDeal();
+    } else {
+      this.props.onBankruptcy();
+    }
+  }
+
   render() {
-    const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent, onTravel } = this.props;
+    const { countries, player, turn, onBuy, onBankruptcy, onEvent, onTravel } = this.props;
     const { location, playerName, prevLocation, islandNumber } = player[turn];
     const { name, price, bought, owner, event } = countries[location];
     const random = Math.floor(Math.random()*3);   //황금열쇠 번호
@@ -74,6 +95,22 @@ class CountryInfo extends Component {
             }
           })()
         }
+
+        <div className="modal fade" id="Country_Bankruptcy" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">파산</h4>
+              </div>
+              <div className="modal-body">
+                <p>{playerName}님이 파산을 했습니다 ㅠㅠ</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" onClick={() => onBankruptcy()} data-dismiss="modal">확인</button>
+              </div>
+            </div> 
+          </div>
+        </div>
 
 
         <div className="modal fade" id="Country_Event" role="dialog">
@@ -119,7 +156,7 @@ class CountryInfo extends Component {
                 </p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => onBuy(true)} data-dismiss="modal">구매하기</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnBuy()} data-dismiss="modal">구매하기</button>
                 <button type="button" className="btn btn-default" onClick={() => onBuy(false)} data-dismiss="modal">닫기</button>
               </div>
             </div> 
@@ -136,7 +173,7 @@ class CountryInfo extends Component {
                 <p>{owner}님의 땅을 밟았습니다({price}원).</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => onDeal()} data-dismiss="modal">지불하기</button>
+                <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnDeal()} data-dismiss="modal">지불하기</button>
                 <button type="button" className="btn btn-default" onClick={() => onBankruptcy()} data-dismiss="modal">파산하기</button>
               </div>
             </div> 
