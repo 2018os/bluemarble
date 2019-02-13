@@ -10,27 +10,27 @@ const initialCountries = [
   {
     id: 1,
     name:'타이페이',
-    price: 5,
+    price: 5000,
     done: false,
     bought: false,
     owner: ''
   },
   {
     id: 2,
+    name:'홍콩',
+    price: 8,
+    done: false,
+    bought: false,
+    owner: ''
+  },
+  {
+    id: 3,
     name:'황금열쇠',
     price: 0,
     done: false,
     bought: false,
     owner: 'admin',
     event: 'goldenKey'
-  },
-  {
-    id: 3,
-    name:'홍콩',
-    price: 8,
-    done: false,
-    bought: false,
-    owner: ''
   },
   {
     id: 4,
@@ -100,20 +100,20 @@ const initialCountries = [
   },
   {
     id: 12,
+    name:'코펜하겐',
+    price: 16,
+    done: false,
+    bought: false,
+    owner: ''
+  },
+  {
+    id: 13,
     name:'황금열쇠',
     price: 0,
     done: false,
     bought: false,
     owner: 'admin',
     event: 'goldenKey'
-  },
-  {
-    id: 13,
-    name:'코펜하겐',
-    price: 16,
-    done: false,
-    bought: false,
-    owner: ''
   },
   {
     id: 14,
@@ -183,20 +183,20 @@ const initialCountries = [
   },
   {
     id: 22,
+    name:'상파울루',
+    price: 24,
+    done: false,
+    bought: false,
+    owner: ''
+  },
+  {
+    id: 23,
     name:'황금열쇠',
     price: 0,
     done: false,
     bought: false,
     owner: 'admin',
     event: 'goldenKey'
-  },
-  {
-    id: 23,
-    name:'상파울루',
-    price: 24,
-    done: false,
-    bought: false,
-    owner: ''
   },
   {
     id: 24,
@@ -249,12 +249,10 @@ const initialCountries = [
   {
     id: 30,
     name:'우주여행',
-    price: 10,
+    price: 0,
     done: false,
     bought: false,
-    owner: 'admin',
-    // event: 'WYBH'
-    travel: 'WYBH'
+    owner: 'admin'
   },
   {
     id: 31,

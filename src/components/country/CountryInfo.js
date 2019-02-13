@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './CountryInfo.scss';
+import goldenKey from '../../lib/GoldenKey';
 
 //jquery
 import * as $ from 'jquery';
@@ -38,7 +39,8 @@ class CountryInfo extends Component {
   render() {
     const { countries, player, turn, onBuy, onDeal, onBankruptcy, onEvent, onTravel } = this.props;
     const { location, playerName, prevLocation, islandNumber } = player[turn];
-    const { name, price, bought, owner, event, travel } = countries[location];
+    const { name, price, bought, owner, event } = countries[location];
+    const random = Math.floor(Math.random()*3);   //황금열쇠 번호
 
     const ModalBuy = () => {
       $('#Country_Buy').modal({ backdrop: 'static', keyboard: false }, 'show');
@@ -50,10 +52,6 @@ class CountryInfo extends Component {
       $('#Country_Event').modal({ backdrop: 'static', keyboard: false }, 'show');
     }
 
-    const ModalWYBH = () => {
-      $('#Country_WYBH').modal({ backdrop: 'static'}, 'show');
-    }
-
     return (
       <div className="countryInfo">
         {/* <h1>{name}</h1>
@@ -61,7 +59,7 @@ class CountryInfo extends Component {
         <h3>NOW: {playerName}</h3> */}
         {
           prevLocation!==location && location!==0 && owner!==playerName && (() => {
-            if(travel) {
+            if(name === '우주여행') {
               return (
                 <div>
                   <input type="text" name="box" placeholder="나" value={this.state.box} onChange={this.handleChangge} />
@@ -77,21 +75,6 @@ class CountryInfo extends Component {
           })()
         }
 
-        <div className="modal fade" id="Country_WYBH" role="dialog">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="modal-title">{name}</h4>
-                    </div>
-                    <div className="modal-body">
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-primary" onClick={() => {onTravel(); this.handleClick(this.state.value);}} data-dismiss="modal">확인</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div className="modal fade" id="Country_Event" role="dialog">
           <div className="modal-dialog">
@@ -106,7 +89,7 @@ class CountryInfo extends Component {
                       case 'island':
                         return(`무인도에 도착을 했습니다! ${islandNumber}턴동안 빠져나가지 못해요ㅠㅠ`);
                       case 'goldenKey':
-                        return('무작위 황금열쇠를 사용하겠습니다.');
+                        return(goldenKey[random].description);
                       case 'receiveDonation':
                         return('이번 게임에서 모인 사회복지기금을 드리겠습니다!!!');
                       case 'donation':
@@ -118,7 +101,7 @@ class CountryInfo extends Component {
                 }</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => onEvent(event)} data-dismiss="modal">확인</button>
+                <button type="button" className="btn btn-primary" onClick={() => onEvent(event, random)} data-dismiss="modal">확인</button>
               </div>
             </div> 
           </div>

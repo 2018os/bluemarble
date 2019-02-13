@@ -21,7 +21,6 @@ function counter(state=initialState, action) {
   switch(action.type) {
     case types.RANDOM:
       if(location+action.number+action.senumber > 39) {
-        // console.log(location+action.number+action.senumber);
         if(location+action.number+action.senumber === 40 || countries[location+action.number+action.senumber-40].owner === player[turn].playerName) {
           console.log('출발지 혹은 본인 땅을 밟았습니다.');
         //   // 본인땅 혹은 출발지일 경우
@@ -151,7 +150,7 @@ function counter(state=initialState, action) {
     case types.DEAL:
       const ownerMoney = player[indexOfOwner].money;
       console.log(player[turn].playerName + '님이 ' + countries[location].owner + '님의 땅을 밟았습니다.');
-        if (action.number === action.senumber) {
+        if (number === senumber) {
           if(indexOfOwner < turn) {
             // 새 배열을 만들지 않기 위한 비교
             return {
@@ -240,32 +239,7 @@ function counter(state=initialState, action) {
         }
     
     case types.BUY:
-      if(location === 38) {
-        console.log("사회복지기금");
-        return {
-          countries: [
-            ...countries.slice(0, location),
-            {
-              ...countries[location],
-              bought: false,
-              // owner: player[turn].playerName
-            },
-            ...countries.slice(location+1, countries.length)
-          ],
-          player: [
-            ...player.slice(0, turn),
-            {
-              ...player[turn],
-              money:money - countries[location].price,
-              // ownCountries: [...ownCountries, countries[location].name],
-              prevLocation: location
-            },
-            ...player.slice(turn+1, player.length)
-          ],
-          number: action.number-action.number,
-          turn: (turn+1)%4
-        };
-      }
+      console.log(number + ' ' + senumber);
       if(number === senumber) {
         if(action.answer === true) {
           console.log(player[turn].playerName + '님이 ' + countries[location].name + '을 샀습니다.');
@@ -421,35 +395,99 @@ function counter(state=initialState, action) {
 
         case 'goldenKey':
           // 황금열쇠
-          if(number===senumber) {
-            return {
-              countries: countries,
-              player: [
-                ...player.slice(0, turn),
-                {
-                  ...player[turn],
-                  prevLocation: location
-                },
-                ...player.slice(turn+1, player.length)
-              ],
-              turn: turn,
-              collected: collected
-            };
+          switch(action.random) {
+            case 0:   //뒤로 2칸
+              return {
+                countries: [
+                  ...countries.slice(0, location-2),
+                  {
+                    ...countries[location-2],
+                    done: true,
+                  },
+                  ...countries.slice(location-1, location),
+                  {
+                    ...countries[location],
+                    done: false,
+                  },
+                  ...countries.slice(location+1, countries.length)
+                ],
+                number: number,
+                senumber: senumber,
+                player: [
+                  ...player.slice(0, turn),
+                  {
+                    ...player[turn],
+                    location: location-2,
+                    prevLocation: location
+                  },
+                  ...player.slice(turn+1, player.length)
+                ],
+                turn: turn
+              }
+            case 1:   //노벨상  double
+              if(number === senumber) {
+                return {
+                  countries: countries,
+                  number: action.number,
+                  senumber: action.senumber,
+                  player: [
+                    ...player.slice(0, turn),
+                    {
+                      ...player[turn],
+                      money:money + 30000,
+                      prevLocation: location
+                    },
+                    ...player.slice(turn+1, player.length)
+                  ],
+                  turn: turn
+                }
+              }
+              return {
+                countries: countries,
+                number: action.number,
+                senumber: action.senumber,
+                player: [
+                  ...player.slice(0, turn),
+                  {
+                    ...player[turn],
+                    money:money + 30000,
+                    prevLocation: location
+                  },
+                  ...player.slice(turn+1, player.length)
+                ],
+                turn: (turn+1)%4
+              }
+            case 2:   //서울
+              return {
+                countries: [
+                  ...countries.slice(0, location),
+                  {
+                    ...countries[location],
+                    done: false,
+                  },
+                  ...countries.slice(location+1, 39),
+                  {
+                    ...countries[39],
+                    done: true,
+                  },
+                  ...countries.slice(40, countries.length)
+                ],
+                number: number,
+                senumber: senumber,
+                player: [
+                  ...player.slice(0, turn),
+                  {
+                    ...player[turn],
+                    location: 39,
+                    prevLocation: location
+                  },
+                  ...player.slice(turn+1, player.length)
+                ],
+                turn: turn
+              }
+            default:
+              return state;
           }
-          return {
-            countries: countries,
-            player: [
-              ...player.slice(0, turn),
-              {
-                ...player[turn],
-                prevLocation: location
-              },
-              ...player.slice(turn+1, player.length)
-            ],
-            turn: (turn+1)%4,
-            collected: collected
-          };
-
         case 'donation':
           // 사회복지기금 접수처
           if(number===senumber) {
@@ -527,12 +565,7 @@ function counter(state=initialState, action) {
     case types.TRAVEL:
     //우주여행
     const travelCountry = countries.find(o => o.name === action.travel);
-    if(travelCountry) {
-      // console.log("true");
-      // console.log(travelCountry.id);
-    }
     if(travelCountry.id >= 0 && travelCountry.id < 30) {
-      // console.log(location+action.number+action.senumber);
       if(travelCountry.id === 0 || countries[travelCountry.id].owner === player[turn].playerName) {
         console.log('출발지 혹은 본인 땅을 밟았습니다.');
       //   // 본인땅 혹은 출발지일 경우

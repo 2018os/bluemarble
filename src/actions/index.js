@@ -19,9 +19,9 @@ export const bankruptcy = () => ({
     type: types.BANKRUPTCY
 });
 
-export const event = (event) => ({
+export const event = (event, random) => ({
     type: types.EVENT,
-    event
+    event, random
 });
 
 export const travel = (travel) => ({

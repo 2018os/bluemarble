@@ -14,12 +14,12 @@ const mapDispatchToProps = (dispatch) => ({
   onBankruptcy: () => {
     dispatch(actions.bankruptcy());
   },
-  onEvent: (event) => {
-    dispatch(actions.event(event));
+  onEvent: (event, random) => {
+    dispatch(actions.event(event, random));
   },
   onTravel: (travel) => {
     dispatch(actions.travel(travel));
-  }
+  },
 });
 const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);
 
