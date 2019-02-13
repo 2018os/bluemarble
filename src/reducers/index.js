@@ -2,7 +2,7 @@ import * as types from "../actions/actionTypes";
 import initialCountries from '../lib/initialCountries';
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 10000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy: false, islandNumber: 3 })
+  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 1000000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy: false, islandNumber: 3 })
 )
 
 const initialState = {
@@ -44,7 +44,7 @@ function counter(state=initialState, action) {
               ...player.slice(0, turn),
               {
                 ...player[turn],
-                money:money+2000,
+                money:money+200000,   //월급
                 location: location+action.number+action.senumber-40,
                 prevLocation: location
               },
