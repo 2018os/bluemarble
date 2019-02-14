@@ -8,19 +8,19 @@ import * as $ from 'jquery';
 
 window.jQuery = window.$ = $
 //--------------------------
-
-
+let bankruptcyPlayers = 0;
 class CountryInfo extends Component {
   componentDidUpdate() {
-    if(this.props.player.length <= 1) {
+    if(bankruptcyPlayers === 4) {
       (() => {
         alert('승리했습니다.');
-        // 리로드
+        this.props.onWin();
       })();
     }
     if(this.props.player[this.props.turn].bankruptcy === true) {
       (() => {
         this.props.onBankruptcy();
+        bankruptcyPlayers = bankruptcyPlayers+1;
       })();
     }
   }

@@ -27,4 +27,8 @@ export const event = (event, random) => ({
 export const travel = (travel) => ({
     type: types.TRAVEL,
     travel
+});
+
+export const win = () => ({
+    type: types.WIN
 })

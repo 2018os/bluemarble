@@ -353,7 +353,6 @@ function counter(state=initialState, action) {
           },
           ...player.slice(turn+1, player.length)
         ],
-        // player: player,
         turn: (turn+1)%4,
         collected: collected
       };
@@ -712,6 +711,8 @@ function counter(state=initialState, action) {
       collected: collected
     };        
 
+    case types.WIN:
+      return initialState;
     default:
       return state;
   }

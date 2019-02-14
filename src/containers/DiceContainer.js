@@ -14,8 +14,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onRandom: () => {
-        const number = getRandomnumber();
-        const senumber = getRandomnumber();
+        const number = 3;
+        const senumber = 1;
         // const number = 30;
         // const senumber = 0;
         dispatch(actions.random(number, senumber));
