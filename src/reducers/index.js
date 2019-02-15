@@ -528,7 +528,7 @@ function counter(state=initialState, action) {
                 ...player.slice(0, turn),
                 {
                   ...player[turn],
-                  money: money-1000,
+                  money: money-100000,
                   prevLocation: location
                 },
                 ...player.slice(turn+1, player.length)
@@ -543,13 +543,13 @@ function counter(state=initialState, action) {
               ...player.slice(0, turn),
               {
                 ...player[turn],
-                money: money-1000,
+                money: money-100000,
                 prevLocation: location
               },
               ...player.slice(turn+1, player.length)
             ],
             turn: (turn+1)%4,
-            collected: collected+10
+            collected: collected+100000
           };
 
         case 'receiveDonation':
