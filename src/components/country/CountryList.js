@@ -6,6 +6,7 @@ import UpPlayerInfoContainer from "../../containers/UpPlayerInfoContainer";
 import DiceContainer from '../../containers/DiceContainer';
 import CountryInfoContainer from '../../containers/CountryInfoContainer';
 import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
+import bg from '../../lib/bg.mp3';
 
 class CountryList extends Component {
   render() {
@@ -40,6 +41,7 @@ class CountryList extends Component {
 
     return (
       <div>
+        <audio src={bg} autoplay="true"></audio>
         <UpPlayerInfoContainer />
         <div className="CountryList">
           <div className="first_line">
