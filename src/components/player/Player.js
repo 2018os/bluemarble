@@ -2,14 +2,46 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Player.scss';
 import Playerturns from "./Playerstyle";
+import player1 from '../../lib/player1.png';
+import player2 from '../../lib/player2.png';
+import player3 from '../../lib/player3.png';
+import player4 from '../../lib/player4.png';
 
 
 class Player1 extends Component {
   render() {
-    const { userid } = this.props;
+    const { userid, location } = this.props;
+    console.log(location);
     return (
       <div>
-        <div className="player"><Playerturns userid={userid}>player</Playerturns></div>
+        <div className="player">
+          <Playerturns location={location}>
+          {
+            userid === 0 && 
+            <div>
+              <img className="playerimg" src={player1} alt={player1} />
+            </div>
+          }
+          {
+            userid === 1 && 
+            <div>
+              <img className="playerimg" src={player2} alt={player2} />
+            </div>
+          }
+          {
+            userid === 2 && 
+            <div>
+              <img className="playerimg" src={player3} alt={player3} />
+            </div>
+          }
+          {
+            userid === 3 && 
+            <div>
+              <img className="playerimg" src={player4} alt={player4} />
+            </div>
+          }
+          </Playerturns>
+        </div>
       </div>
       
     )
