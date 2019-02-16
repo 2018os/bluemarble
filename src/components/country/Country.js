@@ -21,7 +21,7 @@ const Country = ({ id, name, price, owner, location, userid, collected }) => {  
         {
           (() => {
             // console.log(userid);
-            if(location === id) return <Player userid={userid}/>
+            if(location === id) return <Player userid={userid} location={location}/>
           })()
         }
       </div>
