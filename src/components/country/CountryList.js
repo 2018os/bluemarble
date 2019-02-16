@@ -41,7 +41,7 @@ class CountryList extends Component {
 
     return (
       <div>
-        <audio src={bg} autoplay="true"></audio>
+        <audio src={bg} autoPlay={true} loop={true}></audio>
         <UpPlayerInfoContainer />
         <div className="CountryList">
           <div className="first_line">
