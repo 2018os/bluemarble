@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HaveCountry = styled.div`
     ${props => props.owner === 'player0' &&`
-        background-color: red;
+        background-color: burlywood;
         width: 10px;
         height: 10px;
         margin: auto;
@@ -10,7 +10,7 @@ const HaveCountry = styled.div`
     `}
 
     ${props => props.owner === 'player1' &&`
-        background-color: yellow;
+        background-color: red;
         width: 10px;
         height: 10px;
         margin: auto;
@@ -18,7 +18,7 @@ const HaveCountry = styled.div`
     `}
 
     ${props => props.owner === 'player2' &&`
-        background-color: green;
+        background-color: #a2d3ff;
         width: 10px;
         height: 10px;
         margin: auto;
@@ -26,7 +26,7 @@ const HaveCountry = styled.div`
     `}
 
     ${props => props.owner === 'player3' &&`
-        background-color: blue;
+        background-color: yellow;
         width: 10px;
         height: 10px;
         margin: auto;
