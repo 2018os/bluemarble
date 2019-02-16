@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Player.scss';
-import Playerturns from "./Playerstyle";
+import Playerstate from "./Playerstyle";
 import player1 from '../../lib/player1.png';
 import player2 from '../../lib/player2.png';
 import player3 from '../../lib/player3.png';
@@ -11,11 +11,11 @@ import player4 from '../../lib/player4.png';
 class Player1 extends Component {
   render() {
     const { userid, location } = this.props;
-    console.log(location);
+    // console.log(location);
     return (
       <div>
         <div className="player">
-          <Playerturns location={location}>
+          <Playerstate location={location}>
           {
             userid === 0 && 
             <div>
@@ -40,7 +40,7 @@ class Player1 extends Component {
               <img className="playerimg" src={player4} alt={player4} />
             </div>
           }
-          </Playerturns>
+          </Playerstate>
         </div>
       </div>
       
