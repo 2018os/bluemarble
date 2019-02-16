@@ -15,7 +15,8 @@ class Player1 extends Component {
     return (
       <div>
         <div className="player">
-          <Playerstate location={location}>
+          <Playerstate userid={userid}>player</Playerstate>
+          {/* <Playerstate location={location}>
           {
             userid === 0 && 
             <div>
@@ -40,7 +41,7 @@ class Player1 extends Component {
               <img className="playerimg" src={player4} alt={player4} />
             </div>
           }
-          </Playerstate>
+          </Playerstate> */}
         </div>
       </div>
       
