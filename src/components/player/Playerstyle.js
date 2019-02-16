@@ -1,18 +1,17 @@
 import styled from "styled-components";
 
-
-const Playerturns = styled.div `
+const Playerstate = styled.div `
     ${props=>props.location === 0 &&`
         position: relative; 
         bottom:13px;
     `}
+    ${props=>props.location > 0 && props.location <10 &&`
+    position: relative; 
+    bottom:49px;
+    `}
     ${props=>(props.location === 7 || props.location === 10 || props.location === 3) &&`
         position: relative; 
         bottom:17px;
-    `}
-    ${props=>props.location > 0 && props.location < 3 && props.location >3 && props.location <7 && props.location > 7 && props.location <10&&`
-        position: relative; 
-        bottom:36px;
     `}
     ${props=>props.location >= 11 && props.location <=20 &&`
         position: relative; 
@@ -30,4 +29,4 @@ const Playerturns = styled.div `
 `
 
 
-export default Playerturns;
+export default Playerstate;
