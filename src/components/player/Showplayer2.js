@@ -16,7 +16,7 @@ class Showplayer2 extends Component {
                   <div>
                     <p>id: {player[2].playerName}</p>
                     <p>돈: {player[2].money}</p>
-                    <p>나라: {player[2].ownCountries}</p>
+                    {/* <p>나라: {player[2].ownCountries}</p> */}
                   </div>
                 )
               } else {
@@ -39,7 +39,7 @@ class Showplayer2 extends Component {
                 <div>
                   <p>id: {player[3].playerName}</p>
                   <p>돈: {player[3].money}</p>
-                  <p>나라: {player[3].ownCountries}</p>
+                  {/* <p>나라: {player[3].ownCountries}</p> */}
                 </div>
               )
             } else {
