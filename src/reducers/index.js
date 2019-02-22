@@ -2,7 +2,7 @@ import * as types from "../actions/actionTypes";
 import initialCountries from '../lib/initialCountries';
 
 const initialPlayer = new Array(4).fill(0).map(
-  (foo, index) => ({ userid: index, playerName: `player${index}`, money: 1000000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy: false, islandNumber: 3 })
+  (foo, index) => ({ userid: index, socketId: index, playerName: `player${index}`, money: 1000000, location: 0, prevLocation: 0, ownCountries: [], bankruptcy: false, islandNumber: 3 })
 )
 
 const initialState = {
@@ -19,6 +19,23 @@ function counter(state=initialState, action) {
   const { location, money, ownCountries, islandNumber } = player[turn];
   const indexOfOwner = player.findIndex(i => i.playerName === countries[location].owner);
   switch(action.type) {
+    case types.NAMING:
+      return {
+        countries,
+        number,
+        senumber,
+        turn,
+        collected,
+        player: [
+          ...player.slice(0, action.clientCount-1),
+          {
+            ...player[action.clientCount-1],
+            socketId: action.socketId,
+            playerName: action.name
+          },
+          ...player.slice(action.clientCount, player.length)
+        ]
+      }
     case types.RANDOM:
       if(location+action.number+action.senumber > 39) {
         if(location+action.number+action.senumber === 40 || countries[location+action.number+action.senumber-40].owner === player[turn].playerName) {

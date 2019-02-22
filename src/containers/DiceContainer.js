@@ -2,22 +2,15 @@ import Dice from "../components/dice/dice";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 
-export function getRandomnumber() {
-    const random = Math.floor(Math.random()*6+1);
-    return random;
-}
 // props 값 정의
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
     number: state.number,
     senumber: state.senumber,
+    socket: props.socket
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onRandom: () => {
-        const number = getRandomnumber();
-        const senumber = getRandomnumber();
-        // const number = 4;
-        // const senumber = 0;
+    onRandom: (number, senumber) => {
         dispatch(actions.random(number, senumber));
     }
 });

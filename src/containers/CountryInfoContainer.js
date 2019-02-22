@@ -1,11 +1,16 @@
-import CountryInfo from '../components/country/CountryInfo';
-import { connect } from 'react-redux';
+import CountryInfo from "../components/country/CountryInfo";
+import { connect } from "react-redux";
 import * as actions from "../actions";
 
 //props 값으로 넣어줄 상태 정의
-const mapStateToProps = (state) => ({countries: state.countries, player: state.player, turn: state.turn});
-const mapDispatchToProps = (dispatch) => ({
-  onBuy: (answer) => {
+const mapStateToProps = (state, props) => ({
+  countries: state.countries,
+  player: state.player,
+  turn: state.turn,
+  socket: props.socket
+});
+const mapDispatchToProps = dispatch => ({
+  onBuy: answer => {
     dispatch(actions.buy(answer));
   },
   onDeal: () => {
@@ -17,13 +22,16 @@ const mapDispatchToProps = (dispatch) => ({
   onEvent: (event, random) => {
     dispatch(actions.event(event, random));
   },
-  onTravel: (travel) => {
+  onTravel: travel => {
     dispatch(actions.travel(travel));
   },
   onWin: () => {
     dispatch(actions.win());
   }
 });
-const CountryInfoContainer = connect(mapStateToProps, mapDispatchToProps)(CountryInfo);
+const CountryInfoContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CountryInfo);
 
 export default CountryInfoContainer;
