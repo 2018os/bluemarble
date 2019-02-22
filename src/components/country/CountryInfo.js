@@ -58,8 +58,8 @@ class CountryInfo extends Component {
   }
 
   render() {
-    const { countries, player, turn, onBuy, onBankruptcy, onEvent, onTravel } = this.props;
-    const { location, playerName, prevLocation, islandNumber } = player[turn];
+    const { countries, player, turn, onBuy, onBankruptcy, onEvent, onTravel, socket } = this.props;
+    const { location, playerName, prevLocation, islandNumber, socketId } = player[turn];
     const { name, price, bought, owner, event } = countries[location];
     const random = Math.floor(Math.random()*3);   //황금열쇠 번호
 
@@ -79,7 +79,7 @@ class CountryInfo extends Component {
         <h3>{price}원</h3>
         <h3>NOW: {playerName}</h3> */}
         {
-          prevLocation!==location && location!==0 && owner!==playerName && (() => {
+          prevLocation!==location && location!==0 && owner!==playerName && socket.id && socketId && (() => {
             if(name === '우주여행') {
               return (
                 <div>

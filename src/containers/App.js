@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import CountryListContainer from './CountryListContainer';
+import React, { Component } from "react";
+import CountryListContainer from "./CountryListContainer";
+
 // import { Route } from 'react-router-dom';
 // import {
 //   Home, Menu
@@ -12,7 +13,7 @@ class App extends Component {
         {/* <Route exact path="/" component={Home}/>
         <Route exact path="/menu" component={Menu}/>
         <Route exact path="/blue" component={CountryListContainer} /> */}
-        <CountryListContainer />
+        <CountryListContainer/>
       </div>
     );
   }
