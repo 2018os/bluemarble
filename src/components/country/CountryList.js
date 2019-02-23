@@ -9,13 +9,21 @@ import UndefPlayerInfoContainer from "../../containers/UnderPlayerInfo";
 import bg from "../../lib/bg.mp3";
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("localhost:5000");
+const socket = socketIOClient("localhost:5000", {
+  autoConnect: false
+});
 
 class CountryList extends Component {
   componentDidMount() {
-    const name = prompt("What your name?");
+    // const name = prompt("What your name?");
+    const name = "KIM";
+    socket.open();
     socket.emit("naming", name);
   }
+  componentDidUpdate() {
+    
+  }
+
   render() {
     socket.on("naming", data => {
       const { name, clientCount } = data;
