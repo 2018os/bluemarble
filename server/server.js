@@ -19,11 +19,10 @@ io.on("connection", socket => {
   socket.on("random", () => {
     const number = Math.floor(Math.random() * 6 + 1);
     const senumber = Math.floor(Math.random() * 6 + 1);
-    io.to("FirstRoom").emit("random", { number: number, senumber: senumber });
+    io.to("FirstRoom").emit("random", { number, senumber });
   });
 
   socket.on("disconnect", () => {
-    console.log(io.engine.clientsCount);
     console.log("user disconnected");
   });
 });

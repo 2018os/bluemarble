@@ -11,8 +11,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   onNaming: (name, clientCount, socketId) => {
-    console.log(clientCount + " " + name + " : " + socketId);
-   dispatch(actions.naming(name, clientCount, socketId));
+    dispatch(actions.naming(name, clientCount, socketId));
   }
 });
 

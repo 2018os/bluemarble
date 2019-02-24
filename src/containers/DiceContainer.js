@@ -4,20 +4,21 @@ import { connect } from "react-redux";
 
 // props 값 정의
 const mapStateToProps = (state, props) => ({
-    number: state.number,
-    senumber: state.senumber,
-    socket: props.socket
+  number: state.number,
+  senumber: state.senumber,
+  socket: props.socket
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onRandom: (number, senumber) => {
-        dispatch(actions.random(number, senumber));
-    }
+const mapDispatchToProps = dispatch => ({
+  onRandom: (number, senumber) => {
+    console.log('~~~');
+    dispatch(actions.random(number, senumber));
+  }
 });
 
 const DiceConainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Dice);
 
 export default DiceConainer;

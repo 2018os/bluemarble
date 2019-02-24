@@ -3,12 +3,19 @@ import PropTypes from "prop-types";
 import "./dice.scss";
 
 class Dice extends Component {
-  render() {
-    const { number, senumber, onRandom, socket } = this.props;
-    socket.on("random", (data) => {
+  componentDidMount() {
+    this.props.socket.on("random", (data) => {
       const { number, senumber } = data;
-      onRandom(number, senumber);    
+      // if(socketId === this.props.socket.id) {     //socketId = 주사위를 굴린 소켓, socket.id = 본인 소켓
+      //   this.props.onRandom(number, senumber);
+      // } else {
+      //   console.log('!!!');
+      // }
+      this.props.onRandom(number, senumber);
     });
+  }
+  render() {
+    const { number, senumber, socket } = this.props;
     return (
       <div className="random_button">
         <div className="random_dice_number">

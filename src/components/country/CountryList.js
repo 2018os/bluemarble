@@ -16,19 +16,16 @@ const socket = socketIOClient("localhost:5000", {
 class CountryList extends Component {
   componentDidMount() {
     // const name = prompt("What your name?");
-    const name = "KIM";
+    const name = "AAA";
     socket.open();
     socket.emit("naming", name);
-  }
-  componentDidUpdate() {
-    
-  }
 
-  render() {
     socket.on("naming", data => {
       const { name, clientCount } = data;
       this.props.onNaming(name, clientCount, socket.id);
     });
+  }
+  render() {
     const { countries, player, turn, collected } = this.props;
     const map1 = countries.slice(0, 10);
     const reversemap1 = map1.reverse();

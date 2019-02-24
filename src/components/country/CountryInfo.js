@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './CountryInfo.scss';
 import goldenKey from '../../lib/GoldenKey';
@@ -62,7 +62,7 @@ class CountryInfo extends Component {
     const { location, playerName, prevLocation, islandNumber, socketId } = player[turn];
     const { name, price, bought, owner, event } = countries[location];
     const random = Math.floor(Math.random()*3);   //황금열쇠 번호
-
+    
     const ModalBuy = () => {
       $('#Country_Buy').modal({ backdrop: 'static', keyboard: false }, 'show');
     };
@@ -79,7 +79,7 @@ class CountryInfo extends Component {
         <h3>{price}원</h3>
         <h3>NOW: {playerName}</h3> */}
         {
-          prevLocation!==location && location!==0 && owner!==playerName && socket.id && socketId && (() => {
+          prevLocation!==location && location!==0 && owner!==playerName && (() => {
             if(name === '우주여행') {
               return (
                 <div>
@@ -106,6 +106,12 @@ class CountryInfo extends Component {
                 <p>{playerName}님이 파산을 했습니다 ㅠㅠ</p>
               </div>
               <div className="modal-footer">
+              {
+                socket.id === socketId
+                ? (<button type="button" className="btn btn-primary" onClick={() => onBankruptcy()} data-dismiss="modal">확인</button>)
+                : (<button type="button" className="btn btn-primary" onClick={() => onBankruptcy()} data-dismiss="modal" disabled>확인</button>)
+                
+              }
                 <button type="button" className="btn btn-primary" onClick={() => onBankruptcy()} data-dismiss="modal">확인</button>
               </div>
             </div> 
@@ -138,7 +144,15 @@ class CountryInfo extends Component {
                 }</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => onEvent(event, random)} data-dismiss="modal">확인</button>
+                {
+                  socket.id === socketId
+                  ? (
+                    <button type="button" className="btn btn-primary" onClick={() => onEvent(event, random)} data-dismiss="modal">확인</button>
+                  )
+                  : (
+                    <button type="button" className="btn btn-primary" onClick={() => onEvent(event, random)} data-dismiss="modal" disabled>확인</button>
+                  )
+                }
               </div>
             </div> 
           </div>
@@ -156,8 +170,21 @@ class CountryInfo extends Component {
                 </p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnBuy()} data-dismiss="modal">구매하기</button>
-                <button type="button" className="btn btn-default" onClick={() => onBuy(false)} data-dismiss="modal">닫기</button>
+                {
+                  socket.id === socketId
+                  ? (
+                  <Fragment>
+                    <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnBuy()} data-dismiss="modal">구매하기</button>
+                    <button type="button" className="btn btn-default" onClick={() => onBuy(false)} data-dismiss="modal">닫기</button>
+                  </Fragment>
+                  )
+                  : (
+                    <Fragment>
+                      <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnBuy()} data-dismiss="modal" disabled>구매하기</button>
+                      <button type="button" className="btn btn-default" onClick={() => onBuy(false)} data-dismiss="modal" disabled>닫기</button>
+                    </Fragment>
+                  )
+                }
               </div>
             </div> 
           </div>
@@ -173,8 +200,21 @@ class CountryInfo extends Component {
                 <p>{owner}님의 땅을 밟았습니다({price}원).</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnDeal()} data-dismiss="modal">지불하기</button>
-                <button type="button" className="btn btn-default" onClick={() => onBankruptcy()} data-dismiss="modal">파산하기</button>
+                {
+                  socket.id === socketId
+                  ? (
+                  <Fragment>
+                    <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnDeal()} data-dismiss="modal">지불하기</button>
+                    <button type="button" className="btn btn-default" onClick={() => onBankruptcy()} data-dismiss="modal">파산하기</button>
+                  </Fragment>
+                  )
+                  : (
+                    <Fragment>
+                    <button type="button" className="btn btn-primary" onClick={() => this.handleBankruptcyOnDeal()} data-dismiss="modal" disabled>지불하기</button>
+                    <button type="button" className="btn btn-default" onClick={() => onBankruptcy()} data-dismiss="modal" disabled>파산하기</button>  
+                    </Fragment>
+                  )
+                }
               </div>
             </div> 
           </div>
