@@ -16,8 +16,6 @@ $wi: 111px;
             height: $hi;
             border-right: 1px solid black;
             text-align: center;
-            // justify-items: center;
-            // align-items: center;
             border-bottom: 1px solid black;
 
             &:last-child {
@@ -32,8 +30,6 @@ $wi: 111px;
             height: $hi;
             border-right: 1px solid black;
             text-align: center;
-            // justify-items: center;
-            // align-items: center;
             border-bottom: 1px solid black;
 
             &:last-child {
@@ -44,15 +40,12 @@ $wi: 111px;
 
     .third_line {
         display: grid;
-
+        float: right;
         .country_nick {
-            width: $wi;
+            width: $wi+1;
             height: $hi;
-            float: right;
             border-left: 1px solid black;
             text-align: center;
-            // // justify-items: center;
-            // // align-items: center;
             border-bottom: 1px solid black;
 
             &:last-child {

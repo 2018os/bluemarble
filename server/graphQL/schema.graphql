@@ -19,7 +19,15 @@ type Player {
   islandNumber: Int!
 }
 
+type State {
+  number: Int!
+  senumber: Int!
+  turn: Int!
+  collected: Int!
+}
+
 type Query {
+  state: State
   countries: [Country]!
   players: [Player]!
 }
