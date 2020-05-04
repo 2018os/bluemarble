@@ -1,0 +1,62 @@
+.li_part {
+    width: 9.09%;
+    min-height: 50px;
+    border: 1px solid black;
+    border-top: 0;
+}
+
+.Country {
+    position: relative;
+    width: 100%;
+    text-align: center;
+
+    .first_line {
+        .li_part {
+            float: left;
+            border-top: 1px solid black;
+            border-left: 0;
+
+            &:first-child {
+                border-left: 1px solid black;
+            }
+        }
+    }
+
+    .second_line {
+        float: left;
+        width: 9.09%;
+
+        .li_part {
+            width: 100%;
+        }
+    }
+
+    .third_line {
+        float: right;
+        width: 9.19%;
+
+        .li_part {
+            width: 100%;
+        }
+    }
+}
+
+.four_line {
+    width: 100%;
+    text-align: center;
+
+    .li_part {
+        float: left;
+        border-top: 1px solid black;
+        border-right: 0;
+
+        &:first-child {
+            border-top: 0;
+        }
+
+        &:last-child {
+            border-top: 0;
+            border-right: 1px solid black;
+        }
+    }
+}
