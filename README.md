@@ -1,3 +1,3 @@
 # BlueMarble
 
-새로운 시도?중이니 Don't Touch
+해보고 싶은 게 있으니 Don't Touch
