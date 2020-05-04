@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import './Player.scss';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Playerstate from "./Playerstyle";
-import player1 from '../../lib/player1.png';
-import player2 from '../../lib/player2.png';
-import player3 from '../../lib/player3.png';
-import player4 from '../../lib/player4.png';
-
+import player1 from "../../lib/player1.png";
+import player2 from "../../lib/player2.png";
+import player3 from "../../lib/player3.png";
+import player4 from "../../lib/player4.png";
 
 class Player1 extends Component {
-  render() {
-    const { userid, location } = this.props;
-    // console.log(location);
-    return (
-      <div>
-        <div className="player">
-          <Playerstate userid={userid}>player</Playerstate>
-          {/* <Playerstate location={location}>
+    render() {
+        const { userid, location } = this.props;
+        // console.log(location);
+        return (
+            <div>
+                <div className="player">
+                    <Playerstate userid={userid}>player</Playerstate>
+                    {/* <Playerstate location={location}>
           {
             userid === 0 && 
             <div>
@@ -42,19 +40,18 @@ class Player1 extends Component {
             </div>
           }
           </Playerstate> */}
-        </div>
-      </div>
-      
-    )
-  }
+                </div>
+            </div>
+        );
+    }
 }
 
 Player1.propTypes = {
-  turn: PropTypes.number
-}
+    turn: PropTypes.number,
+};
 
 Player1.defaultProps = {
-  turn: 0
-}
+    turn: 0,
+};
 
 export default Player1;

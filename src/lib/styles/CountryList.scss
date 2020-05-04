@@ -1,0 +1,50 @@
+.CountryList {
+    position: relative;
+    width: 100%;
+    text-align: center;
+
+    .country_nick {
+        width: 9.09%;
+        min-height: 50px;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    .first_line {
+        .country_nick {
+            float: left;
+            border-top: 1px solid black;
+        }
+    }
+
+    .second_line {
+        float: left;
+        width: 9.09%;
+
+        .country_nick {
+            width: 100%;
+        }
+    }
+
+    .third_line {
+        float: right;
+        width: 9.15%;
+        .country_nick {
+            width: 100%;
+            border-left: 1px solid black;
+        }
+    }
+    .four_line {
+        float: left;
+        width: 90.9%;
+        .country_nick {
+            float: left;
+            width: 9.999%;
+            border-top: 1px solid black;
+
+            &:last-child {
+                border-top: 0;
+            }
+        }
+    }
+}
