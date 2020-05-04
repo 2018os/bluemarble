@@ -3,20 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.3.1",
-    "apollo-cache-inmemory": "^1.5.1",
-    "apollo-link-ws": "^1.0.17",
-    "apollo-utilities": "^1.2.1",
     "bootstrap": "4.0.0-alpha.6",
-    "express": "^4.16.4",
-    "graphql-tag": "^2.10.1",
     "include-media": "^1.4.9",
     "jquery": "^3.3.1",
     "node-sass": "^4.11.0",
     "popper.js": "^1.14.6",
     "react": "^16.7.0",
-    "react-apollo": "^2.5.2",
-    "react-apollo-hooks": "^0.4.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
     "react-modal": "^3.8.1",
@@ -25,10 +17,7 @@
     "react-scripts": "2.1.3",
     "redux": "^4.0.1",
     "sass-loader": "^7.1.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
     "styled-components": "^4.1.3",
-    "subscriptions-transport-ws": "^0.9.16",
     "tether": "^1.4.5"
   },
   "scripts": {
@@ -45,9 +34,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "graphql": "^14.1.1"
-  }
+  ]
 }
