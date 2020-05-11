@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .chat_log {
+                width: 96%;
+                height: 200px;
+            }
+            .name {
+                width: 10%;
+            }
+            .message {
+                width: 70%;
+            }
+            .chat {
+                width: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <textarea id="chatLog" class="chat_log" readonly></textarea>
+        </div>
+        <form action="" id="chat">
+            <input type="text" id="name" class="name" readonly />
+            <!-- <input type="text" id="messagce" class="message" />
+            <input type="submit" class="hat" value="chat" /> -->
+        </form>
+        <button id="dice">
+            랜덤
+        </button>
+        <!-- <button type="button" id="turn" name="button">Next Turn</button> -->
+        <!-- <ul id="online"></ul> -->
+        <div id="box" class="box"></div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            var socket = io();
+            $("#chat").on("submit", function (e) {
+                socket.emit("send message", $("#name").val(), $("#message").val());
+                $("#message").val("");
+                e.preventDefault();
+            });
+            socket.on("receive message", function (msg) {
+                $("#chatLog").append(msg + "\n");
+                $("#chatLog").scrollTop($("#chatLog").innerHeight());
+            });
+            socket.on("player-number", function (name) {
+                $("#name").val(name);
+                if (name < 0) {
+                    $("#turn").attr("disabled", true);
+                    alert("인원이 가득 참");
+                }
+            });
+
+            $("#dice").click(function () {
+                var v = Math.floor(Math.random() * 6) + 1;
+                socket.emit("dice_val", $("#name").val(), v);
+                socket.emit("pass_turn");
+                $(this).attr("disabled", true);
+            });
+
+            $("#turn").on("click", function (e) {
+                socket.emit("pass_turn");
+            });
+
+            socket.on("your_turn", function () {
+                console.log("hi");
+                $("#dice").attr("disabled", false);
+            });
+
+            // socket;
+
+            // socket.on("player-connect", function (names) {
+            //     var cli = document.createElement("li");
+            //     var ctext = document.createTextNode(names);
+            //     console.log(names);
+            //     cli.appendChild(ctext);
+            //     $("#online").append(cli);
+            // });
+        </script>
+    </body>
+</html>

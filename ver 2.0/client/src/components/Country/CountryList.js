@@ -1,14 +1,8 @@
 import React from "react";
 
-interface Props {
-    subData: Array<object>;
-    class1?: string;
-    class2?: string;
-}
-
-function CountryList(props: Props) {
+function CountryList(props) {
     const { subData, class1, class2 } = props;
-    const list = subData.map((data: any, index: number) => {
+    const list = subData.map((data, index) => {
         return (
             <li className={`${class2} li_part`} key={index}>
                 {data.name}

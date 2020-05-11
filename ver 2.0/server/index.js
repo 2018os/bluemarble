@@ -1,14 +1,9 @@
 const express = require("express");
 const http = require("http");
 const socketIO = require("socket.io");
-// import mongoose from "mongoose";
-import graphqlHTTP from "express-graphql";
-import bodyParser from "body-parser";
-import cors from "cors";
-import schema from "./graphql/schema";
 
 // our localhost port
-const port = 2000;
+const port = 4001;
 
 const app = express();
 
@@ -17,17 +12,6 @@ const server = http.createServer(app);
 
 // This creates our socket using the instance of the server
 const io = socketIO(server);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(
-    "/graphql",
-    graphqlHTTP({
-        schema: schema,
-        graphiql: true,
-    })
-);
 
 // This is what the socket.io syntax is like, we will work this later
 let current_turn = 0;
@@ -62,18 +46,12 @@ io.on("connection", function (socket) {
 
     // Find an available player number
     let playerIndex = -1;
-
-    for (var i of connections) {
-        if (i === null) {
+    for (var i in connections) {
+        if (connections[i] === null) {
             playerIndex = i;
+            chat = [];
         }
     }
-
-    // for (var i in connections) {
-    //     if (connections[i] === null) {
-    //         playerIndex = i;
-    //     }
-    // }
 
     socket.on("pass_turn", function () {
         if (connections[_turn] == socket) {
@@ -96,6 +74,9 @@ io.on("connection", function (socket) {
     socket.on("dice_val", function (name, val) {
         var res = name + "님: " + val;
         chat = [...chat, res];
+        chat.map((data, index) => {
+            console.log(data);
+        });
         io.emit("receive message", chat);
     });
 

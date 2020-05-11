@@ -17,8 +17,8 @@ const typeDefs = `
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
 export default schema;

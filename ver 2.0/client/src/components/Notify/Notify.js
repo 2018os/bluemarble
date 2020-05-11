@@ -1,11 +1,7 @@
 import React from "react";
 import ICON_ME from "../../assets/img/ICON_ME.png";
 
-interface Props {
-    children: string;
-}
-
-function Notify(props: Props) {
+function Notify(props) {
     const { children } = props;
     return (
         <div className="Notify clearfix">
