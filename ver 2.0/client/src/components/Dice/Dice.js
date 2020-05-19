@@ -10,11 +10,10 @@ function Dice() {
         });
 
         socket.on("receive message", function (msg1) {
-            console.log("rec");
-            console.log(msg1);
+            // console.log(msg1);
             setMsg(msg1);
         });
-    }, []);
+    });
 
     function dice() {
         socket.emit("dice_val", playerName, CustomDice.firstDice);
@@ -32,7 +31,7 @@ function Dice() {
         <div className="diceWrap">
             <div className="resultWrap">
                 <ul>{result}</ul>
-                주사위1: {CustomDice.firstDice} 주사위2: {CustomDice.secondDice}
+                1: {CustomDice.firstDice} 2: {CustomDice.secondDice}
             </div>
             <button
                 id="dice"

@@ -1,25 +1,19 @@
 const express = require("express");
 const http = require("http");
 const socketIO = require("socket.io");
-
-// our localhost port
 const port = 4001;
-
 const app = express();
-
-// our server instance
 const server = http.createServer(app);
-
-// This creates our socket using the instance of the server
 const io = socketIO(server);
 
-// This is what the socket.io syntax is like, we will work this later
 let current_turn = 0;
 let _turn = 0;
 const connections = [null, null];
 let timeout;
-const MAX_WAITING = 5000;
 let chat = [];
+let clients = [null, null];
+var clientInfo = new Object();
+// const MAX_WAITING = 5000;
 
 function next_turn() {
     _turn = current_turn++ % connections.length;
@@ -53,6 +47,17 @@ io.on("connection", function (socket) {
         }
     }
 
+    // 연결 클라이언트에 번호 표시(유저닉넴)
+    socket.emit("player-number", playerIndex);
+
+    // 플레이어 수 제한(현재: 2명으로)
+    if (playerIndex == -1) return;
+
+    connections[playerIndex] = socket;
+
+    // 다른 모든 사용자에게 방금 연결한 플레이어 번호 표시
+    socket.broadcast.emit("player-connect", playerIndex);
+
     socket.on("pass_turn", function () {
         if (connections[_turn] == socket) {
             // resetTimeout();
@@ -60,25 +65,44 @@ io.on("connection", function (socket) {
         }
     });
 
-    // Tell the connecting client what player number they are
-    socket.emit("player-number", playerIndex);
-
-    // Ignore player 3
-    if (playerIndex == -1) return;
-
-    connections[playerIndex] = socket;
-
-    // Tell everyone else what player number just connected
-    socket.broadcast.emit("player-connect", playerIndex);
-
     socket.on("dice_val", function (name, val) {
         var res = name + "님: " + val;
         chat = [...chat, res];
-        chat.map((data, index) => {
-            console.log(data);
-        });
         io.emit("receive message", chat);
     });
+
+    const room = "room";
+    socket.on("join", function (data, nickname) {
+        socket.join(data);
+        console.log("방입장: " + data);
+        // socket.emit("receive message", ["hi"]);
+
+        // 방안에 있는 모든유저에게 메세지 보내기
+        io.sockets.in(room).emit("receive message", ["새로운 유저 입장"]);
+
+        for (var i in clients) {
+            if (clients[i] === null) {
+                // clientInfo.username = "song";
+                // clientInfo.id = socket.id;
+                // clients[playerIndex] = clientInfo;
+                clients[playerIndex] = nickname;
+            }
+        }
+    });
+
+    console.log(clients);
+    io.sockets.emit("update", clients);
+
+    // io.clients 는 모든 유저 검색
+    // io.clients((err, clients) => {
+    //     console.log(clients);
+    //     console.log(err);
+    // });
+    //io.in("방이름").clients 는 "방이름"안의 유저
+    // io.in(room).clients((err, clients) => {
+    //     if (err) throw err;
+    //     console.log("방인원: " + clients);
+    // });
 
     socket.on("disconnect", function () {
         console.log(`Player ${playerIndex} Disconnected`);

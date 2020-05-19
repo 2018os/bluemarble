@@ -1,0 +1,20 @@
+.StatusPlayer {
+    position: relative;
+
+    .player {
+        position: absolute;
+        min-width: 200px;
+    }
+
+    .player_0 {
+        top: 0;
+        left: 0;
+        background: gray;
+    }
+
+    .player_1 {
+        top: 0;
+        right: 0;
+        background: gainsboro;
+    }
+}

@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { Context } from "../../context/context";
-import CountryList from "./CountryList";
 import initialCountries from "../../assets/utils/initialCountries";
+import CountryList from "./CountryList";
 import Dice from "../Dice/Dice";
+import StatusPlayer from "../player/StatusPlayer";
 
 function Country() {
-    const { LoadingDiv, SetCheckValue, SetErrorMessage } = useContext(Context);
+    const { playerName, clientsList } = useContext(Context);
 
     const map0 = initialCountries.slice(0, 1);
     const map1 = initialCountries.slice(1, 10);
@@ -19,19 +20,22 @@ function Country() {
     return (
         <div className="clearfix">
             <div className="Country clearfix">
-                {/* <CountryList class1="first_line" subData={map2} />
-                <CountryList class1="second_line" subData={reversemap1} /> */}
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <Dice />
-                {/* <CountryList class1="third_line" subData={map3} /> */}
+                <StatusPlayer playerName={playerName} clientsList={clientsList} />
+                <div className="inner">
+                    {/* <CountryList class1="first_line" subData={map2} /> */}
+                    {/* <CountryList class1="second_line" subData={reversemap1} /> */}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <Dice />
+                    {/* <CountryList class1="third_line" subData={map3} /> */}
+                </div>
             </div>
             {/* <CountryList class1="four_line" subData={reversemap4} /> */}
         </div>
