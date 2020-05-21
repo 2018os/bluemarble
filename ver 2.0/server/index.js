@@ -8,11 +8,14 @@ const io = socketIO(server);
 
 let current_turn = 0;
 let _turn = 0;
-const connections = [null, null];
+const connections = [null, null, null];
 let timeout;
 let chat = [];
 let clients = [null, null];
 var clientInfo = new Object();
+var availableRooms = [];
+var roomCount = 0;
+var roomData = {};
 // const MAX_WAITING = 5000;
 
 function next_turn() {
@@ -71,10 +74,28 @@ io.on("connection", function (socket) {
         io.emit("receive message", chat);
     });
 
+    function createRoom(num) {
+        for (var i = -1; availableRooms.length > i; i++) {
+            if (availableRooms[i] == num) {
+                console.log("이미 방이 있다");
+                return false;
+            }
+        }
+        availableRooms.push(num);
+        console.log(availableRooms);
+    }
+
+    socket.on("getRooms", function () {
+        socket.emit("roomsList", availableRooms);
+    });
+
+    // socket.emit("roomsList", io.sockets.adapter.rooms); //그룹의 목록과 그룹 안의 소켓들
+
     const room = "room";
     socket.on("join", function (data, nickname) {
         socket.join(data);
         console.log("방입장: " + data);
+
         // socket.emit("receive message", ["hi"]);
 
         // 방안에 있는 모든유저에게 메세지 보내기
@@ -90,7 +111,20 @@ io.on("connection", function (socket) {
         }
     });
 
-    console.log(clients);
+    socket.on("makeroom", (name) => {
+        socket.join(room[roomCount], () => {
+            console.log(name + "join a " + room[roomCount]);
+            // io.to(room[roomCount]).emit('joinroom', nu)
+            createRoom(roomCount);
+            roomCount++;
+        });
+    });
+
+    socket.on("joinroom", (roomnum, nick) => {
+        socket.join(room[roomnum]);
+    });
+
+    // console.log(clients);
     io.sockets.emit("update", clients);
 
     // io.clients 는 모든 유저 검색

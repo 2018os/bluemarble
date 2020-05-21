@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { Context } from "../../context/context";
 
 function CustomNick() {
-    const [nick, setNick] = useState("");
-    console.log(nick);
+    const { history, setNick } = useContext(Context);
 
     return (
-        <input
-            type="text"
-            onChange={({ target: { value } }) => {
-                setNick(value);
-            }}
-        />
+        <div>
+            <input
+                type="text"
+                onChange={({ target: { value } }) => {
+                    setNick(value);
+                }}
+            />
+            <button onClick={() => history.push("/menu")}>시작</button>
+        </div>
     );
 }
 

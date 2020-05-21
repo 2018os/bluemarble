@@ -1,3 +1,5 @@
-import GamePage from "./Game";
+import GamePage from "./GamePage";
+import StartPage from "./StartPage";
+import MenuPage from "./MenuPage";
 
-export { GamePage };
+export { GamePage, StartPage, MenuPage };
