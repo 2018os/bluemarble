@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../../context/context";
+import { socket } from "../../assets/utils/config";
 
 function CustomNick() {
-    const { history, setNick } = useContext(Context);
+    const { history } = useContext(Context);
+    const [nick, setNick] = useState("");
+
+    function setNickname() {
+        socket.emit("set_nickname", nick);
+    }
 
     return (
         <div>
@@ -12,7 +18,14 @@ function CustomNick() {
                     setNick(value);
                 }}
             />
-            <button onClick={() => history.push("/menu")}>시작</button>
+            <button
+                onClick={() => {
+                    setNickname();
+                    history.push("/menu");
+                }}
+            >
+                시작
+            </button>
         </div>
     );
 }

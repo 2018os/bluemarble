@@ -1,13 +1,9 @@
-import React, { useContext } from "react";
-import { Context } from "../../context/context";
+import React from "react";
 import initialCountries from "../../assets/utils/initialCountries";
 import CountryList from "./CountryList";
 import Dice from "../Dice/Dice";
-import StatusPlayer from "../player/StatusPlayer";
 
 function Country() {
-    const { playerName, clientsList } = useContext(Context);
-
     const map0 = initialCountries.slice(0, 1);
     const map1 = initialCountries.slice(1, 10);
     const reversemap1 = map1.reverse();
@@ -20,7 +16,6 @@ function Country() {
     return (
         <div className="clearfix">
             <div className="Country clearfix">
-                <StatusPlayer playerName={playerName} clientsList={clientsList} />
                 <div className="inner">
                     {/* <CountryList class1="first_line" subData={map2} /> */}
                     {/* <CountryList class1="second_line" subData={reversemap1} /> */}

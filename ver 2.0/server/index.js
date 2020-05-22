@@ -6,74 +6,15 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-let current_turn = 0;
-let _turn = 0;
-const connections = [null, null, null];
-let timeout;
-let chat = [];
-let clients = [null, null];
-var clientInfo = new Object();
-var availableRooms = [];
+// 방생성 관련
 var roomCount = 0;
-var roomData = {};
-// const MAX_WAITING = 5000;
-
-function next_turn() {
-    _turn = current_turn++ % connections.length;
-    connections[_turn].emit("your_turn");
-    console.log("nextt turn: ", _turn);
-    // triggerTimeout();
-}
-
-// function triggerTimeout() {
-//     timeout = setTimeout(() => {
-//         next_turn();
-//     }, MAX_WAITING);
-// }
-
-// function resetTimeout() {
-//     if (typeof timeout === "object") {
-//         console.log("timeout reset");
-//         clearTimeout(timeout);
-//     }
-// }
+var availableRooms = [];
 
 io.on("connection", function (socket) {
     console.log("user connected: ", socket.id);
 
-    // Find an available player number
-    let playerIndex = -1;
-    for (var i in connections) {
-        if (connections[i] === null) {
-            playerIndex = i;
-            chat = [];
-        }
-    }
-
-    // 연결 클라이언트에 번호 표시(유저닉넴)
-    socket.emit("player-number", playerIndex);
-
-    // 플레이어 수 제한(현재: 2명으로)
-    if (playerIndex == -1) return;
-
-    connections[playerIndex] = socket;
-
-    // 다른 모든 사용자에게 방금 연결한 플레이어 번호 표시
-    socket.broadcast.emit("player-connect", playerIndex);
-
-    socket.on("pass_turn", function () {
-        if (connections[_turn] == socket) {
-            // resetTimeout();
-            next_turn();
-        }
-    });
-
-    socket.on("dice_val", function (name, val) {
-        var res = name + "님: " + val;
-        chat = [...chat, res];
-        io.emit("receive message", chat);
-    });
-
+    // ======================================================================
+    // 방생성
     function createRoom(num) {
         for (var i = -1; availableRooms.length > i; i++) {
             if (availableRooms[i] == num) {
@@ -82,65 +23,67 @@ io.on("connection", function (socket) {
             }
         }
         availableRooms.push(num);
-        console.log(availableRooms);
     }
 
-    socket.on("getRooms", function () {
-        socket.emit("roomsList", availableRooms);
-    });
-
-    // socket.emit("roomsList", io.sockets.adapter.rooms); //그룹의 목록과 그룹 안의 소켓들
-
-    const room = "room";
-    socket.on("join", function (data, nickname) {
-        socket.join(data);
-        console.log("방입장: " + data);
-
-        // socket.emit("receive message", ["hi"]);
-
-        // 방안에 있는 모든유저에게 메세지 보내기
-        io.sockets.in(room).emit("receive message", ["새로운 유저 입장"]);
-
-        for (var i in clients) {
-            if (clients[i] === null) {
-                // clientInfo.username = "song";
-                // clientInfo.id = socket.id;
-                // clients[playerIndex] = clientInfo;
-                clients[playerIndex] = nickname;
-            }
-        }
-    });
-
-    socket.on("makeroom", (name) => {
-        socket.join(room[roomCount], () => {
-            console.log(name + "join a " + room[roomCount]);
-            // io.to(room[roomCount]).emit('joinroom', nu)
+    socket.on("makeroom", () => {
+        socket.join(roomCount, () => {
             createRoom(roomCount);
             roomCount++;
         });
     });
 
-    socket.on("joinroom", (roomnum, nick) => {
-        socket.join(room[roomnum]);
+    // 방참여
+    socket.on("joinroom", (roomnum) => {
+        console.log(roomnum + "방 입장");
+        var personnelCheck = [];
+        personnelCheck = io.sockets.adapter.rooms[roomnum];
+
+        // 방에 인원없을 때 오류 고쳐야함
+        // if (personnelCheck === "" || null || undefined || 0) {
+        //     console.log("방이 없습니다.");
+        //     // socket emit (no_room) 만들기
+        // }
+
+        if (personnelCheck.length > 1) {
+            console.log("인원이 꽉 찾습니다.");
+            socket.emit("max_personnel", true);
+            return false;
+        }
+
+        socket.join(roomnum);
+
+        // 방 유저업데이트;
+        for (var socketID in io.nsps["/"].adapter.rooms[roomnum].sockets) {
+            const userInfo = io.nsps["/"].connected[socketID].nickname;
+            console.log(userInfo);
+            io.sockets.in(roomnum).emit("userUpdate", userInfo);
+        }
     });
 
-    // console.log(clients);
-    io.sockets.emit("update", clients);
+    // 방나가기
+    socket.on("roomLeave", (roomnum) => {
+        console.log("방을 나갔습니다.");
+        socket.leave(roomnum);
+    });
 
-    // io.clients 는 모든 유저 검색
-    // io.clients((err, clients) => {
-    //     console.log(clients);
-    //     console.log(err);
-    // });
-    //io.in("방이름").clients 는 "방이름"안의 유저
-    // io.in(room).clients((err, clients) => {
-    //     if (err) throw err;
-    //     console.log("방인원: " + clients);
-    // });
+    // 방이름
+    socket.on("getRooms", function () {
+        socket.emit("roomsList", availableRooms);
+    });
 
-    socket.on("disconnect", function () {
-        console.log(`Player ${playerIndex} Disconnected`);
-        connections[playerIndex] = null;
+    // ======================================================================
+    // 닉네임 설정 (닉 설정안하면 null || undefined 나옴)
+    socket.on("set_nickname", (nickname) => {
+        socket.nickname = nickname;
+    });
+
+    // 연결 클라이언트에 번호 표시(유저닉넴)
+    socket.emit("getNickname", socket.nickname);
+
+    // ======================================================================
+    // 연결해제
+    socket.on("disconnect", () => {
+        console.log("disconnected");
     });
 });
 

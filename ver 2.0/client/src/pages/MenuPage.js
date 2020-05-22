@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "../components";
+import { Menu } from "../interfaces";
 import { CommonContext } from "../context/context";
 
 function MenuPage() {

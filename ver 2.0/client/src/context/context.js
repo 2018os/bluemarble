@@ -11,9 +11,6 @@ function CommonContext(props) {
     let history = useHistory();
     // const [ErrorMessage, SetErrorMessage] = useState("");
     const { CustomDice, throwDice } = CustomDiceBox();
-    const [playerName, setPlayerName] = useState("");
-    const [clientsList, setClientsList] = useState([]);
-    const [nick, setNick] = useState("");
     const LoadingDiv = () => {
         return (
             <div className="loadingAni">
@@ -22,23 +19,8 @@ function CommonContext(props) {
         );
     };
 
-    useEffect(() => {
-        socket.on("player-number", function (res_name) {
-            setPlayerName(res_name);
-            if (res_name < 0) {
-                alert("인원이 가득 참");
-                // 나중에 로비로
-                history.push("/");
-            }
-        });
-    });
-
-    socket.on("update", function (clientsData) {
-        setClientsList(clientsData);
-    });
-
     return (
-        <Context.Provider value={{ history, LoadingDiv, throwDice, CustomDice, playerName, socket, clientsList, setNick, nick }}>
+        <Context.Provider value={{ history, LoadingDiv, throwDice, CustomDice, socket }}>
             {props.children}
             {/* <Nav checkLogin={loginMode} /> */}
         </Context.Provider>
