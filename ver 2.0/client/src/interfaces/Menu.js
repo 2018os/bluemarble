@@ -5,6 +5,7 @@ import { Context } from "../context/context";
 function Menu() {
     const { history } = useContext(Context);
     const [roomList, setRoomList] = useState([]);
+    const [isRoom, setIsRoom] = useState(false);
 
     useEffect(() => {
         let isCancelled = false; // can't perform a react state update on an unmounted component 해결법 return 문까지 포함
@@ -29,6 +30,19 @@ function Menu() {
         return () => {
             isCancelled = true;
         };
+    });
+
+    socket.on("null_room", () => {
+        // console.log(isRoomV);
+        // setIsRoom(isRoomV);
+        // console.log(isRoom);
+        // if (isRoomV) {
+        console.log("ture");
+        alert("이미 없어진 방입니다.");
+        // setIsRoom(false);
+        history.push("/");
+        // isRoomV = false;
+        // }
     });
 
     function roomEnter() {
@@ -57,6 +71,13 @@ function Menu() {
                 }}
             >
                 방만들기
+            </button>
+            <button
+                onClick={() => {
+                    history.push("/");
+                }}
+            >
+                홈
             </button>
 
             <ul>{roomMap}</ul>

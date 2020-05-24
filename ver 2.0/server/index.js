@@ -36,27 +36,31 @@ io.on("connection", function (socket) {
     socket.on("joinroom", (roomnum) => {
         console.log(roomnum + "방 입장");
         var personnelCheck = [];
-        personnelCheck = io.sockets.adapter.rooms[roomnum];
+        var roomData = io.sockets.adapter.rooms[roomnum];
+        if (roomData) {
+            personnelCheck = roomData;
+            socket.join(roomnum);
 
-        // 방에 인원없을 때 오류 고쳐야함
-        // if (personnelCheck === "" || null || undefined || 0) {
-        //     console.log("방이 없습니다.");
-        //     // socket emit (no_room) 만들기
-        // }
+            if (personnelCheck.length > 1) {
+                console.log("인원이 꽉 찾습니다.");
+                // 인원 꽉 찾을 경우 오류 해결
+                socket.emit("max_personnel", true);
+                return false;
+            }
 
-        if (personnelCheck.length > 1) {
-            console.log("인원이 꽉 찾습니다.");
-            socket.emit("max_personnel", true);
-            return false;
-        }
-
-        socket.join(roomnum);
-
-        // 방 유저업데이트;
-        for (var socketID in io.nsps["/"].adapter.rooms[roomnum].sockets) {
-            const userInfo = io.nsps["/"].connected[socketID].nickname;
-            console.log(userInfo);
-            io.sockets.in(roomnum).emit("userUpdate", userInfo);
+            // 방 유저업데이트;
+            var roomInClients = [];
+            for (var socketID in io.nsps["/"].adapter.rooms[roomnum].sockets) {
+                const userInfo = io.nsps["/"].connected[socketID].nickname;
+                roomInClients.push(userInfo);
+                console.log(roomInClients);
+                io.sockets.in(roomnum).emit("userUpdate", roomInClients);
+            }
+        } else {
+            // 방에 인원없을 때 오류 고쳐야함
+            socket.emit("null_room", true);
+            console.log("방이 없습니다.");
+            // return false;
         }
     });
 
