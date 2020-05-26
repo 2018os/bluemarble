@@ -5,7 +5,7 @@ import React from "react";
 // import player3 from "../../lib/player3.png";
 // import player4 from "../../lib/player4.png";
 
-function Player1() {
+function Player() {
     // const { userid, location } = ops;
     return (
         <div>
@@ -42,4 +42,4 @@ function Player1() {
     );
 }
 
-export default Player1;
+export default Player;

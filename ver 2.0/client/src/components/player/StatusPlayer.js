@@ -8,12 +8,12 @@ function StatusPlayer(props) {
         return (
             <div key={index} className={`player player_${index}`}>
                 id: {data}
+                {/* 돈:  */}
             </div>
         );
     });
 
     return <div className="StatusPlayer">{clientMap}</div>;
-    // return <div>a</div>;
 }
 
 export default StatusPlayer;
