@@ -20,7 +20,7 @@ export function Cus() {
                 break;
         }
     };
-    const [sum2, dispatch] = useReducer(reducer, 51000, "", "hi");
+    const [sum2, dispatch] = useReducer(reducer, 5000, "Sum2State");
     const a = (num, se) => {
         dispatch({ type: "test", num, se });
     };
